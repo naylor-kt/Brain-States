@@ -49,4 +49,8 @@ for s in `cat ${data_path}/subject_list.txt`; do
         #Find the outliers
         mkdir -p ${data_path}/DVARS/$s
         fsl_motion_outliers -i ${data_path}/Preproc/$s/${s}-preproc.nii.gz -o ${data_path}/DVARS/$s/${s}_dvars --dvars --nomoco -s ${data_path}/DVARS/$s/${s}_dvars.txt
+        
+    
+    imrm ${data_path}/Preproc/$s/${s}_preproc_bet_mask.nii.gz ${data_path}/Preproc/$s/${s}_preproc_bet.nii.gz ${data_path}/Preproc/$s/${s}_preproc_mean.nii.gz
+   
     done
