@@ -33,7 +33,7 @@ imrm ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/*usan_size
     # Register the structural image to MNI
     
     #1) Brain extract the structural image
-    bet ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz ${data_path}/Registration/$s/${s}-struct_betted.nii.gz
+    bet ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz ${data_path}/Registration/$s/${s}-struct_betted.nii.gz -f 0.25
     
     #2) Use flirt with the brain extracted structural image and MNI-152 standard
     flirt -in ${data_path}/Registration/$s/${s}-struct_betted.nii.gz \
@@ -54,7 +54,7 @@ imrm ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/*usan_size
     #4) Apply the warp parameters to save the structural image which has been warped to MNI152 space
     applywarp -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz \
     -o ${data_path}/Registration/$s/${s}-struct2mni.nii.gz \
-    -r $FSLDIR/data/standard/MNI152_T1_2mm \
+    -r $FSLDIR/data/standard/MNI152_T1_1mm \
     -w ${data_path}/Registration/$s/${s}-struct2mni_warp
 
     #5) Produce in the inverse warp image for quality control
