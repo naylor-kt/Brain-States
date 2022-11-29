@@ -23,7 +23,9 @@ for s in `cat ${data_path}/subject_list.txt`; do
         fslmaths ${data_path}/RawData/$s/fmap/*_field_map.nii.gz -Tmean /${data_path}/RawData/$s/fmap/${s}_neg_mean
         fslmaths ${data_path}/RawData/$s/fmap/*_field_map_reverse.nii.gz -Tmean /${data_path}/RawData/$s/fmap/${s}_pos_mean
         fslmerge -t ${data_path}/RawData/$s/fmap/${s}_combined ${data_path}/RawData/$s/fmap/${s}_neg_mean ${data_path}/RawData/$s/fmap/${s}_pos_mean
-        
+     
+     
+     #DISTORTION CORRECTION
         # Call the TOPUP Function
         topup --imain=${data_path}/RawData/$s/fmap/${s}_combined --datain=${data_path}/acq_params/acq_params.txt --out=${data_path}/RawData/$s/fmap/${s}_topup_results
         
@@ -49,21 +51,23 @@ for s in `cat ${data_path}/subject_list.txt`; do
         #Find the outliers
         mkdir -p ${data_path}/DVARS/$s
         fsl_motion_outliers -i ${data_path}/Preproc/$s/${s}-preproc.nii.gz -o ${data_path}/DVARS/$s/${s}_dvars --dvars --nomoco -s ${data_path}/DVARS/$s/${s}_dvars.txt
-        
     
+    done
+        
+for s in `cat ${data_path}/subject_list.txt`; do
     imrm ${data_path}/Preproc/$s/${s}_preproc_bet_mask.nii.gz ${data_path}/Preproc/$s/${s}_preproc_bet.nii.gz ${data_path}/Preproc/$s/${s}_preproc_mean.nii.gz
    
-    done
+done
 
 #FILTER SMOOTHE AND REGISTRATION 
 for s in `cat ${data_path}/subject_list.txt`; do
 
 #Temporal Filtering
-line=($(fslhd ${data_path}/Preproc/$s/${s}-preproc.nii.gz | grep pixdim4)); tr=${line[2]}; tf=$(bc -l <<< "100/($tr*2)"); tf2=$(bc -l <<< "10/($tr*2)")
+line=($(fslhd ${data_path}/Preproc/$s/${s}-preproc.nii.gz | grep pixdim4)); tr=${line[2]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
 
         fslmaths ${data_path}/Preproc/$s/${s}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/${s}-mean.nii.gz
 
-        fslmaths ${data_path}/Preproc/$s/${s}-preproc.nii.gz -bptf $tf $tf2  -add ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/${s}-preproc.nii.gz
+        fslmaths ${data_path}/Preproc/$s/${s}-preproc.nii.gz -bptf $thp $tlp  -add ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/${s}-preproc.nii.gz
         
 #Spatial Smoothing
 fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
@@ -76,7 +80,6 @@ fslmaths ${data_path}/Preproc/$s/${s}-preproc.nii.gz -mas ${data_path}/Preproc/$
 
 imrm ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/*usan_size.nii.gz ${data_path}/Preproc/$s/${s}-mask0
 
-<<<<<<< HEAD
 # Registration of structural image to MNI Space
   mkdir -p ${data_path}/Registration/$s
   
