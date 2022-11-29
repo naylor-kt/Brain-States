@@ -23,7 +23,6 @@ fslmaths ${data_path}/Preproc/$s/${s}-preproc.nii.gz -mas ${data_path}/Preproc/$
 
 imrm ${data_path}/Preproc/$s/${s}-mean.nii.gz ${data_path}/Preproc/$s/*usan_size.nii.gz ${data_path}/Preproc/$s/${s}-mask0
 
-<<<<<<< HEAD
 # Registration of structural image to MNI Space
   mkdir -p ${data_path}/Registration/$s
   
