@@ -73,12 +73,11 @@ for s in `cat ${data_path}/subject_list.txt`; do
     robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${data_path}/Registration/$s/Struct/${s}_crop_struct
     
     
-    # Use flirt with 12 DOF with the sturctural image (T1) and MNI-2mm
+    # Use flirt with 12 DOF with the sturctural image (T1) and MNI-2mm, with the default cost function --> corratio
   
     flirt -in ${data_path}/Registration/$s/Struct/${s}_crop_struct \
     -ref $FSLDIR/data/standard/MNI152_T1_2mm \
     -omat ${data_path}/Registration/$s/${s}-struct2mni.mat \
-    -cost mutualinfo \
     -dof 12
     
     # Use fnirt with the structural image and MNI-152
@@ -122,6 +121,16 @@ for s in `cat ${data_path}/subject_list.txt`; do
    --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
    --premat=${data_path}/Registration/$s/${s}-meanfunc2struct.mat \
    --out=${data_path}/Registration/$s/${s}-func2mni.nii.gz
+   
+
+# Apply the warp field to the mean functional image, as a quality control check
+
+    applywarp --ref=${FSLDIR}/data/standard/MNI152_T1_2mm \
+   --in=${data_path}/Registration/$s/Mean_Before_Filter/${s}_mean_func.nii.gz \
+   --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
+   --premat=${data_path}/Registration/$s/${s}-meanfunc2struct.mat \
+   --out=${data_path}/Registration/$s/${s}-MEANfunc2mni.nii.gz
+   
 
    # fi
 done
