@@ -101,7 +101,7 @@ for s in `cat ${data_path}/subject_list.txt`; do
 
     invwarp --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
             --out=${data_path}/Registration/$s/${s}-mni2struct_warp \
-            --ref=${data_path}/RawData/$s/anat/${s}_T1w.nii.gz
+            --ref=$${data_path}/Registration/$s/Struct/${s}_crop_struct
 
   # REGISTRATION OF THE MEAN FUNCTIONAL IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
   
