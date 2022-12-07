@@ -125,7 +125,7 @@ done
 
 for s in `cat ${data_path}/subject_list.txt`; do
   
-  #if [ ! -f ${data_path}/Registration/$s/${s}-struct2mni.nii.gz ]; then
+  if [ ! -f ${data_path}/Registration/$s/${s}-struct2mni.nii.gz ]; then
   
   #REGISTRATION OF THE T1 STRUCTURAL IMAGE WITH MNI-152
   mkdir -p ${data_path}/Registration/$s/Struct
@@ -163,7 +163,7 @@ for s in `cat ${data_path}/subject_list.txt`; do
     invwarp --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
             --out=${data_path}/Registration/$s/${s}-mni2struct_warp \
             --ref=${data_path}/RawData/$s/anat/${s}_T1w.nii.gz
-
+fi 
   # REGISTRATION OF THE MEAN FUNCTIONAL IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
   
     #Flirt using the mean image, which was created earlier, prior to temporal filtering
