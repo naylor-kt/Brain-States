@@ -163,7 +163,7 @@ fi
 #REGISTRATION OF THE T1 STRUCTURAL IMAGE WITH MNI-152
     mkdir -p ${data_path}/Registration/$s/Struct
 
-  if [ ! -f ${data_path}/Registration/$s/${s}-struct2mni.nii.gz ]; then
+ # if [ ! -f ${data_path}/Registration/$s/${s}-struct2mni.nii.gz ]; then
  
     #Perform ROBUST FIELD OF VIEW on the structural, T1 image
         robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
@@ -194,8 +194,11 @@ fi
     invwarp --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
             --out=${data_path}/Registration/$s/${s}-mni2struct_warp \
             --ref=${data_path}/RawData/$s/anat/${s}_T1w.nii.gz
-            
-    fi
+  #  else
+    
+   #     echo "T1 to MNI already completed"
+   
+  #  fi
 
   #REGISTRATION OF THE MEAN FUNCTIONAL IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
   
@@ -245,3 +248,6 @@ s=($(ls $HOME/Brain_States/RawData))
 c=(ns vs as)
 
 parallel --jobs 6 'fmri_preproc {1} {2}' ::: ${s[@]} ::: ${c[@]}
+
+
+
