@@ -4,7 +4,7 @@ mkdir -p $HOME/Brain_States/Freesurfer
 
 data_path="$HOME/Brain_States"
 
-fs_path="$HOME/Brain_States/Freesurfer";s=$1;c=$2
+fs_path="$HOME/Brain_States/Freesurfer";s=$1
 
 #PREPARE THE T1 IMAGE
 
@@ -34,7 +34,7 @@ export SUBJECTS_DIR="${fs_path}/Recon"
 
  if [ ! -d $SUBJECTS_DIR/${s} ]; then
 
-        recon-all -i ${fs_path}/Struct/$s/${s}_T1 -s ${s} -all
+        recon-all -i ${fs_path}/Struct/$s/${s}_T1.nii.gz -s ${s} -all
 
 fi
 
@@ -50,7 +50,7 @@ subj=($(ls $HOME/Brain_States/RawData))
 cond=(as ns vs)
 
 for s in ${subj[@]}; do
-mkdir -p ${fs_path}/registration/${s}
+mkdir -p ${fs_path}/Registration/${s}
 
     for c in ${cond[@]}; do
 #Make for loop for condition instead, just to be sure of preprocessing problem
@@ -60,13 +60,13 @@ mkdir -p ${fs_path}/registration/${s}
         # obtain registration from t1 (fsl) to orig (fs) & concatenate with mean2t1;
 
         tkregister2 --mov ${fs_path}/Struct/$s/${s}_T1 --targ $SUBJECTS_DIR/${s}/mri/orig.mgz --s ${s} \
-        --reg ${fs_path}/registration/${s}/${s}_fsl2fs.dat --ltaout ${fs_path}/registration/${s}/${s}_fsl2fs.lta --noedit --regheader
+        --reg ${fs_path}/Registration/${s}/${s}_fsl2fs.dat --ltaout ${fs_path}/Registration/${s}/${s}_fsl2fs.lta --noedit --regheader
 
-        lta_convert --inlta ${fs_path}/registration/${s}/${s}_fsl2fs.lta --outfsl ${fs_path}/registration/${s}/${s}_fsl2fs.mat
+        lta_convert --inlta ${fs_path}/Registration/${s}/${s}_fsl2fs.lta --outfsl ${fs_path}/Registration/${s}/${s}_fsl2fs.mat
 
-        convert_xfm -omat ${fs_path}/registration/${s}/${s}-${c}_mean2fs.mat -concat ${fs_path}/registration/${s}/${s}_fsl2fs.mat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat
+        convert_xfm -omat ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.mat -concat ${fs_path}/Registration/${s}/${s}_fsl2fs.mat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat
 
-        lta_convert --infsl ${fs_path}/registration/${s}/${s}-${c}_mean2fs.mat --outreg ${fs_path}/registration/${s}/${s}-${c}_mean2fs.dat --outlta ${fs_path}/registration/${s}/${s}-${c}_mean2fs.lta \
+        lta_convert --infsl ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.mat --outreg ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.dat --outlta ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.lta \
         --subject ${s} --src ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz --trg $SUBJECTS_DIR/$subj/mri/orig.mgz
         fi
     done
