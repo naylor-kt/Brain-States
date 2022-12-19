@@ -2,70 +2,77 @@
 free_surfing (){
 mkdir -p $HOME/Brain_States/Freesurfer
 
-data_path ="$HOME/Brain_States"
+data_path="$HOME/Brain_States"
 
 fs_path="$HOME/Brain_States/Freesurfer";s=$1;c=$2
 
 #PREPARE THE T1 IMAGE
 
 # Make a directory for the free surfer files
-mkdir -p ${fs_path}Struct/$s
+mkdir -p ${fs_path}/Struct/$s
 
-#Robust field of view
-robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${fs_path}/Struct/$s/${s}_T1
+#Copy of the T1 image which had previously undergone robust fov
+cp ${data_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz ${fs_path}/Struct/$s/${s}_T1.nii.gz
 
 #Bias Correction
-fast -B --nopve ${fs_path}/Struct/$s/${s}_T1
+fast -B --nopve ${fs_path}/Struct/$s/${s}_T1.nii.gz
 
 #Spatial Smoothing
 fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
-susan ${fs_path}/Struct/$s/${s}_T1 -1 $sigma 3 1 0 ${fs_path}/Struct/$s/${s}_T1
-#Remove the unecessary files
- imrm ${fs_path}/Struct/$s/${s}_T1_*
- 
-#APPLY FREESURFER
-mkdir mkdir -p ${fs_path}/recon/${s}
-mkdir mkdir -p ${fs_path}/registration/${s}
+susan ${fs_path}/Struct/$s/${s}_T1_restore -1 $sigma 3 1 0 ${fs_path}/Struct/$s/${s}_T1
 
-export SUBJECTS_DIR="${data_path}/Freesurfer"
+#Remove the unecessary files
+imrm ${fs_path}/Struct/$s/${s}_T1_*
+
+#APPLY FREESURFER
+
+mkdir -p ${fs_path}/Recon
+
+
+export SUBJECTS_DIR="${fs_path}/Recon"
 
  if [ ! -d $SUBJECTS_DIR/${s} ]; then
 
-        mkdir -p $SUBJECTS_DIR
-
         recon-all -i ${fs_path}/Struct/$s/${s}_T1 -s ${s} -all
 
-    fi
+fi
+
+}
+
+export -f free_surfing
+s=($(ls $HOME/Brain_States/RawData))
+echo ${s[@]}
+parallel --jobs 0 'free_surfing {1}' ::: ${s[@]}
+
+
+subj=($(ls $HOME/Brain_States/RawData))
+cond=(as ns vs)
+
+for s in ${subj[@]}; do
+mkdir -p ${fs_path}/registration/${s}
+
+    for c in ${cond[@]}; do
+#Make for loop for condition instead, just to be sure of preprocessing problem
     
-    if [ ! -f $pth/reg/mean2fs.lta ]; then
+        if [ ! -f $pth/reg/${s}-${c}_mean2fs.lta ]; then
 
         # obtain registration from t1 (fsl) to orig (fs) & concatenate with mean2t1;
 
         tkregister2 --mov ${fs_path}/Struct/$s/${s}_T1 --targ $SUBJECTS_DIR/${s}/mri/orig.mgz --s ${s} \
-
         --reg ${fs_path}/registration/${s}/${s}_fsl2fs.dat --ltaout ${fs_path}/registration/${s}/${s}_fsl2fs.lta --noedit --regheader
 
         lta_convert --inlta ${fs_path}/registration/${s}/${s}_fsl2fs.lta --outfsl ${fs_path}/registration/${s}/${s}_fsl2fs.mat
 
-        convert_xfm -omat ${fs_path}/registration/${s}/${s}_${c}_mean2fs.mat -concat ${fs_path}/registration/${s}/${s}_fsl2fs.mat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat
+        convert_xfm -omat ${fs_path}/registration/${s}/${s}-${c}_mean2fs.mat -concat ${fs_path}/registration/${s}/${s}_fsl2fs.mat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat
 
-        lta_convert --infsl ${fs_path}/registration/${s}/${s}_${c}_mean2fs.mat --outreg ${fs_path}/registration/${s}/${s}_${c}_mean2fs.dat --outlta $pth/reg/mean2fs.lta \
-
-        --subject $subj --src ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz --trg $SUBJECTS_DIR/$subj/mri/orig.mgz
-
-    fi
-    
-}
+        lta_convert --infsl ${fs_path}/registration/${s}/${s}-${c}_mean2fs.mat --outreg ${fs_path}/registration/${s}/${s}-${c}_mean2fs.dat --outlta ${fs_path}/registration/${s}/${s}-${c}_mean2fs.lta \
+        --subject ${s} --src ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz --trg $SUBJECTS_DIR/$subj/mri/orig.mgz
+        fi
+    done
+done
 
 
-
-export -f free_surfing
-
-s=($(ls $HOME/Brain_States/RawData))
-c=(ns vs as)
-
-parallel --jobs 6 'free_surfing {1}' ::: ${s[@]} ::: ${c[@]}
 
 
 
