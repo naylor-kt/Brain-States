@@ -128,12 +128,12 @@ done
 
 #SAVE MEAN AND BRAIN EXTRACTED IMAGES
     #Make a directory for registration to the standard space
-    mkdir -p ${data_path}/Registration/$s/Mean_Before_Filter
+    mkdir -p ${data_path}/Registration/$s/Mean_Before_Filter/bet
 for c in ${cond[@]}; do
     #Take the mean of the functional image
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz
     # Save a copy of the brain extracted image
-    bet ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func_bet -f 0.25 -m
+    bet ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Registration/$s/Mean_Before_Filter/bet/${s}-${c}_mean_func_bet -f 0.25 -m
 done
 
 #TEMPORAL FILTERING
@@ -141,12 +141,13 @@ done
         # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
     # thp -> temporal high pass
     # tlp -> temporal low pass
+mkdir -p ${data_path}/Preproc/$s/Temp_Filt
 for c in ${cond[@]}; do
     line=($(fslhd ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
 
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
 
-    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -bptf $thp $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
+    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -bptf $thp $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Preproc/$s/Temp_Filt/${s}-${c}-preproc_TempFilt.nii.gz
         
     imrm ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
 done
@@ -216,6 +217,7 @@ for c in ${cond[@]}; do
     flirt -in ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz \
     -ref ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
     -omat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
+    -interp nearestneighbour \
     -out ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.nii.gz \
     -cost mutualinfo \
     -dof 6
@@ -225,6 +227,7 @@ for c in ${cond[@]}; do
    --in=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz \
    --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
    --premat=${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
+   --interp=nn \
    --out=${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz
    
 
@@ -233,34 +236,53 @@ for c in ${cond[@]}; do
    --in=${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz \
    --warp=${data_path}/Registration/$s/${s}-struct2mni_warp \
    --premat=${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
+   --interp=nn \
    --out=${data_path}/Registration/$s/${s}-${c}-MEANfunc2mni.nii.gz
 done
 
+#TEMPORAL FILTERING
+    # Line --> sets the repetition time from the file header, using fslhd with grep
+        # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
+    # thp -> temporal high pass
+    # tlp -> temporal low pass
+mkdir -p ${data_path}/Registration/$s/Temp_Filt
+for c in ${cond[@]}; do
+    line=($(fslhd ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
+
+    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -Tmean ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz
+
+    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -bptf $thp $tlp  -add ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz
+        
+    imrm ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz
+done
+
+#SPATIAL SMOOTHING of the normalised image
 for c in ${cond[@]}; do
 #SPATIAL SMOOTHING of the normalised image
     mkdir -p ${data_path}/Registration/$s/Smoothed/Mean
 
-    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean
+    fslmaths ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean
 
     #Spatial Smoothing
-    fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+    fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
-    susan ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -1 $sigma 3 1 1 ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean -1 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed
+    susan ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz -1 $sigma 3 1 1 ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean -1 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed
 
     fslmaths ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz -Tmin -bin  ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed-mask0 -odt char
 
     fslmaths ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz -mas ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed-mask0 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz
 
-    imrm ${data_path}/Registration/$s/${s}-${c}-mean.nii.gz ${data_path}/Registration/$s/*usan_size.nii.gz ${data_path}/Registration/$s/${s}-${c}-mask0
+    imrm ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean ${data_path}/Registration/$s/Smoothed/*usan_size.nii.gz ${data_path}/Registration/$s/Smoothed/${s}-${c}-mask0
 done
-
 }
-
 export -f fmri_preproc
 
 s=($(ls $HOME/Brain_States/RawData))
 
-parallel --jobs 6 'fmri_preproc {1}' ::: ${s[@]}
+echo ${s[@]}
+
+parallel --jobs 0 'fmri_preproc {1}' ::: ${s[@]}
+
 
 
 
