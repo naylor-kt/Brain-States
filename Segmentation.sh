@@ -37,7 +37,7 @@ fslmaths ${data_path}/Segmentation/${s}/${s}_T1_wm.nii.gz -thr 0.5 ${data_path}/
 
 }
 
-export -f segmentation 
+export -f segmentation
 
 s=($(ls $HOME/Brain_States/RawData))
 echo ${s[@]}

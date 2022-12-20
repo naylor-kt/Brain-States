@@ -46,8 +46,12 @@ echo ${s[@]}
 parallel --jobs 0 'free_surfing {1}' ::: ${s[@]}
 
 
+
 subj=($(ls $HOME/Brain_States/RawData))
 cond=(as ns vs)
+data_path="$HOME/Brain_States"
+fs_path="$HOME/Brain_States/Freesurfer"
+SUBJECTS_DIR="${fs_path}/Recon"
 
 for s in ${subj[@]}; do
 mkdir -p ${fs_path}/Registration/${s}
@@ -59,7 +63,7 @@ mkdir -p ${fs_path}/Registration/${s}
 
         # obtain registration from t1 (fsl) to orig (fs) & concatenate with mean2t1;
 
-        tkregister2 --mov ${fs_path}/Struct/$s/${s}_T1 --targ $SUBJECTS_DIR/${s}/mri/orig.mgz --s ${s} \
+        tkregister2 --mov ${fs_path}/Struct/$s/${s}_T1.nii.gz --targ $SUBJECTS_DIR/${s}/mri/orig.mgz --s ${s} \
         --reg ${fs_path}/Registration/${s}/${s}_fsl2fs.dat --ltaout ${fs_path}/Registration/${s}/${s}_fsl2fs.lta --noedit --regheader
 
         lta_convert --inlta ${fs_path}/Registration/${s}/${s}_fsl2fs.lta --outfsl ${fs_path}/Registration/${s}/${s}_fsl2fs.mat
