@@ -240,33 +240,19 @@ for c in ${cond[@]}; do
    --out=${data_path}/Registration/$s/${s}-${c}-MEANfunc2mni.nii.gz
 done
 
-#TEMPORAL FILTERING
-    # Line --> sets the repetition time from the file header, using fslhd with grep
-        # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
-    # thp -> temporal high pass
-    # tlp -> temporal low pass
-mkdir -p ${data_path}/Registration/$s/Temp_Filt
-for c in ${cond[@]}; do
-    line=($(fslhd ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
 
-    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -Tmean ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz
-
-    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -bptf $thp $tlp  -add ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz
-        
-    imrm ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_mean.nii.gz
-done
 
 #SPATIAL SMOOTHING of the normalised image
 for c in ${cond[@]}; do
 #SPATIAL SMOOTHING of the normalised image
     mkdir -p ${data_path}/Registration/$s/Smoothed/Mean
 
-    fslmaths ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean
+    fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean
 
     #Spatial Smoothing
     fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
-    susan ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_TempFilt.nii.gz -1 $sigma 3 1 1 ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean -1 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed
+    susan ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -1 $sigma 3 1 1 ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean -1 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed
 
     fslmaths ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz -Tmin -bin  ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed-mask0 -odt char
 
@@ -274,6 +260,23 @@ for c in ${cond[@]}; do
 
     imrm ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean ${data_path}/Registration/$s/Smoothed/*usan_size.nii.gz ${data_path}/Registration/$s/Smoothed/${s}-${c}-mask0
 done
+
+#TEMPORAL FILTERING
+    # Line --> sets the repetition time from the file header, using fslhd with grep
+        # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
+    # thp -> temporal high pass
+    # tlp -> temporal low pass
+mkdir -p ${data_path}/Registration/$s/Temp_Filt
+for c in ${cond[@]}; do
+    line=($(fslhd ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
+
+    fslmaths ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/${s}-${c}-smoothed_mean.nii.gz
+
+    fslmaths ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz -bptf $thp $tlp  -add ${data_path}/Registration/$s/Smoothed/${s}-${c}-smoothed_mean.nii.gz ${data_path}/Registration/$s/Temp_Filt/${s}-${c}-func2mni_Smoothed_TempFilt.nii.gz
+        
+    imrm ${data_path}/Registration/$s/Smoothed/${s}-${c}-smoothed_mean.nii.gz
+done
+
 }
 export -f fmri_preproc
 
