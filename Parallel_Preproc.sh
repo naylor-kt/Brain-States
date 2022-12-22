@@ -137,7 +137,8 @@ for c in ${cond[@]}; do
     fi
 done
 
-#SAVE MEAN AND BRAIN EXTRACTED IMAGES
+# This is where the code branches, to have a version which undergoes registration, and a version which doesn't (and can therefore be used in freesurfer)
+# SAVE MEAN AND BRAIN EXTRACTED IMAGES
     #Make a directory for registration to the standard space
     mkdir -p ${data_path}/Registration/$s/Mean_Before_Filter/bet
 for c in ${cond[@]}; do
@@ -147,11 +148,11 @@ for c in ${cond[@]}; do
     bet ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Registration/$s/Mean_Before_Filter/bet/${s}-${c}_mean_func_bet -f 0.25 -m
 done
 
-#TEMPORAL FILTERING
+#TEMPORAL FILTERING of the non-registered functional image
     # Line --> sets the repetition time from the file header, using fslhd with grep
         # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
-    # thp -> temporal high pass
-    # tlp -> temporal low pass
+    # thp -> temporal high pass, which is expressed as time as a multiple of the repetition time * 2
+    # tlp -> temporal low pass, which is expressed as time as a multiple of the repetition time * 2 
 mkdir -p ${data_path}/Preproc/$s/Temp_Filt
 for c in ${cond[@]}; do
     line=($(fslhd ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
@@ -163,7 +164,8 @@ for c in ${cond[@]}; do
     imrm ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
 done
 
-#DVARS
+#DVARS 
+# NB This is not used any further in this code, but there is potential it could be used to despike the data in future analyses
     #Create directory for the DVARS files
     mkdir -p ${data_path}/Preproc/$s/DVARS
 for c in ${cond[@]}; do
@@ -190,18 +192,16 @@ done
 #REGISTRATION OF THE T1 STRUCTURAL IMAGE WITH MNI-152
     mkdir -p ${data_path}/Registration/$s/Struct
 
-
  #Perform ROBUST FIELD OF VIEW on the structural, T1 image
     robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
     
-    
- #Use flirt with 12 DOF with the sturctural image (T1) and MNI-2mm, with the default cost function --> corratio
+ #Use flirt with 12 DOF with the structural image (T1) and MNI-2mm, with the default cost function --> corratio
     flirt -in ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
         -ref $FSLDIR/data/standard/MNI152_T1_2mm \
         -omat ${data_path}/Registration/$s/${s}-struct2mni.mat \
         -dof 12
     
- #Use fnirt with the structural image and MNI-152
+ #Use fnirt with the structural image and MNI-152 (non-linear)
     fnirt --in=${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
           --ref=$FSLDIR/data/standard/MNI152_T1_2mm \
           --refmask=$FSLDIR/data/standard/MNI152_T1_2mm_brain_mask_dil \
@@ -225,6 +225,9 @@ for c in ${cond[@]}; do
   #REGISTRATION OF THE MEAN FUNCTIONAL IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
   
     #Flirt using the mean image, which was created earlier, prior to temporal filtering
+    # interpolation -> by nearest neighbour (as registering a functional image with large voxels, to the structural image (stops image looking smoothed)
+    # cost function -> mutal information (whilst this takes longer, when tested it performed better than the other cost functions)
+    
     flirt -in ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz \
     -ref ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
     -omat ${data_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
@@ -260,7 +263,8 @@ for c in ${cond[@]}; do
 
     fslmaths ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -Tmean ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean
 
-    #Spatial Smoothing
+    # Spatial Smoothing 
+    # fwhm = 5  2.5 seemed insufficient
     fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
     susan ${data_path}/Registration/$s/${s}-${c}-func2mni.nii.gz -1 $sigma 3 1 1 ${data_path}/Registration/$s/Smoothed/Mean/${s}-${c}_normfuncmean -1 ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed
@@ -273,10 +277,11 @@ for c in ${cond[@]}; do
 done
 
 #TEMPORAL FILTERING
-    # Line --> sets the repetition time from the file header, using fslhd with grep
+    # Line --> sets the repetition time from the file header, using fslhd with grep, pixdim4 is the repetiion time variable
         # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
-    # thp -> temporal high pass
-    # tlp -> temporal low pass
+    # thp -> temporal high pass, expressed as time as multiple of repetition time * 2
+    # tlp -> temporal low pass, expressed as time as multiple of repetition time * 2 
+
 mkdir -p ${data_path}/Registration/$s/Temp_Filt
 for c in ${cond[@]}; do
     line=($(fslhd ${data_path}/Registration/$s/Smoothed/${s}-${c}-norm-smoothed.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
@@ -289,13 +294,22 @@ for c in ${cond[@]}; do
 done
 
 }
+
+# Exports the function
 export -f fmri_preproc
 
+# Create an array with subjects (as they are in the RawData file
 s=($(ls $HOME/Brain_States/RawData))
 
+# Check the contents of the subject array
 echo ${s[@]}
 
+# Runs the analysis in parallel using GNU parallel
+# Jobs is set to 0, which allows parallel to assign the jobs as it sees fit, and divide it across the CPUs itself
+# Provide it with the name of the function, and specify it will take one argument, then provide this after the three colons
+
 parallel --jobs 0 'fmri_preproc {1}' ::: ${s[@]}
+
 
 
 
