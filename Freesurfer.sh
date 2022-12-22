@@ -18,19 +18,24 @@ fs_path="$HOME/Brain_States/Freesurfer";s=$1
 # Make a directory for the free surfer files
 mkdir -p ${fs_path}/Struct/$s
 
-#Copy of the T1 image which had previously undergone robust fov (for registration in the preprocessing code)
+#Copy of the T1 image which had previously undergone robust fov, bias correction and slight smoothing (for registration in the preprocessing code)
 cp ${data_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz ${fs_path}/Struct/$s/${s}_T1.nii.gz
 
-#Bias Correction (nonpve prevents fast from performing segmentation of the image) 
-fast -B --nopve ${fs_path}/Struct/$s/${s}_T1.nii.gz
+# These sections are commented out, as these stages have already be performed as part of the registration in the Parallel_Preproc.sh
 
-#Spatial Smoothing
-fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+    # Take a robust field of view from the original t1 image 
+    # robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${fs_path}/Struct/$s/${s}_T1.nii.gz
+    
+    #Bias Correction (nonpve prevents fast from performing segmentation of the image) 
+    # fast -B --nopve ${fs_path}/Struct/$s/${s}_T1.nii.gz
 
-susan ${fs_path}/Struct/$s/${s}_T1_restore -1 $sigma 3 1 0 ${fs_path}/Struct/$s/${s}_T1
+    #Spatial Smoothing
+    # fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
-#Remove the unecessary files
-imrm ${fs_path}/Struct/$s/${s}_T1_*
+    # susan ${fs_path}/Struct/$s/${s}_T1_restore -1 $sigma 3 1 0 ${fs_path}/Struct/$s/${s}_T1
+
+    #Remove the unecessary files
+    # imrm ${fs_path}/Struct/$s/${s}_T1_*
 
 #APPLY FREESURFER
 
