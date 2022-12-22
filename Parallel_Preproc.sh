@@ -3,7 +3,9 @@
 fmri_preproc () {
 data_path="$HOME/Brain_States";s=$1
 
+#Array of conditions
 cond=(as ns vs)
+
 # Make directories for the preprocessing files
     mkdir -p ${data_path}/Preproc/$s
 
