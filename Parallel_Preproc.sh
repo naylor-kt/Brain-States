@@ -309,8 +309,3 @@ echo ${s[@]}
 # Provide it with the name of the function, and specify it will take one argument, then provide this after the three colons
 
 parallel --jobs 0 'fmri_preproc {1}' ::: ${s[@]}
-
-
-
-
-
