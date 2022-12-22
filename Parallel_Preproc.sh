@@ -195,8 +195,19 @@ done
  #Perform ROBUST FIELD OF VIEW on the structural, T1 image
     robustfov -i ${data_path}/RawData/$s/anat/${s}_T1w.nii.gz -r ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
     
+#Bias Correction (nonpve prevents fast from performing segmentation of the image) 
+fast -B --nopve ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
+
+#Spatial Smoothing
+fwhm=2.5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+
+susan ${data_path}/Registration/$s/Struct/${s}_crop_struct_restore -1 $sigma 3 1 0 ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
+
+#Remove the unecessary files
+imrm ${data_path}/Registration/$s/Struct/${s}_crop_struct_*
+    
  #Use flirt with 12 DOF with the structural image (T1) and MNI-2mm, with the default cost function --> corratio
-    flirt -in ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
+  flirt -in ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
         -ref $FSLDIR/data/standard/MNI152_T1_2mm \
         -omat ${data_path}/Registration/$s/${s}-struct2mni.mat \
         -dof 12
