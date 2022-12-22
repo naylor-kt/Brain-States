@@ -24,7 +24,8 @@ done
 
 #SLICE TIMING CORRECTION
 for c in ${cond[@]}; do
-    #Selects the repetition time from the file header, using the fslhd function with grep # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
+    #Selects the repetition time from the file header, using the fslhd function with grep # if using z-shell tr=${line[2]}, if using bash tr=${line[1]} 
+    #pixdim4 refers to the parameter which decribes the repetition time
     line=($(fslhd ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz | grep pixdim4)); tr=${line[1]}
     
     #Performs slice time correction -r --> repetition time --odd --> specifies interleaved data
@@ -32,6 +33,7 @@ for c in ${cond[@]}; do
 done
 
 #MOTION CORRECTION
+#This time it will actually perform the motion correction, rather than just saving the motion parameters 
 mkdir -p ${data_path}/Preproc/$s/Motion_Correction
 for c in ${cond[@]}; do
     #Create a mean image to use as the reference for the motion correction
@@ -46,6 +48,9 @@ done
     
 # DISTORTION CORRECTION
 mkdir -p ${data_path}/Preproc/$s/TopUp/fmap
+
+# As sub-07 has a different file structure for fmap, had to create if statements in order for the distortion correction to run correctly.
+# This if statement specifies that is the subject is NOT sub-07 then do the following...
 
 if [ ${s} != sub-07 ]; then
     # Make a single image file with the mean negative and positive fieldmap images
@@ -73,7 +78,11 @@ if [ ${s} != sub-07 ]; then
         applytopup  --imain=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --out=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
     done
 fi
-    
+
+# The following loops allow the distortion correction of sub-07 
+# The if statement means if the subject is sub-07 and the condition is as, then use the sub-07_field_map_as--- files
+# else if the subject is sub-07 and the condition is NOT as then use the sub-07_field_map_ns_vs--- files
+
 for c in ${cond[@]}; do
 
     if [ ${s} = sub-07 ] && [ ${c} = as ]; then
