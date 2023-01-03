@@ -19,7 +19,7 @@ cond=(as ns vs)
 mkdir -p ${data_path}/OriginalMotion/$s
 for c in ${cond[@]}; do
     #Calculate the motion parameters to save but not to use
-    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/OriginalMotion/$s/${s}-${c}_oringal_motion -plots -rmsrel -rmsabs -spline_final
+    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/OriginalMotion/$s/${s}-${c}_oringal_motion -plots -rmsrel -rmsabs -nn_final
 done
 
 #SLICE TIMING CORRECTION
@@ -40,7 +40,7 @@ for c in ${cond[@]}; do
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean
        
     #Perform the motion correction
-    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/Preproc/$s/${s}-${c}-preproc -reffile ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean -mats -spline_final -smooth 0
+    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/Preproc/$s/${s}-${c}-preproc -reffile ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean -mats -nn_final
        
     #Move the MAT file to the motion correction folder and rename
     mv ${data_path}/Preproc/$s/${s}-${c}-preproc.mat ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_motion_correction.mat
@@ -68,14 +68,14 @@ if [ ${s} != sub-07 ]; then
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Applied
         
     # Call the APPLYTOPUP Function to the negative image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_fmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_fmap_tuapp
         
     # Call the APPLYTOPUP Function to the positive image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_revfmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_revfmap_tuapp
      
      for c in ${cond[@]}; do
         # Call the APPLYTOPUP Function to the functional image
-        applytopup  --imain=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --out=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
+        applytopup  --imain=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
     done
 fi
 
@@ -102,13 +102,13 @@ for c in ${cond[@]}; do
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Applied
         
     # Call the APPLYTOPUP Function to the negative image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_as.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_as_fmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_as.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_as_fmap_tuapp
         
     # Call the APPLYTOPUP Function to the positive image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse_as.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_as_revfmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse_as.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_as_revfmap_tuapp
         
     # Call the APPLYTOPUP Function to the functional image
-    applytopup  --imain=${data_path}/Preproc/$s/${s}-as-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --out=${data_path}/Preproc/$s/${s}-as-preproc.nii.gz
+    applytopup  --imain=${data_path}/Preproc/$s/${s}-as-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_as_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/${s}-as-preproc.nii.gz
     
     elif [ ${s} = sub-07 ] && [ ${c} != as ]; then
     
@@ -127,13 +127,13 @@ for c in ${cond[@]}; do
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Applied
         
     # Call the APPLYTOPUP Function to the negative image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_ns_vs.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_ns_vs_fmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_ns_vs.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_ns_vs_fmap_tuapp
         
     # Call the APPLYTOPUP Function to the positive image - this is for a later sanity check
-    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse_ns_vs.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_ns_vs_revfmap_tuapp
+    applytopup  --imain=${data_path}/RawData/$s/fmap/${s}_field_map_reverse_ns_vs.nii.gz --inindex=2 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/TopUp/TopUp_Applied/${s}_ns_vs_revfmap_tuapp
         
     # Call the APPLYTOPUP Function to the functional image
-    applytopup  --imain=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --out=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
+    applytopup  --imain=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz --inindex=1 --datain=${data_path}/acq_params/acq_params.txt --topup=${data_path}/Preproc/$s/TopUp/TopUp_Results/${s}_ns_vs_topup_results --method=jac --interp=trilinear --out=${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz
     fi
 done
 
