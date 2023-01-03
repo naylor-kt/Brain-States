@@ -40,7 +40,7 @@ for c in ${cond[@]}; do
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean
        
     #Perform the motion correction
-    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/Preproc/$s/${s}-${c}-preproc -reffile ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean -mats -spline_final
+    mcflirt -in ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -out ${data_path}/Preproc/$s/${s}-${c}-preproc -reffile ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_preproc_mean -mats -spline_final -smooth 0
        
     #Move the MAT file to the motion correction folder and rename
     mv ${data_path}/Preproc/$s/${s}-${c}-preproc.mat ${data_path}/Preproc/$s/Motion_Correction/${s}-${c}_motion_correction.mat
