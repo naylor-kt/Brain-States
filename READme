@@ -1,0 +1,17 @@
+This contains all the different scripts which have been used to preprocess the brain states data.
+
+There are two main streams when considering this data.
+
+1) Volume-Based
+2) Surface Based
+
+For stream 1):
+i) Parallel_Preproc.sh
+ii) Segmentation.sh
+
+For stream 2):
+i) Parallel_Preproc.sh
+ii) Freesurfer.sh
+iii) check_recon.sh
+iV) Percent_Signal_Change.sh
+iv) Projection.sh 

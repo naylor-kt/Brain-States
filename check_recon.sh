@@ -2,7 +2,7 @@
 
 data_path="$HOME/Brain_States"
 fs_path="$HOME/Brain_States/Freesurfer"
-subjn=2; #set this youserself depending on which subject you want to view
+subjn=11; #set this youserself depending on which subject you want to view
 
 
 pth=/Volumes/gdrive/mri/ProcData/NeuLoud;
