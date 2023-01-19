@@ -25,15 +25,15 @@ mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Non_Filtered/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz \
              --hemi ${h} \
-             --o ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft.fsavg.mgz \
+             --o ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft.fsavg.mgz \
-                   --o ${fs_path}/Registration/${s}/Projected/Non_Filtered/${s}-${c}-${h}-nft.fsavg.mgz \
+        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
+                   --o ${fs_path}/Registration/${s}/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
@@ -47,14 +47,14 @@ mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temp_Filtered/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz \
              --hemi ${h} \
-             --o ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf.fsavg.mgz \
+             --o ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf.fsavg.mgz \
+        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf-fsavg.mgz \
                    --o ${fs_path}/Registration/${s}/Projected/Temp_Filtered/${s}-${c}-${h}-tf.fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
