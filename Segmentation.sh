@@ -10,11 +10,11 @@ data_path="$HOME/Brain_States";s=$1
 
 mkdir -p ${data_path}/Segmentation/${s}
 
-#Copy the t1 image which was used for Freesurfer
+#Copy the t1 image which was used for registration 
   # This T1 image has already undergone rostfov, bias correction, and spatial smoothing (fwhm=2.5)
   # Therefore if  this image is not available these steps would need to be completed 
 
-cp ${data_path}/Freesurfer/Struct/$s/${s}_T1.nii.gz ${data_path}/Segmentation/${s}/${s}_T1.nii.gz 
+cp ${data_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz ${data_path}/Segmentation/${s}/${s}_T1.nii.gz 
 
 # Brain extract the image, saving only the brain extracted image and the mask 
 bet ${data_path}/Segmentation/${s}/${s}_T1.nii.gz ${data_path}/Segmentation/${s}/${s}_T1_brain.nii.gz -m -f 0.25
