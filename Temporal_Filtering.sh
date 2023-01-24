@@ -21,7 +21,7 @@ cond=(as ns vs)
     # thp -> temporal high pass, which is expressed as time as a multiple of the repetition time * 2
     # tlp -> temporal low pass, which is expressed as time as a multiple of the repetition time * 2 
 
-mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01
+mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01/${s}
 for c in ${cond[@]}; do
     line=($(fslhd ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
 
@@ -37,7 +37,7 @@ done
     # thp -> temporal high pass, which is expressed as time as a multiple of the repetition time * 2
     # tlp -> temporal low pass, which is expressed as time as a multiple of the repetition time * 2 
 
-mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01
+mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/0-025/${s}
 for c in ${cond[@]}; do
     line=($(fslhd ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; tlp=$(bc -l <<< "4/($tr*2)")
 
