@@ -14,9 +14,6 @@ mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered
 # The conditions array
 cond=(as ns vs)
 
-# THIS IS FOR THE NON-REGISTERED FUNCTIONAL IMAGES
-
-for c in ${cond[@]}; do
 
 #TEMPORAL FILTERING 0.01 to 0.1Hz 
     # Line --> sets the repetition time from the file header, using fslhd with grep
@@ -26,11 +23,11 @@ for c in ${cond[@]}; do
 
 mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01
 for c in ${cond[@]}; do
-    line=($(fslhd ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
+    line=($(fslhd ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
 
-    fslmaths ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz -Tmean ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc-mean.nii.gz
+    fslmaths ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz -Tmean ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc-mean.nii.gz
 
-    fslmaths ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz -bptf $thp $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01/${s}/${s}-${c}-psc-tf.nii.gz
+    fslmaths ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz -bptf $thp $tlp  -add ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc-mean.nii.gz ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01/${s}/${s}-${c}-psc-tf.nii.gz
         
 done
 
@@ -42,9 +39,9 @@ done
 
 mkdir -p ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01
 for c in ${cond[@]}; do
-    line=($(fslhd ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; tlp=$(bc -l <<< "4/($tr*2)")
+    line=($(fslhd ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz | grep pixdim4)); tr=${line[1]}; tlp=$(bc -l <<< "4/($tr*2)")
 
-    fslmaths ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz -bptf -1 $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Percent_Signal_Change/Temporally_Filtered/0-025/${s}/${s}-${c}-psc-tf025.nii.gz
+    fslmaths ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc.nii.gz -bptf -1 $tlp  -add ${data_path}/Percent_Signal_Change/${s}/${s}-${c}-ntf-psc-mean.nii.gz ${data_path}/Percent_Signal_Change/Temporally_Filtered/0-025/${s}/${s}-${c}-psc-tf025.nii.gz
         
     imrm ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc-mean.nii.gz
 done
