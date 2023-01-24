@@ -18,7 +18,7 @@ cond=(as ns vs)
 hemi=(lh rh)
 
 #Make directory to save the projected data for 0.01 to 0.1 filtered image
-mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Filtered_001-01/${s}
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temporally_Filtered/001-01/
 
     for c in ${cond[@]}; do
 
@@ -40,7 +40,7 @@ mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Filtered_001-01/${s}
     done
 
 #Make directory to save the projected data for 0-0.25hz  Temporally filtered image
-mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Filtered_0-025/${s}
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temporally_Filtered/0-025/
 
     for c in ${cond[@]}; do
 
