@@ -18,44 +18,44 @@ cond=(as ns vs)
 hemi=(lh rh)
 
 #Make directory to save the projected data for non_temporally filtered image
-mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Non_Filtered/
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Filtered_001-01/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
-        mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.nii.gz \
+        mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Temporally_Filtered/001-01/${s}/${s}-${c}-psc-tf.nii.gz \
              --hemi ${h} \
-             --o ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
+             --o ${fs_path}/Registration/$s/Projected/Temporally_Filtered/001-01/${s}-${c}-${h}-tf-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
-                   --o ${fs_path}/Registration/${s}/Projected/Non_Filtered/${s}-${c}-${h}-nft-fsavg.mgz \
+        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temporally_Filtered/001-01/${s}-${c}-${h}-tf-fsavg.mgz \
+                   --o ${fs_path}/Registration/$s/Projected/Temporally_Filtered/001-01/${s}-${c}-${h}-tf-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
     done
 
 #Make directory to save the projected data for Temporally filtered image
-mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temp_Filtered/
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Filtered_0-025/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
-        mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz \
+        mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Temporally_Filtered/0-025/${s}/${s}-${c}-psc-tf025.nii.gz \
              --hemi ${h} \
-             --o ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf-fsavg.mgz \
+             --o ${fs_path}/Registration/$s/Projected/Temporally_Filtered/0-025/${s}-${c}-${h}-tf025-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temp_Filtered/${s}-${c}-${h}-tf-fsavg.mgz \
-                   --o ${fs_path}/Registration/${s}/Projected/Temp_Filtered/${s}-${c}-${h}-tf.fsavg.mgz \
+        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temporally_Filtered/0-025/${s}-${c}-${h}-tf025-fsavg.mgz \
+                   --o ${fs_path}/Registration/$s/Projected/Temporally_Filtered/0-025/${s}-${c}-${h}-tf025-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
