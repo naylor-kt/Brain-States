@@ -140,7 +140,7 @@ done
 # This is where the code branches, to have a version which undergoes registration, and a version which doesn't (and can therefore be used in freesurfer)
 # SAVE MEAN AND BRAIN EXTRACTED IMAGES
     #Make a directory for registration to the standard space
-    mkdir -p ${data_path}/Registration/$s/Mean_Before_Filter/bet
+    mkdir -p ${data_path}/Preproc/$s/Mean_Before_Filter/bet
 for c in ${cond[@]}; do
     #Take the mean of the functional image
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz
