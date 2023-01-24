@@ -143,9 +143,9 @@ done
     mkdir -p ${data_path}/Preproc/$s/Mean_Before_Filter/bet
 for c in ${cond[@]}; do
     #Take the mean of the functional image
-    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz
+    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz
     # Save a copy of the brain extracted image
-    bet ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Registration/$s/Mean_Before_Filter/bet/${s}-${c}_mean_func_bet -f 0.25 -m
+    bet ${data_path}/Preproc/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Preproc/$s/Mean_Before_Filter/bet/${s}-${c}_mean_func_bet -f 0.25 -m
 done
 }
 
