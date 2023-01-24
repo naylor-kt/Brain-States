@@ -3,6 +3,7 @@
 #  Percent_Signal_Change.sh
 # This will convert the raw signal into the percentage signal change
 percent_sig_change (){
+
 #Set the data_path to the relevant folder
 data_path="$HOME/Brain_States";s=$1
 
@@ -40,40 +41,6 @@ fslmaths ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-ntf-psc.
 
 # The notation used above nft = non-temporally filtered and psc = percentage signal change
 imrm ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-func-mean.nii.gz ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-bet_mask.nii.gz ${data_path}/Percent_Signal_Change/Non_Filtered/${s}/${s}-${c}-bet.nii.gz
-
-
-done
-
-
-# THIS IS FOR THE NON-REGISTERED FUNCTIONAL IMAGES
-for c in ${cond[@]}; do
-
-# TEMPORALLY FILTERED IMAGE
-mkdir -p ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}
-
-#Take the mean of the functionally filtered image
-fslmaths ${data_path}/Preproc/$s/Temp_Filt/${s}-${c}-preproc_TempFilt.nii.gz -Tmean ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-mean.nii.gz
-
-#Create a brain mask from the mean functional image
-bet ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-mean.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-bet.nii.gz -m
-
-# functional image - mean = (func-mean)
-fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -sub ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-mean.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-func-mean.nii.gz
-
-# (func-mean) / mean =psc
-fslmaths ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-func-mean.nii.gz -div ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-mean.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz
-
-# psc * 100
-fslmaths ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz -mul 100 ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz
-
-# The notation used above nft = non-temporally filtered and psc = percentage signal change
-
-# apply the brain mask to the psc image
-fslmaths ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz -mas ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-bet_mask.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-tf-psc.nii.gz
-
-# The notation used above nft = non-temporally filtered and psc = percentage signal change
-imrm ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-func-mean.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-bet_mask.nii.gz ${data_path}/Percent_Signal_Change/Temp_Filtered/${s}/${s}-${c}-bet.nii.gz
-
   
 done
 
