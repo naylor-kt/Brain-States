@@ -5,8 +5,6 @@ fs_path="$HOME/Brain_States/Freesurfer"
 subjn=11; #set this youserself depending on which subject you want to view
 
 
-pth=/Volumes/gdrive/mri/ProcData/NeuLoud;
-
 subj_ls=($(ls $HOME/Brain_States/RawData))
 
 SUBJECTS_DIR="${fs_path}/Recon";

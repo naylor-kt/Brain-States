@@ -148,7 +148,7 @@ for c in ${cond[@]}; do
     bet ${data_path}/Registration/$s/Mean_Before_Filter/${s}-${c}_mean_func.nii.gz ${data_path}/Registration/$s/Mean_Before_Filter/bet/${s}-${c}_mean_func_bet -f 0.25 -m
 done
 
-#TEMPORAL FILTERING of the non-registered functional image
+#TEMPORAL FILTERING of the non-registered functional image (save one image filtered from 0.01 to 0.1 Hz)
     # Line --> sets the repetition time from the file header, using fslhd with grep
         # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
     # thp -> temporal high pass, which is expressed as time as a multiple of the repetition time * 2
@@ -160,6 +160,18 @@ for c in ${cond[@]}; do
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
 
     fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -bptf $thp $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Preproc/$s/Temp_Filt/${s}-${c}-preproc_TempFilt.nii.gz
+        
+    imrm ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
+done
+
+#TEMPORAL FILTERING of the non-registered functional image (saves a separate image filtered from 0 to 0.25Hz - this is necesary for the fALFF calculation)
+mkdir -p ${data_path}/Preproc/$s/Temp_Filt_025
+for c in ${cond[@]}; do
+    line=($(fslhd ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz | grep pixdim4)); tr=${line[1]}; tlp=$(bc -l <<< "4/($tr*2)")
+
+    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -Tmean ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
+
+    fslmaths ${data_path}/Preproc/$s/${s}-${c}-preproc.nii.gz -bptf -1 $tlp  -add ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz ${data_path}/Preproc/$s/Temp_Filt_025/${s}-${c}-preproc_TempFilt025.nii.gz
         
     imrm ${data_path}/Preproc/$s/${s}-${c}-mean.nii.gz
 done

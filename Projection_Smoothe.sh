@@ -50,8 +50,13 @@ mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Spatially_Smoothed/Te
         
     done
 
+<<<<<<< Updated upstream
 #Make directory to save the projected data for Temporally filtered image (0 to 0.25 Hz)
 mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Spatially_Smoothed/Temporally_Filtered_0-025
+=======
+#Make directory to save the projected data for Temporally filtered image (0.01 to 0.1 Hz)
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temp_Filtered/Smoothed/
+>>>>>>> Stashed changes
 
     for c in ${cond[@]}; do
 
@@ -77,6 +82,38 @@ mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Spatially_Smoothed/Te
         for h in ${hemi[@]}; do
         mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Spatially_Smoothed/Temporally_Filtered_0-025/${s}-${c}-${h}-tf025SM-fsavg.mgz \
                    --o ${fs_path}/Registration/$s/Projected/Spatially_Smoothed/Temporally_Filtered_0-025/${s}-${c}-${h}-tf025SM-fsavg.mgz \
+                   --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
+        done
+        
+    done
+
+#Make directory to save the projected data for Temporally filtered image (0 to 0.25 Hz)
+mkdir -p ${data_path}/Freesurfer/Registration/$s/Projected/Temp_Filt_025/Smoothed/
+
+    for c in ${cond[@]}; do
+
+        for h in ${hemi[@]}; do
+        mri_vol2surf --mov ${data_path}/Percent_Signal_Change/Temp_Filt_025/${s}/${s}-${c}-tf025-psc.nii.gz \
+             --hemi ${h} \
+             --o ${fs_path}/Registration/$s/Projected/Temp_Filt_025/Smoothed/${s}-${c}-${h}-tf025SM-fsavg.mgz \
+             --projfrac-avg 0 1 0.1 \
+             --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
+             --srcsubject ${s}
+        done
+# Smoothe the vol2surf projected image
+    fwhm=5
+        for h in ${hemi[@]}; do
+        mri_surf2surf --sval ${fs_path}/Registration/$s/Projected/Temp_Filt_025/Smoothed/${s}-${c}-${h}-tf025SM-fsavg.mgz \
+        --tval ${fs_path}/Registration/$s/Projected/Temp_Filt_025/Smoothed/${s}-${c}-${h}-tf025SM-fsavg.mgz \
+        --s ${s} \
+        --hemi ${h} \
+        --fwhm $fwhm \
+        --cortex
+        
+        done
+        for h in ${hemi[@]}; do
+        mris_apply_reg --src ${fs_path}/Registration/$s/Projected/Temp_Filt_025/Smoothed/${s}-${c}-${h}-tf025SM-fsavg.mgz \
+                   --o ${fs_path}/Registration/$s/Projected/Temp_Filt_025/Smoothed/${s}-${c}-${h}-tf025SM-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
