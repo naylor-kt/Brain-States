@@ -102,7 +102,7 @@ for c in ${cond[@]}; do
    --warp=${vol_path}/Registration/$s/${s}-struct2mni_warp \
    --premat=${vol_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
    --interp=nn \
-   --out=${vol_path}/Registration/$s/${s}-${c}-func2mni.nii.gz
+   --out=${vol_path}/Registration/$s/${s}-${c}-meanfunc2mni.nii.gz
 done
 
 

@@ -242,4 +242,4 @@ echo ${s[@]}
 # Jobs is set to 0, which allows parallel to assign the jobs as it sees fit, and divide it across the CPUs itself
 # Provide it with the name of the function, and specify it will take one argument, then provide this after the three colons
 
-parallel --jobs 0 'volume_processing {1}' ::: ${s[@]}
+parallel --jobs 0 'surf_processing_2 {1}' ::: ${s[@]}
