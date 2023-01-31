@@ -21,7 +21,7 @@ for c in ${cond[@]}; do
         
     matlab -batch "freesurfer_startup" -nojvm
         
-    matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/${s}/Non_Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-Rtf-fsavg.mgz', 'STD', '${surf_path}/Analysis/Non-Smoothed/ALFF/${s}/${s}-${c}-${h}-fsavg_ALFF.mgz')" -nojvm
+    matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz', 'STD', '${surf_path}/Analysis/Non-Smoothed/ALFF/${s}/${s}-${c}-${h}-fsavg_ALFF.mgz')" -nojvm
         done
     done
 
@@ -37,7 +37,7 @@ mkdir -p ${surf_path}/Analysis/Non-Smoothed/fALFF/${s}/Wide_Filtered_SD/
         for h in ${hemi[@]}; do
         matlab -batch "freesurfer_startup" -nojvm
         
-        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-Wtf-fsavg.mgz', 'STD', '${surf_path}/Analysis/Non-Smoothed/fALFF/${s}/Wide_Filtered_SD/${s}-${c}-${h}-Wtf-fsavg_SD.mgz')" -nojvm
+        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz', 'STD', '${surf_path}/Analysis/Non-Smoothed/fALFF/${s}/Wide_Filtered_SD/${s}-${c}-${h}-Wtf-fsavg_SD.mgz')" -nojvm
         done
         
         for h in ${hemi[@]}; do
@@ -57,7 +57,7 @@ for c in ${cond[@]}; do
         
     matlab -batch "freesurfer_startup" -nojvm
         
-    matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz', 'STD', '${surf_path}/Analysis/Smoothed/ALFF/${s}/${s}-${c}-${h}-SM-fsavg_ALFF.mgz')" -nojvm
+    matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz', 'STD', '${surf_path}/Analysis/Smoothed/ALFF/${s}/${s}-${c}-${h}-SM-fsavg_ALFF.mgz')" -nojvm
         done
     done
 
@@ -74,7 +74,7 @@ for c in ${cond[@]}; do
         
         matlab -batch "freesurfer_startup" -nojvm
         
-        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz', 'STD', '${surf_path}/Analysis/Smoothed/fALFF/${s}/Wide_Filtered_SD/${s}-${c}-${h}-WtfSM-fsavg_SD.mgz')" -nojvm
+        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); fs_ALFF('${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz', 'STD', '${surf_path}/Analysis/Smoothed/fALFF/${s}/Wide_Filtered_SD/${s}-${c}-${h}-WtfSM-fsavg_SD.mgz')" -nojvm
         done
         
         for h in ${hemi[@]}; do

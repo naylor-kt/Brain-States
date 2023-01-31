@@ -3,10 +3,10 @@
 # Define the function
 volume_processing () {
 
-mkdir -p $HOME/BrainStates_Test/Volumetric
+mkdir -p $HOME/BrainStates_Test/Volumetric_3mm
 
-data_path="$HOME/BrainStates";s=$1
-vol_path="$HOME/BrainStates/Volumetric"
+data_path="$HOME/BrainStates_Test";s=$1
+vol_path="$HOME/BrainStates_Test/Volumetric_3mm"
 
 #Array of conditions
 cond=(as ns vs)
@@ -32,7 +32,7 @@ cond=(as ns vs)
     imrm ${vol_path}/Registration/$s/Struct/${s}_crop_struct_*
 
 #Use flirt with 12 DOF with the structural image (T1) and MNI-2mm, with the default cost function --> corratio
-    xflirt -in ${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
+  flirt -in ${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
         -ref $FSLDIR/data/standard/MNI152_T1_2mm \
         -omat ${vol_path}/Registration/$s/${s}-struct2mni.mat \
         -dof 12
@@ -77,7 +77,7 @@ for c in ${cond[@]}; do
 
      fslmaths ${data_path}/Preproc/${s}/${s}-${c}-preproc.nii.gz -Tmean ${vol_path}/Smoothed/${s}/Mean/${s}-${c}_mean
 
-     fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+     fwhm=3; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
      
      susan ${data_path}/Preproc/${s}/${s}-${c}-preproc.nii.gz -1 $sigma 3 1 1 ${vol_path}/Smoothed/${s}/Mean/${s}-${c}_mean -1 ${vol_path}/Smoothed/${s}/${s}-${c}-smoothed
     

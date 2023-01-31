@@ -2,7 +2,7 @@
 
 #Define the function
 fmri_preproc () {
-data_path="$HOME/BrainStates";s=$1
+data_path="$HOME/BrainStates_Test";s=$1
 
 #Array of conditions
 cond=(as ns vs)
@@ -54,11 +54,17 @@ mkdir -p ${data_path}/Preproc/$s/TopUp/fmap
 # This if statement specifies that is the subject is NOT sub-07 then do the following...
 
 if [ ${s} != sub-07 ]; then
-    # Make a single image file with the mean negative and positive fieldmap images
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_mean
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_mean
-    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_mean
-        
+    # Can Make a single image file with the mean fmap and reverse fmap fieldmap images
+        # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_mean
+        # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_mean
+        # fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_mean
+    
+    # Can make a single image file with the first volume from the fmap and reverse fmap images
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_1vol 0 1
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_1vol 0 1
+    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_1vol ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_1vol
+    
+    
     # Make a directory to save the results from calling the TopUP function
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Results/
         
@@ -89,9 +95,14 @@ for c in ${cond[@]}; do
     if [ ${s} = sub-07 ] && [ ${c} = as ]; then
 
     # Make a single image file with the mean negative and positive fieldmap images
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_as.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_fmap_mean
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse_as.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_revfmap_mean
-    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_revfmap_mean
+    # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_as.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_fmap_mean
+    # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse_as.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_revfmap_mean
+    # fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_as_revfmap_mean
+    
+    # Can make a single image file with the first volume from the fmap and reverse fmap images
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_1vol 0 1
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map_reverse.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_1vol 0 1
+    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_fmap_1vol ${data_path}/Preproc/$s/TopUp/fmap/${s}_revfmap_1vol
         
     # Make a directory to save the results from calling the TopUP function
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Results/
@@ -114,9 +125,14 @@ for c in ${cond[@]}; do
     elif [ ${s} = sub-07 ] && [ ${c} != as ]; then
     
     # Make a single image file with the mean negative and positive fieldmap images
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_ns_vs.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_mean
-    fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse_ns_vs.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_mean
-    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_mean
+    # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_ns_vs.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_mean
+    # fslmaths ${data_path}/RawData/$s/fmap/${s}_field_map_reverse_ns_vs.nii.gz -Tmean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_mean
+    # fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_mean ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_mean
+    
+    # Can make a single image file with the first volume from the fmap and reverse fmap images
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map_ns_vs.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_1vol 0 1
+    fslroi ${data_path}/RawData/$s/fmap/${s}_field_map_reverse_ns_vs.nii.gz ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_1vol 0 1
+    fslmerge -t ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_combined ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_fmap_1vol ${data_path}/Preproc/$s/TopUp/fmap/${s}_ns_vs_revfmap_1vol
         
     # Make a directory to save the results from calling the TopUP function
     mkdir -p ${data_path}/Preproc/$s/TopUp/TopUp_Results/

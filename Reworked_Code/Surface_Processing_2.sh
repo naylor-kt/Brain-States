@@ -119,44 +119,44 @@ done
 # Step 5A is to project the functional time series to fsaverage space - without any smoothing of the functional time series
 
 
-mkdir -p ${surf_path}/Projected/${s}/Non_Smoothed/Restricted_Temp_Filter
+mkdir -p ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${surf_path}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/${s}/Non_Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-Rtf-fsavg.mgz \
+             --o ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/${s}/Non_Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-Rtf-fsavg.mgz \
-                   --o ${surf_path}/Projected/${s}/Non_Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-Rtf-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
+                   --o ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
     done
 
 
-mkdir -p ${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter
+mkdir -p ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${surf_path}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-Wtf-fsavg.mgz \
+             --o ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-Wtf-fsavg.mgz \
-                   --o ${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-Wtf-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
+                   --o ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
@@ -164,14 +164,14 @@ mkdir -p ${surf_path}/Projected/${s}/Non_Smoothed/Wide_Temp_Filter
 
 # Step 5B is to project the functional time series to fsaverage space, and to smoothe the image during this process
 
-mkdir -p ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter
+mkdir -p ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${surf_path}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+             --o ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
@@ -179,8 +179,8 @@ mkdir -p ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter
 # Smoothe the vol2surf projected image
   fwhm=5
         for h in ${hemi[@]}; do
-        mri_surf2surf --sval ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz \
-        --tval ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+        --tval ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
         --s ${s} \
         --hemi ${h} \
         --fwhm $fwhm \
@@ -189,22 +189,22 @@ mkdir -p ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz \
-                   --o ${surf_path}/Projected/${s}/Smoothed/Restricted_Temp_Filter/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+                   --o ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
     done
 
 
-mkdir -p ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter
+mkdir -p ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/
 
     for c in ${cond[@]}; do
 
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${surf_path}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+             --o ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
@@ -212,8 +212,8 @@ mkdir -p ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter
 # Smoothe the vol2surf projected image
   fwhm=5
         for h in ${hemi[@]}; do
-        mri_surf2surf --sval ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz \
-        --tval ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+        --tval ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
         --s ${s} \
         --hemi ${h} \
         --fwhm $fwhm \
@@ -222,8 +222,8 @@ mkdir -p ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz \
-                   --o ${surf_path}/Projected/${s}/Smoothed/Wide_Temp_Filter/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+                   --o ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
         
