@@ -84,7 +84,7 @@ for c in ${cond[@]}; do
     
  # APPLY THE WARP FIELDS TO TRANSFORM THE FUNCTIONAL TIMESERIES FROM NATIVE TO STANDARD (MNI-152) SPACE
    applywarp --ref=${FSLDIR}/data/standard/MNI152_T1_2mm \
-   --in=${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz \
+   --in=${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
    --warp=${vol_path}/Registration/$s/${s}-struct2mni_warp \
    --premat=${vol_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
    --interp=nn \

@@ -244,19 +244,19 @@ done
 
 # SPATIALLY SMOOTHE the function restricted filtered image
 
-mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}
+mkdir -p ${preproc_path3}/Restricted_Smoothed_1mm/${s}
 
 for c in ${cond[@]}; do
 
-     fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+     fwhm=1; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
      
-     susan ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz -1 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed
+     susan ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz -1 ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed
     
-     fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 -odt char
+     fslmaths ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 -odt char
      
-     fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -mas ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz
+     fslmaths ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -mas ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz
 
-    imrm ${preproc_path3}/Restricted_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0
+    imrm ${preproc_path3}/Restricted_Smoothed_1mm/${s}/*usan_size.nii.gz ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0
 
 done
 

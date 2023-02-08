@@ -70,14 +70,14 @@ mkdir -p ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
+             --o ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fs.mgz \
              --projfrac-avg 0 1 0.1 \
-             --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
+             --reg ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fs.mgz \
                    --o ${surf_path}/Projected/Non_Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-Rtf-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
@@ -92,14 +92,14 @@ mkdir -p ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
+             --o ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fs.mgz \
              --projfrac-avg 0 1 0.1 \
-             --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
+             --reg ${fs_path}/Registration/${s}/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
         done
      
         for h in ${hemi[@]}; do
-        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
+        mris_apply_reg --src ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fs.mgz \
                    --o ${surf_path}/Projected/Non_Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-Wtf-fsavg.mgz \
                    --streg $SUBJECTS_DIR/${s}/surf/${h}.fsaverage.sphere.reg $SUBJECTS_DIR/fsaverage/surf/${h}.sphere.reg
         done
@@ -116,7 +116,7 @@ mkdir -p ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+             --o ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fs.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
@@ -124,13 +124,12 @@ mkdir -p ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/
 # Smoothe the vol2surf projected image
   fwhm=5
         for h in ${hemi[@]}; do
-        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
+        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fs.mgz \
         --tval ${surf_path}/Projected/Smoothed/Restricted_Temp_Filter/${s}/${s}-${c}-${h}-RtfSM-fsavg.mgz \
         --s ${s} \
         --hemi ${h} \
         --fwhm $fwhm \
         --cortex
-        
         done
      
         for h in ${hemi[@]}; do
@@ -150,7 +149,7 @@ mkdir -p ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/
         for h in ${hemi[@]}; do
         mri_vol2surf --mov ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
              --hemi ${h} \
-             --o ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+             --o ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fs.mgz \
              --projfrac-avg 0 1 0.1 \
              --reg ${fs_path}/Registration/$s/${s}-${c}_mean2fs.lta \
              --srcsubject ${s}
@@ -159,13 +158,12 @@ mkdir -p ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/
 # Smoothe the vol2surf projected image
   fwhm=5
         for h in ${hemi[@]}; do
-        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
+        mri_surf2surf --sval ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fs.mgz \
         --tval ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/${s}-${c}-${h}-WtfSM-fsavg.mgz \
         --s ${s} \
         --hemi ${h} \
         --fwhm $fwhm \
         --cortex
-        
         done
      
         for h in ${hemi[@]}; do
