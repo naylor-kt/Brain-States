@@ -9,8 +9,8 @@ cond=(as ns vs)
 
 # Make directories for the preprocessing files
     mkdir -p ${data_path}/Preproc/Level_1/$s
-    mkdir -p $HOME/BrainStates_Test/Preproc/Level_2/
-    mkdir -p $HOME/BrainStates_Test/Preproc/Level_3/
+    mkdir -p $HOME/BrainStates/Preproc/Level_2/
+    mkdir -p $HOME/BrainStates/Preproc/Level_3/
     
     preproc_path1="$HOME/BrainStates/Preproc/Level_1"
     preproc_path2="$HOME/BrainStates/Preproc/Level_2"
@@ -244,56 +244,56 @@ done
 
 # SPATIALLY SMOOTHE the function restricted filtered image
 
-mkdir -p ${preproc_path3}/Restricted_Smoothed_1mm/${s}
+# mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}
 
-for c in ${cond[@]}; do
+# for c in ${cond[@]}; do
 
-     fwhm=1; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+     # fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
      
-     susan ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz -1 ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed
+     # susan ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz -1 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed
     
-     fslmaths ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 -odt char
+     # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 -odt char
      
-     fslmaths ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -mas ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz
+     # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -mas ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz
 
-    imrm ${preproc_path3}/Restricted_Smoothed_1mm/${s}/*usan_size.nii.gz ${preproc_path3}/Restricted_Smoothed_1mm/${s}/${s}-${c}-psc_Rtf_smoothed-mask0
+    # imrm ${preproc_path3}/Restricted_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0
 
-done
+# done
 
 # Take the MEAN of the functional restricted filtered and smoothed image
-    mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}/Mean
+   # mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}/Mean
 
-for c in ${cond[@]}; do
+# for c in ${cond[@]}; do
     #Take the mean of the functional image
-    fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmean ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed_mean.nii.gz
+    # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmean ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed_mean.nii.gz
 
-done
+# done
 
 # SPATIALLY SMOOTHE the function Wide filtered image
 
-mkdir -p ${preproc_path3}/Wide_Smoothed/${s}
+# mkdir -p ${preproc_path3}/Wide_Smoothed/${s}
 
-for c in ${cond[@]}; do
+# for c in ${cond[@]}; do
 
-     fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
+     # fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
      
-     susan ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean.nii.gz -1 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed
+     # susan ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean.nii.gz -1 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed
     
-     fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 -odt char
+     # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 -odt char
      
-     fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -mas ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz
+     # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -mas ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz
 
-    imrm ${preproc_path3}/Wide_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0
+    # imrm ${preproc_path3}/Wide_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0
 
-done
+# done
 
 # Take the MEAN of the functional wide filtered and smoothed image
-    mkdir -p ${preproc_path3}/Wide_Smoothed/${s}/Mean
+   # mkdir -p ${preproc_path3}/Wide_Smoothed/${s}/Mean
 
-for c in ${cond[@]}; do
+# for c in ${cond[@]}; do
     #Take the mean of the functional image
-    fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmean ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed_mean.nii.gz
-done
+    # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmean ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed_mean.nii.gz
+# done
 
 }
 
