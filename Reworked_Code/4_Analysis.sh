@@ -4,7 +4,7 @@ ALFF () {
 
 data_path="$HOME/BrainStates";s=$1
 
-mkdir -p $HOME/BrainStates_Test/Analysis/
+mkdir -p $HOME/BrainStates/Analysis/
 
 preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"

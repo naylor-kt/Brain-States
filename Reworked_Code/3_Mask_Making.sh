@@ -106,4 +106,11 @@ done
 
 export -f make_mask
 
+# Create an array with subjects (as they are in the RawData file
+s=($(ls $HOME/BrainStates/RawData))
+
+# Check the contents of the subject array
+echo ${s[@]}
+
+
 parallel --jobs 0 'make_mask {1}' ::: ${s[@]}
