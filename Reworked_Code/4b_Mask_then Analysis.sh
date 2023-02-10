@@ -49,6 +49,11 @@ done
 mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${s}/Wide_Filtered_SD/
 mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${s}/Wide_Filtered_SD/
 mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${s}/Wide_Filtered_SD/
+
+for h in ${hemi[@]}; do
+mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/Wide_Filtered_SD/
+done
+
 for c in ${cond[@]}; do
 
    # Auditory Cortex
@@ -66,6 +71,15 @@ for c in ${cond[@]}; do
     fslmaths ${masked_path}/Planum_Temporale/${s}/${s}-${c}-psc-Wtf-PT.nii.gz -Tstd ${analysis_path}/fALFF/Planum_Temporale/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-PT-SD.nii.gz
     
     fslmaths ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT -div ${analysis_path}/fALFF/Planum_Temporale/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-PT-SD.nii.gz ${analysis_path}/fALFF/Planum_Temporale/${s}/${s}-${c}-fALFF-PT
+
+    # Medial Geniculate Body 
+    for h in ${hemi[@]}; do 
+    fslmaths ${masked_path}/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-psc-Wtf-MGB-${h}.nii.gz -Tstd ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-MGB-${h}-SD.nii.gz
+    
+    fslmaths ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-ALFF-MGB-${h} -div ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-MGB-${h}-SD.nii.gz ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-fALFF-MGB-${h}
+    done
+
+
 done
 
 }
