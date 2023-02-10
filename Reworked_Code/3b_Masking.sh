@@ -10,10 +10,13 @@ preproc_path2="$HOME/BrainStates/Preproc/Level_2"
 mkdir -p ${mask_path}/Masked_Time_Series/Auditory_Cortex/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Heschls_Gyrus/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Planum_Temporale/${s}
+mkdir -p ${mask_path}/Masked_Time_Series/Medial_Geniculate_Body/lh/${s}
+mkdir -p ${mask_path}/Masked_Time_Series/Medial_Geniculate_Body/rh/${s}
 
 AC_path="${mask_path}/Masked_Time_Series/Auditory_Cortex"
 HG_path="${mask_path}/Masked_Time_Series/Heschls_Gyrus"
 PT_path="${mask_path}/Masked_Time_Series/Planum_Temporale"
+MGB_path="${mask_path}/Masked_Time_Series/Medial_Geniculate_Body"
 
 
 cond=(as ns vs)
