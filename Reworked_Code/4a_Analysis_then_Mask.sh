@@ -9,7 +9,7 @@ mkdir -p $HOME/BrainStates/Analysis/
 preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"
 preproc_path3="$HOME/BrainStates/Preproc/Level_3"
-analysis_path="$HOME/BrainStates/Analysis"
+analysis_path="$HOME/BrainStates/Analysis1_Mask2"
 mask_path="$HOME/BrainStates/Mask"
 
 cond=(as ns vs)
