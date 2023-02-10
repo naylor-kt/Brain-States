@@ -106,9 +106,9 @@ I ##############################################################################
 # Repeat the process to make a mask of the MGB from the Juelich Brain Atlas
 
 # Extract region MGB from the Juelich Atlas
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-rh-MGB 105 1
+fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-MGB-rh 105 1
 
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-lh-MGB 106 1
+fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-MGB-lh 106 1
 
 
 # Reslice the mask to subject specific spaces 
@@ -118,7 +118,7 @@ for h in ${hemi[@]}; do
       mkdir -p ${mask_path}/Func_Mask/${h}/${s}
 
     # MGB mask to T1 subject specific space
-      applywarp --in=${mask_path}/Extracted_Region/Juelich-${h}-MGB \
+      applywarp --in=${mask_path}/Extracted_Region/Juelich-MGB-${h} \
                 --ref=${vol_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz \
                 --out=${mask_path}/T1_Mask/${h}/${s}/${s}_MGBmask2T1-${h} \
                 --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp
