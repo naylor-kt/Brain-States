@@ -81,3 +81,18 @@ done
     for c in ${cond[@]}; do
     fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_HGmask2func-rh.nii.gz    ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_PTmask2func-rh.nii.gz   ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_ACmask2func-rh.nii.gz &
     done
+
+########################################
+# Check the initial extraction of the MGB
+
+fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-lh-MGB ${mask_path}/Extracted_Region/Juelich-rh-MGB &
+
+
+# Check the resampling of the mask from MNI space to subject specific T1
+fsleyes ${vol_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz ${mask_path}/T1_Mask/${h}/${s}/${s}_MGBmask2T1-lh.nii.gz ${mask_path}/T1_Mask/${h}/${s}/${s}_MGBmask2T1-rh.nii.gz &
+
+# Check the resampling of the mask from MNI space to subject functional space
+
+for c in ${cond[@]}; do
+fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-lh.nii.gz ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-rh.nii.gz &
+done
