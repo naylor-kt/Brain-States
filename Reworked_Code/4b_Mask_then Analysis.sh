@@ -21,6 +21,10 @@ mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${s}/
 
+for h in ${hemi[@]}; do
+mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}
+done
+
 for c in ${cond[@]}; do
         
    # For the auditory cortex
@@ -31,7 +35,11 @@ for c in ${cond[@]}; do
     
     # For the Planum_Temporale
     fslmaths ${masked_path}/Planum_Temporale/${s}/${s}-${c}-psc-Rtf-PT.nii.gz -Tstd ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT
-
+    
+    # For the Medial Geniculate Body 
+    for h in ${hemi[@]}; do 
+    fslmaths ${masked_path}/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-psc-Rtf-MGB-${h}.nii.gz -Tstd ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-ALFF-MGB-${h}
+    done
 done
 
 # Calculation of fALFF
