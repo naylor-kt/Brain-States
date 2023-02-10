@@ -11,14 +11,14 @@ mask_path="$HOME/BrainStates/Mask"
     # Set the left to blue, and check where this overlaps
     # Set the right to red, and check where this overlaps
 
-fsleyes ${mask_path}/Extracted_Region/HarvOx-HGprob ${mask_path}/Extracted_Region/lh/HarvOx-HGprob-lh ${mask_path}/Extracted_Region/rh/HarvOx-HGprob-rh &
+fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Region/HarvOx-HGprob ${mask_path}/Extracted_Region/lh/HarvOx-HGprob-lh ${mask_path}/Extracted_Region/rh/HarvOx-HGprob-rh &
 
 # Check the initial extracted of the PT, as well as the left and right
     # Start looking at the bilateral image
     # Set the left to blue, and check where this overlaps
     # Set the right to red, and check where this overlaps
 
-fsleyes ${mask_path}/Extracted_Region/HarvOx-PTprob ${mask_path}/Extracted_Region/lh/HarvOx-PTprob-lh ${mask_path}/Extracted_Region/rh/HarvOx-PTprob-rh &
+fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Region/HarvOx-PTprob ${mask_path}/Extracted_Region/lh/HarvOx-PTprob-lh ${mask_path}/Extracted_Region/rh/HarvOx-PTprob-rh &
 
 # Look at the individual subjects
 
