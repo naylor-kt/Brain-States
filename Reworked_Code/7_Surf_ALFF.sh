@@ -7,7 +7,7 @@ surf_ALFF (){
 data_path="$HOME/BrainStates"; s=$1
 preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-analysis_path="$HOME/BrainStates/Analysis1_Mask2"
+analysis_path="$HOME/BrainStates/Analysis/Analysis1_Mask2"
 vol_path="$HOME/BrainStates/Volumetric"
 surf_path="$HOME/BrainStates/Surface"
 fs_path="$HOME/BrainStates/Surface/Freesurfer"

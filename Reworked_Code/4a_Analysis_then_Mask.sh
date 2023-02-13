@@ -4,12 +4,12 @@ ALFF () {
 
 data_path="$HOME/BrainStates";s=$1
 
-mkdir -p $HOME/BrainStates/Analysis/
+mkdir -p $HOME/BrainStates/Analysis/Analysis1_Mask2
 
 preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"
 preproc_path3="$HOME/BrainStates/Preproc/Level_3"
-analysis_path="$HOME/BrainStates/Analysis1_Mask2"
+analysis_path="$HOME/BrainStates/Analysis/Analysis1_Mask2"
 mask_path="$HOME/BrainStates/Mask"
 
 cond=(as ns vs)
@@ -44,6 +44,7 @@ done
 mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${s}/
+mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/
 
 for c in ${cond[@]}; do
 
@@ -53,6 +54,7 @@ fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}
 
 fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT
 
+fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB
     
 done
 
@@ -84,6 +86,7 @@ done
 mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${s}/
+mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/
 
 for c in ${cond[@]}; do
 
@@ -92,6 +95,8 @@ fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_pat
 fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_HGmask2func ${analysis_path}/fALFF/Heschls_Gyrus/${s}/${s}-${c}-fALFF-HG
 
 fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${analysis_path}/fALFF/Planum_Temporale/${s}/${s}-${c}-fALFF-PT
+
+fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-fALFF-MGB
 
 done
 
@@ -135,14 +140,3 @@ echo ${s[@]}
 parallel --jobs 0 'ALFF {1}' ::: ${s[@]}
 
 
-# Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
-
-# Check the contents of the subject array
-echo ${s[@]}
-
-# Runs the analysis in parallel using GNU parallel
-# Jobs is set to 0, which allows parallel to assign the jobs as it sees fit, and divide it across the CPUs itself
-# Provide it with the name of the function, and specify it will take one argument, then provide this after the three colons
-
-parallel --jobs 0 'ALFF {1}' ::: ${s[@]}

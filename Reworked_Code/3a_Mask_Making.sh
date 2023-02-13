@@ -33,6 +33,11 @@ fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi $(($dim1/2)) $(($dim1/
 # Extract the right PT
 fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi 0 $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/rh/HarvOx-PTprob-rh
 
+# Extract region MGB from the Juelich Atlas
+fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-MGB-rh 105 1
+
+fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-MGB-lh 106 1
+
 
 #Create a parallel function to enable the reslicing back to the subject specific spaces
 
@@ -102,36 +107,36 @@ for h in ${hemi[@]}; do
 
 done
 
-I #############################################################################################
+ #############################################################################################
 # Repeat the process to make a mask of the MGB from the Juelich Brain Atlas
 
-# Extract region MGB from the Juelich Atlas
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-MGB-rh 105 1
-
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/Juelich-MGB-lh 106 1
-
-
-# Reslice the mask to subject specific spaces 
+# Reslice the mask to subject specific spaces
 
 for h in ${hemi[@]}; do
       mkdir -p ${mask_path}/T1_Mask/${h}/${s}
       mkdir -p ${mask_path}/Func_Mask/${h}/${s}
 
     # MGB mask to T1 subject specific space
-      applywarp --in=${mask_path}/Extracted_Region/Juelich-MGB-${h} \
+      applywarp --in=${mask_path}/Extracted_Region/${h}/Juelich-MGB-${h} \
                 --ref=${vol_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz \
                 --out=${mask_path}/T1_Mask/${h}/${s}/${s}_MGBmask2T1-${h} \
                 --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp
 
     # MGB mask to subject specific functional space 
         for c in ${cond[@]}; do
-                applywarp --in=${mask_path}/Extracted_Region/Juelich-${h}-MGB \
+                applywarp --in=${mask_path}/Extracted_Region/${h}/Juelich-MGB-${h} \
                           --ref=${preproc_path1}/${s}/Level_1_Mean/${s}-${c}_mean_func.nii.gz \
                           --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                           --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                           --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h}
         done
     done
+
+#Produce a conjunction of the masks to create a bilateral mask of the MGB
+for c in ${cond[@]}; do
+fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_MGBmask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_MGBmask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func
+done
+
 }
 
 export -f make_mask
@@ -144,3 +149,4 @@ echo ${s[@]}
 
 
 parallel --jobs 0 'make_mask {1}' ::: ${s[@]}
+
