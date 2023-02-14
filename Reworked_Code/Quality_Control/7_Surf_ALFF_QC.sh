@@ -69,12 +69,12 @@ ${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${
 # Check the projection of fALFF to fsaverage Whole Brain UNSMOOTHED
 
 freeview -f \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-as-lh-fALFF-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-as-rh-fALFF-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-ns-lh-fALFF-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-ns-rh-fALFF-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-vs-lh-fALFF-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-vs-rh-fALFF-fsavg.mgz
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-as-lh-fALFF-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-as-rh-fALFF-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-ns-lh-fALFF-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-ns-rh-fALFF-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-vs-lh-fALFF-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Whole_Brain/${s}/${s}-vs-rh-fALFF-fsavg.mgz
 
 
 # Check the projection of fALFF to the subject specific cortical surface Whole Brain SMOOTHED
@@ -90,12 +90,12 @@ ${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brai
 # Check the projection of fALFF to fsaverage Whole Brain SMOOTHED
 
 freeview -f \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-as-lh-fALFF-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-as-rh-fALFF-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-ns-lh-fALFF-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-ns-rh-fALFF-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-vs-lh-fALFF-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-vs-rh-fALFF-SM-fsavg.mgz
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-as-lh-fALFF-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-as-rh-fALFF-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-ns-lh-fALFF-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-ns-rh-fALFF-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-vs-lh-fALFF-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Whole_Brain/${s}/${s}-vs-rh-fALFF-SM-fsavg.mgz
 
 ########################################################################################################################
 
@@ -153,12 +153,12 @@ ${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s
 # Check the projection of fALFF to fsaverage Auditory Cortex UNSMOOTHED
 
 freeview -f \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-as-lh-fALFF-AC-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-as-rh-fALFF-AC-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-ns-lh-fALFF-AC-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-ns-rh-fALFF-AC-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-vs-lh-fALFF-AC-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-vs-rh-fALFF-AC-fsavg.mgz
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-as-lh-fALFF-AC-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-as-rh-fALFF-AC-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-ns-lh-fALFF-AC-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-ns-rh-fALFF-AC-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-vs-lh-fALFF-AC-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Auditory_Cortex/${s}/${s}-vs-rh-fALFF-AC-fsavg.mgz
 
 
 # Check the projection of fALFF to the subject specific cortical surface Auditory Cortex SMOOTHED
@@ -174,10 +174,10 @@ ${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_C
 # Check the projection of fALFF to fsaverage Auditory Cortex SMOOTHED
 
 freeview -f \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-as-lh-fALFF-AC-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-as-rh-fALFF-AC-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-ns-lh-fALFF-AC-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-ns-rh-fALFF-AC-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-vs-lh-fALFF-AC-SM-fsavg.mgz \
-${fs_path}/Recon/${s}/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-vs-rh-fALFF-AC-SM-fsavg.mgz
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-as-lh-fALFF-AC-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-as-rh-fALFF-AC-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-ns-lh-fALFF-AC-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-ns-rh-fALFF-AC-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/lh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-vs-lh-fALFF-AC-SM-fsavg.mgz \
+${fs_path}/Recon/fsaverage/surf/rh.smoothwm:overlay=${fALFF_path}/Smoothed/Auditory_Cortex/${s}/${s}-vs-rh-fALFF-AC-SM-fsavg.mgz
 
