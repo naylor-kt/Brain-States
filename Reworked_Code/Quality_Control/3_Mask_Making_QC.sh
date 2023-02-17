@@ -102,6 +102,27 @@ for c in ${cond[@]}; do
 fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_MGBmask2func-lh.nii.gz ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_MGBmask2func-rh.nii.gz &
 done
 
+########################################
+# Check the initial extraction of V1
+
+fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-V1-lh.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-V1-rh.nii.gz &
+
+s=(sub-01)
+cond=(as ns vs)
+
+fsleyes ${vol_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz ${mask_path}/T1_Mask/lh/${s}/${s}_V1mask2T1-lh.nii.gz ${mask_path}/T1_Mask/rh/${s}/${s}_V1mask2T1-rh.nii.gz &
+
+# Check the resampling of the mask from MNI space to subject functional space
+    # Set the bilateral image to pink
+    # Set the left to blue
+    # Set the right to red
+
+for c in ${cond[@]}; do
+fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func.nii.gz ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_V1mask2func-lh.nii.gz ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_V1mask2func-rh.nii.gz &
+done
+
+
+
 
 
 

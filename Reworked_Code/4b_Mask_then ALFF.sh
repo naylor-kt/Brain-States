@@ -21,6 +21,7 @@ mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${s}/
 mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}
+mkdir -p ${analysis_path}/ALFF/Visual_Cortex_1/${s}
 
 for c in ${cond[@]}; do
         
@@ -35,6 +36,9 @@ for c in ${cond[@]}; do
     
     # For the Medial Geniculate Body 
     fslmaths ${masked_path}/Medial_Geniculate_Body/${s}/${s}-${c}-psc-Rtf-MGB.nii.gz -Tstd ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB
+    
+    # For the Visual Cortex
+    fslmaths ${masked_path}/Visual_Cortex_1/${s}/${s}-${c}-psc-Rtf-V1.nii.gz -Tstd ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1
 done
     
 # Calculation of fALFF
@@ -44,10 +48,9 @@ done
 mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${s}/Wide_Filtered_SD/
 mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${s}/Wide_Filtered_SD/
 mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${s}/Wide_Filtered_SD/
-
-for h in ${hemi[@]}; do
 mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/Wide_Filtered_SD/
-done
+mkdir -p ${analysis_path}/fALFF/Visual_Cortex_1/${s}/Wide_Filtered_SD/
+
 
 for c in ${cond[@]}; do
 
@@ -71,6 +74,11 @@ for c in ${cond[@]}; do
     fslmaths ${masked_path}/Medial_Geniculate_Body/${s}/${s}-${c}-psc-Wtf-MGB.nii.gz -Tstd ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-MGB-SD.nii.gz
     
     fslmaths ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB -div ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-MGB-SD.nii.gz ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-fALFF-MGB
+    
+    # For the Visual Cortex
+    fslmaths ${masked_path}/Visual_Cortex_1/${s}/${s}-${c}-psc-Wtf-V1.nii.gz -Tstd ${analysis_path}/fALFF/Visual_Cortex_1/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-V1-SD.nii.gz
+    
+    fslmaths ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1 -div ${analysis_path}/fALFF/Visual_Cortex_1/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-V1-SD.nii.gz ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-fALFF-V1
     
 done
 

@@ -5,7 +5,7 @@ preproc_path2="$HOME/BrainStates/Preproc/Level_2"
 preproc_path3="$HOME/BrainStates/Preproc/Level_3"
 vol_path="$HOME/BrainStates/Volumetric"
 mask_path="$HOME/BrainStates/Mask"
-analysis_path="$HOME/BrainStates/Analysis1_Mask2"
+analysis_path="$HOME/BrainStates/Analysis/Analysis1_Mask2"
 
 s=(sub-01)
 cond=(as ns vs)
@@ -64,6 +64,16 @@ done
         fslstats -t ${analysis_path}/ALFF/Medial_Geniculate_Body/rh/${s}/${s}-${c}-ALFF-MGB-rh -r
     done
    
+     # ALFF for V1, 1) bilateral 2) left 3) right
+    for c in ${cond[@]};do
+        echo "ALFF ${s}-${c} in Bilateral V1"
+        fslstats -t ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1 -r
+        echo "ALFF ${s}-${c} in Left V1"
+        fslstats -t ${analysis_path}/ALFF/Visual_Cortex_1/lh/${s}/${s}-${c}-ALFF-V1-lh -r
+        echo "ALFF ${s}-${c} in Right V1"
+        fslstats -t ${analysis_path}/ALFF/Visual_Cortex_1/rh/${s}/${s}-${c}-ALFF-V1-rh -r
+    done
+   
    
   #fALFF
     # fALFF for AC, 1) bilateral 2) left 3) right
@@ -104,4 +114,14 @@ done
         fslstats -t ${analysis_path}/fALFF/Medial_Geniculate_Body/lh/${s}/${s}-${c}-fALFF-MGB-lh -r
         echo "fALFF ${s}-${c} in Right MGB"
         fslstats -t ${analysis_path}/fALFF/Medial_Geniculate_Body/rh/${s}/${s}-${c}-fALFF-MGB-rh -r
+    done
+
+  # fALFF for V1, 1) bilateral 2) left 3) right
+    for c in ${cond[@]};do
+        echo "fALFF ${s}-${c} in Bilateral V1"
+        fslstats -t ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-fALFF-V1 -r
+        echo "fALFF ${s}-${c} in Left V1"
+        fslstats -t ${analysis_path}/fALFF/Visual_Cortex_1/lh/${s}/${s}-${c}-fALFF-V1-lh -r
+        echo "fALFF ${s}-${c} in Right V1"
+        fslstats -t ${analysis_path}/fALFF/Visual_Cortex_1/rh/${s}/${s}-${c}-fALFF-V1-rh -r
     done

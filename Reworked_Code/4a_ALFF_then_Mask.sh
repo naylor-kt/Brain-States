@@ -45,6 +45,7 @@ mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${s}/
 mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/
+mkdir -p ${analysis_path}/ALFF/Visual_Cortex_1/${s}/
 
 for c in ${cond[@]}; do
 
@@ -55,6 +56,8 @@ fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}
 fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT
 
 fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB
+
+fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1
     
 done
 
@@ -66,7 +69,8 @@ for h in ${hemi[@]}; do
     mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${h}/${s}/
     mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/
     mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/
-
+    mkdir -p ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/
+    
         for c in ${cond[@]}; do
 
         fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-${h} ${analysis_path}/ALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-ALFF-AC-${h}
@@ -76,6 +80,9 @@ for h in ${hemi[@]}; do
         fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h} ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/${s}-${c}-ALFF-PT-${h}
         
         fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h} ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-ALFF-MGB-${h}
+        
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h} ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-ALFF-V1-${h}
+        
         done
 
 done
@@ -87,6 +94,7 @@ mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${s}/
 mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${s}/
 mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${s}/
 mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/
+mkdir -p ${analysis_path}/fALFF/Visual_Cortex_1/${s}/
 
 for c in ${cond[@]}; do
 
@@ -98,6 +106,8 @@ fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_pat
 
 fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-fALFF-MGB
 
+fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-fALFF-V1
+
 done
 
 # Masked fALFF for the auditory cortex regions (lh or rh)
@@ -108,6 +118,7 @@ for h in ${hemi[@]}; do
     mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${h}/${s}/
     mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/
     mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/
+    mkdir -p ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/
 
         for c in ${cond[@]}; do
 
@@ -118,6 +129,8 @@ for h in ${hemi[@]}; do
         fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h} ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/${s}-${c}-fALFF-PT-${h}
         
         fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h} ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-fALFF-MGB-${h}
+        
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h} ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-fALFF-V1-${h}
 
         done
 

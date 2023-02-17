@@ -15,17 +15,21 @@ mkdir -p ${mask_path}/Masked_Time_Series/Auditory_Cortex/${h}/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Heschls_Gyrus/${h}/${s}/
 mkdir -p ${mask_path}/Masked_Time_Series/Planum_Temporale/${h}/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Medial_Geniculate_Body/${h}/${s}
+mkdir -p ${mask_path}/Masked_Time_Series/Visual_Cortex_1/${h}/${s}
 done
 
 mkdir -p ${mask_path}/Masked_Time_Series/Auditory_Cortex/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Heschls_Gyrus/${s}/
 mkdir -p ${mask_path}/Masked_Time_Series/Planum_Temporale/${s}
 mkdir -p ${mask_path}/Masked_Time_Series/Medial_Geniculate_Body/${s}
+mkdir -p ${mask_path}/Masked_Time_Series/Visual_Cortex_1/${s}
 
 AC_path="${mask_path}/Masked_Time_Series/Auditory_Cortex"
 HG_path="${mask_path}/Masked_Time_Series/Heschls_Gyrus"
 PT_path="${mask_path}/Masked_Time_Series/Planum_Temporale"
 MGB_path="${mask_path}/Masked_Time_Series/Medial_Geniculate_Body"
+V1_path="${mask_path}/Masked_Time_Series/Visual_Cortex_1"
+
 
 
 for c in ${cond[@]}; do
@@ -40,6 +44,7 @@ fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.
 
 fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${MGB_path}/${s}/${s}-${c}-psc-Rtf-MGB.nii.gz
 
+fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${V1_path}/${s}/${s}-${c}-psc-Rtf-V1.nii.gz
 
 # For the wide filtered functional time series
 
@@ -50,6 +55,8 @@ fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz
 fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${PT_path}/${s}/${s}-${c}-psc-Wtf-PT.nii.gz
 
 fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${MGB_path}/${s}/${s}-${c}-psc-Wtf-MGB.nii.gz
+
+fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${V1_path}/${s}/${s}-${c}-psc-Wtf-V1.nii.gz
 
  done
 
@@ -64,7 +71,8 @@ for c in ${cond[@]}; do
     fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h}.nii.gz ${PT_path}/${h}/${s}/${s}-${c}-psc-Rtf-PT-${h}.nii.gz
         
     fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h}.nii.gz ${MGB_path}/${h}/${s}/${s}-${c}-psc-Rtf-MGB-${h}.nii.gz
-     
+    
+    fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h}.nii.gz ${V1_path}/${h}/${s}/${s}-${c}-psc-Rtf-V1-${h}.nii.gz
      
     # For the wide temporally filtered image
     fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-${h}.nii.gz ${AC_path}/${h}/${s}/${s}-${c}-psc-Wtf-AC-${h}.nii.gz
@@ -74,6 +82,8 @@ for c in ${cond[@]}; do
     fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h}.nii.gz ${PT_path}/${h}/${s}/${s}-${c}-psc-Wtf-PT-${h}.nii.gz
         
     fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h}.nii.gz ${MGB_path}/${h}/${s}/${s}-${c}-psc-Wtf-MGB-${h}.nii.gz
+    
+    fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h}.nii.gz ${V1_path}/${h}/${s}/${s}-${c}-psc-Wtf-V1-${h}.nii.gz
  
     done
 done
