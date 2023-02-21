@@ -105,7 +105,7 @@ for c in ${cond[@]}; do
     #Flirt using the mean image, which was created earlier, prior to temporal filtering
     # interpolation -> by nearest neighbour (as registering a functional image with large voxels, to the structural image (stops image looking smoothed)
     # cost function -> mutal information (whilst this takes longer, when tested it performed better than the other cost functions)
-    mkdir ${vol_path}/Smoothed/${s}
+    mkdir -p ${vol_path}/Smoothed/${s}
     
     flirt -in ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz \
     -ref ${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \

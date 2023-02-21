@@ -32,5 +32,5 @@ fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Registration/${s}/${s}-a
 
 
 # For the SMOOTHED IMAGE
-echo "Use FSLeyes to check the reslicing of the functional time series to MNI space"
-fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Registration/${s}/${s}-as-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-ns-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-vs-func2mni.nii.gz &
+echo "Use FSLeyes to check the reslicing of the SMOOTHED functional time series to MNI space"
+fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Smoothed/$s/${s}-as-SM-func2mni.nii.gz ${vol_path}/Smoothed/$s/${s}-ns-SM-func2mni.nii.gz ${vol_path}/Smoothed/$s/${s}-vs-SM-func2mni.nii.gz &
