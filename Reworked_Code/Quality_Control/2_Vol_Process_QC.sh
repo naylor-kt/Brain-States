@@ -21,10 +21,16 @@ fsleyes ${data_path}/RawData/${s}/anat/${s}_T1w.nii.gz ${vol_path}/Registration/
 echo "Use FSLeyes to check the reslicing of T1 to MNI space"
 fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Registration/${s}/${s}-struct2mni.nii.gz &
 
+#For the UNSMOOTHED IMAGE
 
 # Check the reslicing of the functional time series to MNI space
     # Load the images into fsleyes
     # Change the colour (Hot), contrast (-10, 20) and opacity of the resliced functional time series
     # Play the movie of the functional timeseries to check the reslicing of each volume to MNI space
+echo "Use FSLeyes to check the reslicing of the functional time series to MNI space"
+fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Registration/${s}/${s}-as-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-ns-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-vs-func2mni.nii.gz &
+
+
+# For the SMOOTHED IMAGE
 echo "Use FSLeyes to check the reslicing of the functional time series to MNI space"
 fsleyes $FSLDIR/data/standard/MNI152_T1_2mm ${vol_path}/Registration/${s}/${s}-as-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-ns-func2mni.nii.gz ${vol_path}/Registration/${s}/${s}-vs-func2mni.nii.gz &

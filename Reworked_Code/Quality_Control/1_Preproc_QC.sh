@@ -4,6 +4,7 @@
 data_path="$HOME/BrainStates"
 preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"
+preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
 
 
 subj=(sub-02) # Set the subject you want to check
@@ -141,8 +142,57 @@ for s in ${subj[@]}; do
     # Check that the signal has been filtered between the desired frequencies
 
 for c in ${cond[@]}; do
-    echo "Use FSLeyes to check to check the Temporal Filtering"
+    echo "Use FSLeyes to check the Temporal Filtering"
     fsleyes ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz &
+done
+
+done
+
+
+######################################### Use FSL EYES to check the spatial smoothing ###############################################################
+
+for s in ${subj[@]}; do
+# Check the spatial smoothing
+    # Compare the smoothed and unsmoothed image
+    # Make sure the contrast are set to the same to be able to see the difference
+
+for c in ${cond[@]}; do
+    echo "Use FSLeyes to check Spatial Smoothing"
+    fsleyes ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz ${preproc_path1}/$s/${s}-${c}-preproc.nii.gz &
+done
+
+done
+
+
+########## Check the conversion to percentage signal change ###############
+
+for s in ${subj[@]}; do
+# Check the conversion of the data into percentage signal change
+    # Open the preproc and percentage signal change images in fsleyes
+    # Use the view option and select time series
+    # Select the preproc image, and use the drop down menu to select percent changed, and then the plus button to add to the axis below
+    # Deselect the preproc image, and now select the psc image
+    # Use the drop down menu to select the normal -no scaling option
+    # Press the add button
+    # Check that these lines completely overlap
+
+for c in ${cond[@]}; do
+    echo "Use FSLeyes to check the conversion to Percentage Signal Change"
+    fsleyes ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz &
+done
+done
+
+
+########### Check the temporal filtering ################
+for s in ${subj[@]}; do
+# Check the temporal filtering
+    # Open the psc and temporally filtered images in fsleyes
+    # Select the power spectra view
+    # Check that the signal has been filtered between the desired frequencies
+
+for c in ${cond[@]}; do
+    echo "Use FSLeyes to check the Temporal Filtering"
+    fsleyes ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz ${preproc_path2S}/Temporally_Filtered/Wide/${s}/${s}-${c}-SM-psc-Wtf.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz &
 done
 
 done

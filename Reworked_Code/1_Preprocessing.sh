@@ -10,11 +10,11 @@ cond=(as ns vs)
 # Make directories for the preprocessing files
     mkdir -p ${data_path}/Preproc/Level_1/$s
     mkdir -p $HOME/BrainStates/Preproc/Level_2/
-    mkdir -p $HOME/BrainStates/Preproc/Level_3/
+    mkdir -p $HOME/BrainStates/Preproc/Level_2_Smoothed/
     
     preproc_path1="$HOME/BrainStates/Preproc/Level_1"
     preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-    preproc_path3="$HOME/BrainStates/Preproc/Level_3"
+    preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
     
 #Remove the first 10 volumes from each image
   for c in ${cond[@]}; do
@@ -173,6 +173,7 @@ for c in ${cond[@]}; do
     bet ${preproc_path1}/$s/Level_1_Mean/${s}-${c}_mean_func.nii.gz ${preproc_path1}/$s/Level_1_Mean/bet/${s}-${c}_mean_func_bet -f 0.25 -m
 done
 
+############################################################################################################################################################
 # LEVEL 2 OF THE PREPROCESSING
 
 # Convert the signal into PERCENTAGE SIGNAL CHANGE
@@ -240,60 +241,102 @@ for c in ${cond[@]}; do
 
 done
 
-# LEVEL 3 OF PREPROCESSING
+#######################################################################################################################################
+# LEVEL 2S OF PREPROCESSING
 
 # SPATIALLY SMOOTHE the function restricted filtered image
+for c in ${cond[@]}; do
+    mkdir -p ${preproc_path2S}/Smoothed/${s}
 
-# mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}
+    # Spatial Smoothing
+    # fwhm = 5  2.5 seemed insufficient
+    fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
 
-# for c in ${cond[@]}; do
+    susan ${preproc_path1}/$s/${s}-${c}-preproc.nii.gz -1 $sigma 3 1 1 ${preproc_path1}/$s/Level_1_Mean/${s}-${c}_mean_func.nii.gz -1 ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM
 
-     # fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
-     
-     # susan ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz -1 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed
-    
-     # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 -odt char
-     
-     # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -mas ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0 ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz
+    fslmaths ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -Tmin -bin  ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM-mask0 -odt char
 
-    # imrm ${preproc_path3}/Restricted_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed-mask0
+    fslmaths ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -mas ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM-mask0 ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz
 
-# done
+    imrm ${preproc_path2S}/Smoothed/${s}/*usan_size.nii.gz
+    imrm ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM-mask0
+done
 
-# Take the MEAN of the functional restricted filtered and smoothed image
-   # mkdir -p ${preproc_path3}/Restricted_Smoothed/${s}/Mean
+# Take the mean of the smoothed functional time series
+mkdir -p ${preproc_path2S}/Smoothed/${s}/Mean
 
-# for c in ${cond[@]}; do
+for c in ${cond[@]}; do
     #Take the mean of the functional image
-    # fslmaths ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed.nii.gz -Tmean ${preproc_path3}/Restricted_Smoothed/${s}/${s}-${c}-psc_Rtf_smoothed_mean.nii.gz
-
-# done
-
-# SPATIALLY SMOOTHE the function Wide filtered image
-
-# mkdir -p ${preproc_path3}/Wide_Smoothed/${s}
-
-# for c in ${cond[@]}; do
-
-     # fwhm=5; sigma=$(bc -l <<< "$fwhm/(2*sqrt(2*l(2)))")
-     
-     # susan ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -1 $sigma 3 1 1 ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean.nii.gz -1 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed
+    fslmaths ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -Tmean ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz
     
-     # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmin -bin  ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 -odt char
-     
-     # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -mas ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0 ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz
+    #Brain extract the image
+    bet ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean_bet -f 0.25 -m
+done
 
-    # imrm ${preproc_path3}/Wide_Smoothed/${s}/*usan_size.nii.gz ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed-mask0
 
-# done
+# Convert the signal into PERCENTAGE SIGNAL CHANGE
+    for c in ${cond[@]}; do
+        mkdir -p ${preproc_path2S}/Percent_Signal_Change/${s}
 
-# Take the MEAN of the functional wide filtered and smoothed image
-   # mkdir -p ${preproc_path3}/Wide_Smoothed/${s}/Mean
+        # functional image - mean functional image = (func-mean)
+        fslmaths ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -sub ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz
 
-# for c in ${cond[@]}; do
+        # (func-mean)/mean =psc
+        fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -div ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz
+
+        # psc * 100
+        fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -mul 100 ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz
+
+        # apply the brain mask to the psc image
+        fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -mas ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean_bet.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz
+    done
+
+# Perform the TEMPORAL FILTERING of the smoothed signal
+# Two separate strands a) Filtering 0.01-0.1 Hz b) Filtering 0-0.25 Hz
+
+    # Line --> sets the repetition time from the file header, using fslhd with grep, pixdim4 is the repetiion time variable
+        # if using z-shell tr=${line[2]}, if using bash tr=${line[1]}
+    # thp -> temporal high pass, expressed as time as multiple of repetition time * 2
+    # tlp -> temporal low pass, expressed as time as multiple of repetition time * 2
+    
+# Restricted Refers to the fitlering at 0.01 to 0.1 Hz
+
+mkdir -p ${preproc_path2S}/Temporally_Filtered/Restricted/${s}
+
+for c in ${cond[@]}; do
+    line=($(fslhd ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=$(bc -l <<< "100/($tr*2)"); tlp=$(bc -l <<< "10/($tr*2)")
+
+    fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -bptf $thp $tlp ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz
+done
+
+# Take the MEAN of the functional restricted filtered image
+    mkdir -p ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/Mean
+
+for c in ${cond[@]}; do
     #Take the mean of the functional image
-    # fslmaths ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed.nii.gz -Tmean ${preproc_path3}/Wide_Smoothed/${s}/${s}-${c}-psc_Wtf_smoothed_mean.nii.gz
-# done
+    fslmaths ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz -Tmean ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}-SM-psc-Rtf-mean.nii.gz
+done
+
+# Wide Refers to the filtering at 0 to 0.25 Hz
+
+mkdir -p ${preproc_path2S}/Temporally_Filtered/Wide/${s}
+
+for c in ${cond[@]}; do
+    line=($(fslhd ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz | grep pixdim4)); tr=${line[1]}; thp=(-1); tlp=$(bc -l <<< "4/($tr*2)")
+
+    fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -bptf $thp $tlp ${preproc_path2S}/Temporally_Filtered/Wide/${s}/${s}-${c}-SM-psc-Wtf.nii.gz
+        
+done
+
+# Take the MEAN of the functional wide filtered image
+    mkdir -p ${preproc_path2S}/Temporally_Filtered/Wide/${s}/Mean
+
+for c in ${cond[@]}; do
+    #Take the mean of the functional image
+    fslmaths ${preproc_path2S}/Temporally_Filtered/Wide/${s}/${s}-${c}-SM-psc-Wtf.nii.gz -Tmean ${preproc_path2S}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}-SM-psc-Wtf-mean.nii.gz
+
+done
+
 
 }
 

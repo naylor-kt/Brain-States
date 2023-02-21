@@ -7,8 +7,9 @@ mkdir -p $HOME/BrainStates_Test/Volumetric
 
 data_path="$HOME/BrainStates";s=$1
 
+preproc_path1="$HOME/BrainStates/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path3="$HOME/BrainStates/Preproc/Level_3"
+preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
 vol_path="$HOME/BrainStates/Volumetric"
 
 #Array of conditions
@@ -63,6 +64,8 @@ cond=(as ns vs)
             --out=${vol_path}/Registration/Inverse/$s/${s}-mni2struct_warp \
             --ref=${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz
 
+# For the non-spatially smoothed functional time series
+
 for c in ${cond[@]}; do
   
   #REGISTRATION OF THE MEAN FUNCTIONAL RESTRICTED TEMPORALLY FILTERED IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
@@ -71,7 +74,7 @@ for c in ${cond[@]}; do
     # interpolation -> by nearest neighbour (as registering a functional image with large voxels, to the structural image (stops image looking smoothed)
     # cost function -> mutal information (whilst this takes longer, when tested it performed better than the other cost functions)
     
-    flirt -in ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz \
+    flirt -in ${preproc_path1}/$s/Level_1_Mean/${s}-${c}_mean_func.nii.gz \
     -ref ${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
     -omat ${vol_path}/Registration/$s/${s}-${c}-meanfunc2struct.mat \
     -interp nearestneighbour \
@@ -92,6 +95,40 @@ for c in ${cond[@]}; do
    
 done
 
+###############################################
+# For the spatially smoothed functional time series
+
+for c in ${cond[@]}; do
+  
+  #REGISTRATION OF THE MEAN FUNCTIONAL RESTRICTED TEMPORALLY FILTERED IMAGE TO THE STRUCTURAL T1 IMAGE, with 6 DOF
+  
+    #Flirt using the mean image, which was created earlier, prior to temporal filtering
+    # interpolation -> by nearest neighbour (as registering a functional image with large voxels, to the structural image (stops image looking smoothed)
+    # cost function -> mutal information (whilst this takes longer, when tested it performed better than the other cost functions)
+    mkdir ${vol_path}/Smoothed/${s}
+    
+    flirt -in ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean.nii.gz \
+    -ref ${vol_path}/Registration/$s/Struct/${s}_crop_struct.nii.gz \
+    -omat ${vol_path}/Smoothed/$s/${s}-${c}-SM-meanfunc2struct.mat \
+    -interp nearestneighbour \
+    -out ${vol_path}/Smoothed/$s/${s}-${c}-SM-meanfunc2struct.nii.gz \
+    -cost mutualinfo \
+    -dof 6
+  
+  # Create the inverse of the mat file
+  mkdir -p ${vol_path}/Smoothed/Inverse/${s}
+
+    convert_xfm -omat ${vol_path}/Smoothed/Inverse/$s/${s}-${c}-struct2_SM_meanfunc.mat -inverse ${vol_path}/Smoothed/$s/${s}-${c}-SM-meanfunc2struct.mat
+    
+ # APPLY THE WARP FIELDS TO TRANSFORM THE FUNCTIONAL TIMESERIES FROM NATIVE TO STANDARD (MNI-152) SPACE
+   applywarp --ref=${FSLDIR}/data/standard/MNI152_T1_2mm \
+   --in=${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz \
+   --warp=${vol_path}/Registration/$s/${s}-struct2mni_warp \
+   --premat=${vol_path}/Smoothed/$s/${s}-${c}-SM-meanfunc2struct.mat \
+   --interp=nn \
+   --out=${vol_path}/Smoothed/$s/${s}-${c}-SM-func2mni.nii.gz
+   
+done
 }
 
 # Exports the function
