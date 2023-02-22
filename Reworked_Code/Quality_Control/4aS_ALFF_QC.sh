@@ -16,12 +16,6 @@ for c in ${cond[@]};do
     fslstats -t ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-SM-ALFF -r
 done
 
-# Check the values of the Whole Brain fALFF - should all be between 0 and 1
-
-for c in ${cond[@]};do
-    fslstats -t ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -r
-done
-
 # Check the values of the masked ALFF and fALFF
   #ALFF
     # ALFF for AC, 1) bilateral 2) left 3) right
@@ -76,6 +70,14 @@ done
    
    
   #fALFF
+  
+  # Check the values of the Whole Brain fALFF - should all be between 0 and 1
+
+for c in ${cond[@]};do
+    fslstats -t ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -r
+done
+
+  
     # fALFF for AC, 1) bilateral 2) left 3) right
     for c in ${cond[@]};do
         echo "fALFF ${s}-${c} in the bilateral AC"
