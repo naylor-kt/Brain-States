@@ -3,8 +3,8 @@ cond=(as ns vs)
 region=(AC HG PT MGB V1)
 
 preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
-analysis_path="$HOME/BrainStates_Test/Analysis/"
-alt_analysis_path="$HOME/BrainStates_Test/Alternative_Analysis/"
+analysis_path="$HOME/BrainStates_Test/Analysis"
+alt_analysis_path="$HOME/BrainStates_Test/Alternative_Analysis"
 
 MTS_path="$HOME/BrainStates_Test/Mean_Time_Series"
 mask_path="$HOME/BrainStates_Test/Mask"
@@ -191,8 +191,8 @@ done
 done
 
 
-analysis_path="$HOME/BrainStates_Test/Analysis/"
-alt_analysis_path="$HOME/BrainStates_Test/Alternative_Analysis/"
+analysis_path="$HOME/BrainStates_Test/Analysis"
+alt_analysis_path="$HOME/BrainStates_Test/Alternative_Analysis"
 cond=(as ns vs)
 
 
@@ -200,70 +200,70 @@ cond=(as ns vs)
 
 for c in ${cond[@]}; do
 echo "${c} Whole Brain ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Whole_Brain/allsubs-${c}-meanALFF.txt ${alt_analysis_path}/ALFF/Whole_Brain/allsubs-${c}-MTS-ALFF.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Whole_Brain/allsubs-${c}-meanALFF.txt ${alt_analysis_path}/ALFF/Whole_Brain/allsubs-${c}-MTS-ALFF.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Auditory Cortex ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Auditory_Cortex/allsubs-${c}-meanALFF-AC.txt ${alt_analysis_path}/ALFF/AC/allsubs-${c}-MTS-ALFF-AC.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Auditory_Cortex/allsubs-${c}-meanALFF-AC.txt ${alt_analysis_path}/ALFF/AC/allsubs-${c}-MTS-ALFF-AC.txt | column -s $'\t' -t
 done
 
 for c in ${cond[@]}; do
 echo "${c} Heschel's Gyrus ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Heschls_Gyrus/allsubs-${c}-meanALFF-HG.txt ${alt_analysis_path}/ALFF/HG/allsubs-${c}-MTS-ALFF-HG.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Heschls_Gyrus/allsubs-${c}-meanALFF-HG.txt ${alt_analysis_path}/ALFF/HG/allsubs-${c}-MTS-ALFF-HG.txt | column -s $'\t' -t
 done
 
 for c in ${cond[@]}; do
 echo "${c} Planum Temporale ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Planum_Temporale/allsubs-${c}-meanALFF-PT.txt ${alt_analysis_path}/ALFF/PT/allsubs-${c}-MTS-ALFF-PT.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Planum_Temporale/allsubs-${c}-meanALFF-PT.txt ${alt_analysis_path}/ALFF/PT/allsubs-${c}-MTS-ALFF-PT.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Medial Geniculate Body ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Medial_Geniculate_Body/allsubs-${c}-meanALFF-MGB.txt ${alt_analysis_path}/ALFF/MGB/allsubs-${c}-MTS-ALFF-MGB.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Medial_Geniculate_Body/allsubs-${c}-meanALFF-MGB.txt ${alt_analysis_path}/ALFF/MGB/allsubs-${c}-MTS-ALFF-MGB.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Primary Visual Cortex ALFF-->Mean VS Mean-->ALFF"
-${analysis_path}/ALFF/Visual_Cortex_1/allsubs-${c}-meanALFF-V1.txt ${alt_analysis_path}/ALFF/V1/allsubs-${c}-MTS-ALFF-V1.txt | column -s $'\t' -t
+paste ${analysis_path}/ALFF/Visual_Cortex_1/allsubs-${c}-meanALFF-V1.txt ${alt_analysis_path}/ALFF/V1/allsubs-${c}-MTS-ALFF-V1.txt | column -s $'\t' -t
 done
 
 #### Clearly show the difference between the two versions of calculating fALFF
 
 for c in ${cond[@]}; do
 echo "${c} Whole Brain fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Whole_Brain/allsubs-${c}-meanfALFF.txt ${alt_analysis_path}/fALFF/Whole_Brain/allsubs-${c}-MTS-fALFF.txt | column -s $'\t' -t
+paste ${analysis_path}/fALFF/Whole_Brain/allsubs-${c}-meanfALFF.txt ${alt_analysis_path}/fALFF/Whole_Brain/allsubs-${c}-MTS-fALFF.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Auditory Cortex fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Auditory_Cortex/allsubs-${c}-meanfALFF-AC.txt ${alt_analysis_path}/fALFF/AC/allsubs-${c}-MTS-fALFF-AC.txt | column -s $'\t' -t
+paste ${analysis_path}/fALFF/Auditory_Cortex/allsubs-${c}-meanfALFF-AC.txt ${alt_analysis_path}/fALFF/AC/allsubs-${c}-MTS-fALFF-AC.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Heschel's Gyrus fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Heschls_Gyrus/allsubs-${c}-meanfALFF-HG.txt ${alt_analysis_path}/fALFF/HG/allsubs-${c}-MTS-fALFF-HG.txt | column -s $'\t' -t
+paste ${analysis_path}/fALFF/Heschls_Gyrus/allsubs-${c}-meanfALFF-HG.txt ${alt_analysis_path}/fALFF/HG/allsubs-${c}-MTS-fALFF-HG.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "${c} Planum Temporale fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Planum_Temporale/allsubs-${c}-meanfALFF-PT.txt ${alt_analysis_path}/fALFF/PT/allsubs-${c}-MTS-fALFF-PT.txt | column -s $'\t' -t
+paste ${analysis_path}/fALFF/Planum_Temporale/allsubs-${c}-meanfALFF-PT.txt ${alt_analysis_path}/fALFF/PT/allsubs-${c}-MTS-fALFF-PT.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "Medial Geniculate fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Medial_Geniculate_Body/allsubs-${c}-meanfALFF-MGB.txt ${alt_analysis_path}/fALFF/MGB/allsubs-${c}-MTS-fALFF-MGB.txt | column -s $'\t' -t
+paste ${analysis_path}/fALFF/Medial_Geniculate_Body/allsubs-${c}-meanfALFF-MGB.txt ${alt_analysis_path}/fALFF/MGB/allsubs-${c}-MTS-fALFF-MGB.txt | column -s $'\t' -t
 done
 
 
 for c in ${cond[@]}; do
 echo "Primary Visual Cortex fALFF-->Mean VS Mean-->fALFF"
-${analysis_path}/fALFF/Visual_Cortex_1/allsubs-${c}-meanfALFF-V1.txt ${alt_analysis_path}/fALFF/V1/allsubs-${c}-MTS-fALFF-V1.txt | column -s $'\t' -t
-done 
+paste ${analysis_path}/fALFF/Visual_Cortex_1/allsubs-${c}-meanfALFF-V1.txt ${alt_analysis_path}/fALFF/V1/allsubs-${c}-MTS-fALFF-V1.txt | column -s $'\t' -t
+done
