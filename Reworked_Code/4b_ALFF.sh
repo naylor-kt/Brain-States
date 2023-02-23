@@ -34,7 +34,7 @@ for c in ${cond[@]}; do
 
     cat ${alt_analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-MTS-ALFF.txt ${alt_analysis_path}/fALFF/Whole_Brain/${s}/Wide_SD/${s}-${c}-MTS-Wtf-SD.txt > ${alt_analysis_path}/fALFF/Whole_Brain/${s}/Calculation/${s}-${c}-fALFF-calc.txt
 
-    awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/Whole_Brain/${s}/Calculation/${s}-${c}-fALFF-calc.txt > ${alt_analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF.txt
+    awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/Whole_Brain/${s}/Calculation/${s}-${c}-fALFF-calc.txt > ${alt_analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-MTS-fALFF.txt
 done
 
 ########################### Repeat for the masked ROIs ##############################
@@ -60,7 +60,7 @@ for r in ${region[@]}; do
 
         cat ${alt_analysis_path}/ALFF/${r}/${s}/${s}-${c}-MTS-ALFF-${r}.txt ${alt_analysis_path}/fALFF/${r}/${s}/Wide_SD/${s}-${c}-MTS-Wtf-SD-${r}.txt > ${alt_analysis_path}/fALFF/${r}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}.txt
 
-        awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/${r}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}.txt > ${alt_analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}.txt
+        awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/${r}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}.txt > ${alt_analysis_path}/fALFF/${r}/${s}/${s}-${c}-MTS-fALFF-${r}.txt
     done
 
             ###### Repeat for the ROI in each hemisphere individually
@@ -82,7 +82,7 @@ for r in ${region[@]}; do
 
                 cat ${alt_analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-MTS-ALFF-${r}-${h}.txt ${alt_analysis_path}/fALFF/${r}/${h}/${s}/Wide_SD/${s}-${c}-MTS-Wtf-SD-${r}.txt > ${alt_analysis_path}/fALFF/${r}/${h}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}-${h}.txt
 
-                awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/${r}/${h}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}-${h}.txt > ${alt_analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}.txt
+                awk 'NR==1{a=$0} NR==2{b=$1} END {print a/b}' ${alt_analysis_path}/fALFF/${r}/${h}/${s}/Calculation/${s}-${c}-fALFF-calc-${r}-${h}.txt > ${alt_analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-MTS-fALFF-${r}-${h}.txt
             done
         done
 done

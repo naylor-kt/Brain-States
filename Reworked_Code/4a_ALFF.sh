@@ -8,7 +8,7 @@ mkdir -p $HOME/BrainStates/Analysis/Analysis1_Mask2
 
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
-preproc_path3="$HOME/BrainStates_Test/Preproc/Level_3"
+preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
 analysis_path="$HOME/BrainStates_Test/Analysis/"
 mask_path="$HOME/BrainStates_Test/Mask"
 
