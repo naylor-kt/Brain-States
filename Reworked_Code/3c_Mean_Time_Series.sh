@@ -18,14 +18,14 @@ cond=(as ns vs)
 # To get the mean time series for the entire brain for the restricted and wide temporally filtered functional time series
 for c in ${cond[@]}; do
 fslmeants -i ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
-          -o ${MTS_path}/Unsmoothed/Restricted/Whole_Brain/${s}/${s}-${c}-psc-Rtf-MTS.txt \
+          -o ${MTS_path}/Unsmoothed/Restricted/Whole_Brain/${s}/${s}-${c}-psc-Rtf-MTS.txt 
         
 fslmeants -i ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
           -o ${MTS_path}/Unsmoothed/Wide/Whole_Brain/${s}/${s}-${c}-psc-Wtf-MTS.txt
 done
 
 # Get the mean time series for the different brain regions for the restricted and wide temporally filtered functional time series
-region=(AC HG PT MGB V1)
+region=(AC HG PT MGB V1 Thal)
 hemi=(lh rh)
 
 for r in ${region[@]}; do

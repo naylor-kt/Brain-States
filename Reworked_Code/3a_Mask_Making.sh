@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Extract the regions of interest from the Oxford-Harvard Atlas
-data_path="$HOME/BrainStates"
+data_path="$HOME/BrainStates_Test"
 
 mkdir -p ${data_path}/Mask/Extracted_Region/
-mask_path="$HOME/BrainStates/Mask"
+mask_path="$HOME/BrainStates_Test/Mask"
 
 # Extract region Herschels Gyrus from the Harvard-Oxford Atlas
 fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-cort-prob-1mm ${mask_path}/Extracted_Region/HarvOx-HGprob 44 1
@@ -44,14 +44,19 @@ fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extract
 fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-V1-rh 81 1
 
 
+# Extract region Thalamus from the Harvard-Oxford Atlas
+fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/lh/HarvOx-Thalprob-lh 3 1
+
+fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/rh/HarvOx-Thalprob-rh 14 1
+
 
 #Create a parallel function to enable the reslicing back to the subject specific spaces
 
 make_mask () {
-data_path="$HOME/BrainStates";s=$1
-mask_path="$HOME/BrainStates/Mask"
-preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-vol_path="$HOME/BrainStates/Volumetric"
+data_path="$HOME/BrainStates_Test";s=$1
+mask_path="$HOME/BrainStates_Test/Mask"
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+vol_path="$HOME/BrainStates_Test/Volumetric"
 
 mkdir -p ${mask_path}/T1_Mask/${s}
 mkdir -p ${mask_path}/Func_Mask/${s}
@@ -171,6 +176,33 @@ for c in ${cond[@]}; do
 fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_V1mask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_V1mask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func
 done
 
+######################################################################################################
+# Repeat the process to make a mask of Thalamus from the Harvard-Oxford Brain Atlas
+
+for h in ${hemi[@]}; do
+      mkdir -p ${mask_path}/T1_Mask/${h}/${s}
+      mkdir -p ${mask_path}/Func_Mask/${h}/${s}
+
+    # V1 mask to T1 subject specific space
+      applywarp --in=${mask_path}/Extracted_Region/${h}/HarvOx-Thalprob-${h} \
+                --ref=${vol_path}/Registration/${s}/Struct/${s}_crop_struct.nii.gz \
+                --out=${mask_path}/T1_Mask/${h}/${s}/${s}_Thalmask2T1-${h} \
+                --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp
+
+    # V1 mask to subject specific functional space
+        for c in ${cond[@]}; do
+                applywarp --in=${mask_path}/Extracted_Region/${h}/HarvOx-Thalprob-${h} \
+                          --ref=${preproc_path1}/${s}/Level_1_Mean/${s}-${c}_mean_func.nii.gz \
+                          --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
+                          --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
+                          --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_Thalmask2func-${h}
+        done
+    done
+
+#Produce a conjunction of the masks to create a bilateral mask of the V1
+for c in ${cond[@]}; do
+fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_Thalmask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_Thalmask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_Thalmask2func
+done
 
 }
 

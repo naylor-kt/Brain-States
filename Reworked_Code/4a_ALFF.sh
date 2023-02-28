@@ -4,8 +4,6 @@ ALFF () {
 
 data_path="$HOME/BrainStates_Test";s=$1
 
-mkdir -p $HOME/BrainStates/Analysis/Analysis1_Mask2
-
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
@@ -14,6 +12,8 @@ mask_path="$HOME/BrainStates_Test/Mask"
 
 cond=(as ns vs)
 hemi=(lh rh)
+region=(AC HG PT MGB V1 Thal)
+
 
 #Calculation of ALFF
 
@@ -23,7 +23,7 @@ for c in ${cond[@]}; do
         
    fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tstd ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF
    
-   fslstats ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -m > ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-meanALFF.txt
+      fslstats ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -M > ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-meanALFF.txt
 done
 
 # Calculation of fALFF
@@ -39,143 +39,69 @@ for c in ${cond[@]}; do
         
     fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -div ${analysis_path}/fALFF/Whole_Brain/${s}/Wide_Filtered_SD/${s}-${c}-Wtf-SD.nii.gz ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF.nii.gz
 
-   fslstats ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -m > ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-meanfALFF.txt
+   fslstats ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -M > ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-meanfALFF.txt
 done
 
 
 # Masked ALFF for the auditory cortex regions
-mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${s}/
-mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${s}/
-mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${s}/
-mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/
-mkdir -p ${analysis_path}/ALFF/Visual_Cortex_1/${s}/
+for r in ${region[@]}; do
+    mkdir -p ${analysis_path}/ALFF/${r}/${s}/
+   
+    for c in ${cond[@]}; do
 
-for c in ${cond[@]}; do
+    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r}
 
-fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_ACmask2func ${analysis_path}/ALFF/Auditory_Cortex/${s}/${s}-${c}-ALFF-AC
-
-fslstats ${analysis_path}/ALFF/Auditory_Cortex/${s}/${s}-${c}-ALFF-AC -m > ${analysis_path}/ALFF/Auditory_Cortex/${s}/${s}-${c}-meanALFF-AC.txt
-
-fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_HGmask2func ${analysis_path}/ALFF/Heschls_Gyrus/${s}/${s}-${c}-ALFF-HG
-
-fslstats ${analysis_path}/ALFF/Heschls_Gyrus/${s}/${s}-${c}-ALFF-HG -m > ${analysis_path}/ALFF/Heschls_Gyrus/${s}/${s}-${c}-meanALFF-HG.txt
-
-fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT
-
-fslstats ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-ALFF-PT -m > ${analysis_path}/ALFF/Planum_Temporale/${s}/${s}-${c}-meanALFF-PT.txt
-
-fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB
-
-fslstats ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-ALFF-MGB -m > ${analysis_path}/ALFF/Medial_Geniculate_Body/${s}/${s}-${c}-meanALFF-MGB.txt
-
-fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1
-
-fslstats ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-ALFF-V1 -m > ${analysis_path}/ALFF/Visual_Cortex_1/${s}/${s}-${c}-meanALFF-V1.txt
+    fslstats ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r} -M > ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-meanALFF-${r}.txt
+    done
 done
 
 # Masked ALFF for the auditory cortex regions (lh or rh)
 
-for h in ${hemi[@]}; do
-
-    mkdir -p ${analysis_path}/ALFF/Auditory_Cortex/${h}/${s}/
-    mkdir -p ${analysis_path}/ALFF/Heschls_Gyrus/${h}/${s}/
-    mkdir -p ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/
-    mkdir -p ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/
-    mkdir -p ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/
+for r in ${region[@]}; do
+    for h in ${hemi[@]}; do
+    mkdir -p ${analysis_path}/ALFF/${r}/${h}/${s}/
     
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-${h} ${analysis_path}/ALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-ALFF-AC-${h}
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h}
         
-        fslstats ${analysis_path}/ALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-ALFF-AC-${h} -m > ${analysis_path}/ALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-meanALFF-AC-${h}.txt
+        fslstats ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h} -M > ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-meanALFF-${r}-${h}.txt
 
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_HGmask2func-${h} ${analysis_path}/ALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-ALFF-HG-${h}
-        
-        fslstats ${analysis_path}/ALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-ALFF-HG-${h} -m > ${analysis_path}/ALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-meanALFF-HG-${h}.txt
-
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h} ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/${s}-${c}-ALFF-PT-${h}
-        
-        fslstats ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/${s}-${c}-ALFF-PT-${h} -m > ${analysis_path}/ALFF/Planum_Temporale/${h}/${s}/${s}-${c}-meanALFF-PT-${h}.txt
-        
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h} ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-ALFF-MGB-${h}
-        
-        fslstats ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-ALFF-MGB-${h} -m > ${analysis_path}/ALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-meanALFF-MGB-${h}.txt
-        
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h} ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-ALFF-V1-${h}
-        
-        fslstats ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-ALFF-V1-${h} -m > ${analysis_path}/ALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-meanALFF-V1-${h}.txt
-        
         done
-
+    done
 done
 
                               
 
 # Masked fALFF for the auditory cortex regions
-mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${s}/
-mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${s}/
-mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${s}/
-mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/
-mkdir -p ${analysis_path}/fALFF/Visual_Cortex_1/${s}/
 
-for c in ${cond[@]}; do
+for r in ${region[@]};do
+    mkdir -p ${analysis_path}/fALFF/${r}/${s}/
+    
+    for c in ${cond[@]}; do
 
-fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_ACmask2func ${analysis_path}/fALFF/Auditory_Cortex/${s}/${s}-${c}-fALFF-AC
+    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}
 
-fslstats ${analysis_path}/fALFF/Auditory_Cortex/${s}/${s}-${c}-fALFF-AC -m > ${analysis_path}/fALFF/Auditory_Cortex/${s}/${s}-${c}-meanfALFF-AC.txt
-
-fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_HGmask2func ${analysis_path}/fALFF/Heschls_Gyrus/${s}/${s}-${c}-fALFF-HG
-
-fslstats ${analysis_path}/fALFF/Heschls_Gyrus/${s}/${s}-${c}-fALFF-HG -m > ${analysis_path}/fALFF/Heschls_Gyrus/${s}/${s}-${c}-meanfALFF-HG.txt
-
-fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${analysis_path}/fALFF/Planum_Temporale/${s}/${s}-${c}-fALFF-PT
-
-fslstats ${analysis_path}/fALFF/Planum_Temporale/${s}/${s}-${c}-fALFF-PT -m > ${analysis_path}/fALFF/Planum_Temporale/${s}/${s}-${c}-meanfALFF-PT.txt
-
-fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-fALFF-MGB
-
-fslstats ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-fALFF-MGB -m > ${analysis_path}/fALFF/Medial_Geniculate_Body/${s}/${s}-${c}-meanfALFF-MGB.txt
-
-fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-fALFF-V1
-
-fslstats ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-fALFF-V1 -m > ${analysis_path}/fALFF/Visual_Cortex_1/${s}/${s}-${c}-meanfALFF-V1.txt
-
+    fslstats ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r} -M > ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-meanfALFF-${r}.txt
+    
+    done
 done
 
 # Masked fALFF for the auditory cortex regions (lh or rh)
 
-for h in ${hemi[@]}; do
-
-    mkdir -p ${analysis_path}/fALFF/Auditory_Cortex/${h}/${s}/
-    mkdir -p ${analysis_path}/fALFF/Heschls_Gyrus/${h}/${s}/
-    mkdir -p ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/
-    mkdir -p ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/
-    mkdir -p ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/
+for r in ${region[@]}; do
+    for h in ${hemi[@]}; do
+    
+    mkdir -p ${analysis_path}/fALFF/${r}/${h}/${s}/
 
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-${h} ${analysis_path}/fALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-fALFF-AC-${h}
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}
         
-        fslstats ${analysis_path}/fALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-fALFF-AC-${h} -m > ${analysis_path}/fALFF/Auditory_Cortex/${h}/${s}/${s}-${c}-meanfALFF-AC-${h}.txt
-
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_HGmask2func-${h} ${analysis_path}/fALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-fALFF-HG-${h}
-        
-        fslstats ${analysis_path}/fALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-fALFF-HG-${h} -m > ${analysis_path}/fALFF/Heschls_Gyrus/${h}/${s}/${s}-${c}-meanfALFF-HG-${h}.txt
-
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h} ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/${s}-${c}-fALFF-PT-${h}
-        
-        fslstats ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/${s}-${c}-fALFF-PT-${h} -m > ${analysis_path}/fALFF/Planum_Temporale/${h}/${s}/${s}-${c}-meanfALFF-PT-${h}.txt
-        
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h} ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-fALFF-MGB-${h}
-        
-        fslstats ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-fALFF-MGB-${h} -m > ${analysis_path}/fALFF/Medial_Geniculate_Body/${h}/${s}/${s}-${c}-meanfALFF-MGB-${h}.txt
-        
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h} ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-fALFF-V1-${h}
-        
-        fslstats ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-fALFF-V1-${h} -m > ${analysis_path}/fALFF/Visual_Cortex_1/${h}/${s}/${s}-${c}-meanfALFF-V1-${h}.txt
+        fslstats ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h} -M > ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-meanfALFF-${r}-${h}.txt
 
         done
-
+    done
 done
 
 }
