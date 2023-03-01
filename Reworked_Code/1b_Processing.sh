@@ -36,6 +36,13 @@ fslmaths ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz -mul 1
 fslmaths ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz -mas ${preproc_path1}/$s/Level_1_Mean/bet/${s}-${c}_mean_func_bet_mask.nii.gz ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz
 done
 
+#Take a mean
+for c in ${cond[@]}; do
+    #Take the mean of the functional image
+    fslmaths ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz -Tmean ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc-mean.nii.gz
+
+done
+
 # Perform the TEMPORAL FILTERING of the signal
 # Two separate strands a) Filtering 0.01-0.1 Hz b) Filtering 0-0.25 Hz
 
@@ -133,6 +140,13 @@ done
         # apply the brain mask to the psc image
         fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -mas ${preproc_path2S}/Smoothed/${s}/Mean/${s}-${c}-SM-mean_bet.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz
     done
+
+#Take a mean
+for c in ${cond[@]}; do
+    #Take the mean of the functional image
+    fslmaths ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -Tmean ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc-mean.nii.gz
+
+done
 
 # Perform the TEMPORAL FILTERING of the smoothed signal
 # Two separate strands a) Filtering 0.01-0.1 Hz b) Filtering 0-0.25 Hz

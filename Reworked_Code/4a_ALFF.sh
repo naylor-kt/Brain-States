@@ -49,7 +49,7 @@ for r in ${region[@]}; do
    
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r}
+    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r}
 
     fslstats ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r} -M > ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-meanALFF-${r}.txt
     done
@@ -63,7 +63,7 @@ for r in ${region[@]}; do
     
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h}
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h}
         
         fslstats ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h} -M > ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-meanALFF-${r}-${h}.txt
 
@@ -80,7 +80,7 @@ for r in ${region[@]};do
     
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}
+    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}
 
     fslstats ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r} -M > ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-meanfALFF-${r}.txt
     
@@ -96,7 +96,7 @@ for r in ${region[@]}; do
 
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}
         
         fslstats ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h} -M > ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-meanfALFF-${r}-${h}.txt
 

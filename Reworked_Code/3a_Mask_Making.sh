@@ -65,7 +65,6 @@ cond=(as ns vs)
 hemi=(lh rh)
 area=(HG PT)
 
-
 for a in ${area[@]}; do
 
 # Region to T1
@@ -82,6 +81,9 @@ for a in ${area[@]}; do
                       --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                       --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                       --out=${mask_path}/Func_Mask/${s}/${s}-${c}_${a}mask2func
+                      
+            fslmaths ${mask_path}/Func_Mask/${s}/${s}-${c}_${a}mask2func.nii.gz -thr 25 -bin ${mask_path}/Func_Mask/${s}/${s}-${c}_${a}mask2func-bin.nii.gz
+
         done
 
         # lh or rh to T1 and functional timeseries
@@ -101,19 +103,21 @@ for a in ${area[@]}; do
                               --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                               --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                               --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${a}mask2func-${h}
+                    
+                    fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${a}mask2func-${h}.nii.gz -thr 25 -bin ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${a}mask2func-bin-${h}.nii.gz
             done
         done
 done
 
 #Produce a conjunction of the masks
 for c in ${cond[@]}; do
-fslmaths ${mask_path}/Func_Mask/${s}/${s}-${c}_HGmask2func -max ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func ${mask_path}/Func_Mask/${s}/${s}-${c}_ACmask2func
+fslmaths ${mask_path}/Func_Mask/${s}/${s}-${c}_HGmask2func-bin -max ${mask_path}/Func_Mask/${s}/${s}-${c}_PTmask2func-bin ${mask_path}/Func_Mask/${s}/${s}-${c}_ACmask2func-bin
 done
 
 for h in ${hemi[@]}; do
 
     for c in ${cond[@]}; do
-    fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_HGmask2func-${h} -max ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-${h} ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-${h}
+    fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_HGmask2func-bin-${h} -max ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_PTmask2func-bin-${h} ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_ACmask2func-bin-${h}
     done
 
 done
@@ -140,12 +144,14 @@ for h in ${hemi[@]}; do
                           --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                           --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                           --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h}
+                
+                fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-${h}.nii.gz -thr 25 -bin ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_MGBmask2func-bin-${h}.nii.gz
         done
     done
 
 #Produce a conjunction of the masks to create a bilateral mask of the MGB
 for c in ${cond[@]}; do
-fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_MGBmask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_MGBmask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func
+fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_MGBmask2func-bin-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_MGBmask2func-bin-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_MGBmask2func-bin
 done
 
 ######################################################################################################
@@ -168,12 +174,15 @@ for h in ${hemi[@]}; do
                           --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                           --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                           --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h}
+                
+                fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-${h}.nii.gz -thr 25 -bin ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_V1mask2func-bin-${h}.nii.gz
+                
         done
     done
 
 #Produce a conjunction of the masks to create a bilateral mask of the V1
 for c in ${cond[@]}; do
-fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_V1mask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_V1mask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func
+fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_V1mask2func-bin-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_V1mask2func-bin-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_V1mask2func-bin
 done
 
 ######################################################################################################
@@ -196,12 +205,14 @@ for h in ${hemi[@]}; do
                           --warp=${vol_path}/Registration/Inverse/${s}/${s}-mni2struct_warp \
                           --postmat=${vol_path}/Registration/Inverse/${s}/${s}-${c}-struct2meanfunc.mat \
                           --out=${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_Thalmask2func-${h}
+                
+                fslmaths ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_Thalmask2func-${h}.nii.gz -thr 25 -bin ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_Thalmask2func-bin-${h}.nii.gz
         done
     done
 
 #Produce a conjunction of the masks to create a bilateral mask of the V1
 for c in ${cond[@]}; do
-fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_Thalmask2func-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_Thalmask2func-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_Thalmask2func
+fslmaths ${mask_path}/Func_Mask/lh/${s}/${s}-${c}_Thalmask2func-bin-lh -max ${mask_path}/Func_Mask/rh/${s}/${s}-${c}_Thalmask2func-bin-rh ${mask_path}/Func_Mask/${s}/${s}-${c}_Thalmask2func-bin
 done
 
 }
