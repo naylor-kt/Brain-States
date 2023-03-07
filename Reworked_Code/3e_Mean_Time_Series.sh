@@ -36,11 +36,11 @@ mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Wide/${r}/${s}
     for c in ${cond[@]}; do
     fslmeants -i ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
               -o ${MTS_path}/Unsmoothed/Restricted/${r}/${s}/${s}-${c}-psc-Rtf-MTS-${r}.txt \
-              -m ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin.nii.gz
+              -m ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin.nii.gz
 
     fslmeants -i ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
               -o ${MTS_path}/Unsmoothed/Wide/${r}/${s}/${s}-${c}-psc-Wtf-MTS-${r}.txt \
-              -m ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin.nii.gz
+              -m ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin.nii.gz
         
         for h in ${hemi[@]}; do
             mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Restricted/${r}/${h}/${s}
@@ -49,15 +49,52 @@ mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Wide/${r}/${s}
         
             fslmeants -i ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
               -o ${MTS_path}/Unsmoothed/Restricted/${r}/${h}/${s}/${s}-${c}-psc-Rtf-MTS-${r}-${h}.txt \
-              -m ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz
+              -m ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz
 
             fslmeants -i ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
               -o ${MTS_path}/Unsmoothed/Wide/${r}/${h}/${s}/${s}-${c}-psc-Wtf-MTS-${r}-${h}.txt \
-              -m ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz
+              -m ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz
     
         done
     done
 done
+
+## Get the mean time series for the ROIs but specifically in the grey matter
+
+region=(AC HG PT MGB V1)
+for r in ${region[@]}; do
+
+    mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Restricted/Grey_Matter_ROIs/${r}/${s}
+    mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Wide/Grey_Matter_ROIs/${r}/${s}
+
+    for c in ${cond[@]}; do
+    fslmeants -i ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
+              -o ${MTS_path}/Unsmoothed/Restricted/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-psc-Rtf-MTS-${r}-grey.txt \
+              -m ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-${r}-grey_funcmask.nii.gz
+
+    fslmeants -i ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
+              -o ${MTS_path}/Unsmoothed/Wide/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-psc-Wtf-MTS-${r}-grey.txt \
+              -m ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-${r}-grey_funcmask.nii.gz
+        
+        for h in ${hemi[@]}; do
+            mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Restricted/Grey_Matter_ROIs/${r}/${h}/${s}
+            mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Wide/Grey_Matter_ROIs/${r}/${h}/${s}
+        
+        
+            fslmeants -i ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz \
+              -o ${MTS_path}/Unsmoothed/Restricted/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-psc-Rtf-MTS-${r}-grey-${h}.txt \
+              -m ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-${r}-grey_funcmask-${h}.nii.gz
+
+            fslmeants -i ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz \
+              -o ${MTS_path}/Unsmoothed/Wide/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-psc-Wtf-MTS-${r}-grey-${h}.txt \
+              -m ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-${r}-grey_funcmask-${h}.nii.gz
+    
+        done
+    done
+done
+
+
+
 }
 
 export -f mean_TS

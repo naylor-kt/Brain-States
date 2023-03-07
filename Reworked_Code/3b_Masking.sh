@@ -26,19 +26,19 @@ for r in ${region[@]}; do
 
     # For the restricted filtered functional time series
 
-    fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${mask_path}/Masked_Time_Series/${r}/${s}/${s}-${c}-psc-Rtf-${r}.nii.gz
+    fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${mask_path}/Masked_Time_Series/${r}/${s}/${s}-${c}-psc-Rtf-${r}.nii.gz
 
     # For the wide filtered functional time series
 
-    fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${mask_path}/Masked_Time_Series/${r}/${s}/${s}-${c}-psc-Wtf-${r}.nii.gz
+    fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${mask_path}/Masked_Time_Series/${r}/${s}/${s}-${c}-psc-Wtf-${r}.nii.gz
 
         for h in ${hemi[@]}; do
 
         #For the restricted temporal filtering
-        fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz ${mask_path}/Masked_Time_Series/${r}/${h}/${s}/${s}-${c}-psc-Rtf-${r}-${h}.nii.gz
+        fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz ${mask_path}/Masked_Time_Series/${r}/${h}/${s}/${s}-${c}-psc-Rtf-${r}-${h}.nii.gz
          
         # For the wide temporally filtered image
-        fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz ${mask_path}/Masked_Time_Series/${r}/${h}/${s}/${s}-${c}-psc-Wtf-${r}-${h}.nii.gz
+        fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h}.nii.gz ${mask_path}/Masked_Time_Series/${r}/${h}/${s}/${s}-${c}-psc-Wtf-${r}-${h}.nii.gz
         done
     done
 done

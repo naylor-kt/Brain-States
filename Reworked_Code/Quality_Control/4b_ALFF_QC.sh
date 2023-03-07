@@ -9,7 +9,7 @@ analysis_path="$HOME/BrainStates/Analysis/Smoothed"
 alt_analysis_path="$HOME/BrainStates/Alternative_Analysis"
 
 cond=(as ns vs)
-region=(AC HG PT MGB V1)
+region=(AC HG PT V1)
 
 # Check the values of Whole Brain ALFF
 
@@ -23,3 +23,11 @@ for c in ${cond[@]};do
     done
 done 
     
+
+
+for c in ${cond[@]};do
+    for r in ${region[@]}; do
+        echo "${c} All subjects ${r} ALFF (alternative calculation)"
+        ${alt_analysis_path}/ALFF/${r}/allsubs-${c}-MTS-ALFF-${r}.txt
+    done
+done

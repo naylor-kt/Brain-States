@@ -13,6 +13,7 @@ mask_path="$HOME/BrainStates_Test/Mask"
 cond=(as ns vs)
 hemi=(lh rh)
 region=(AC HG PT MGB V1 Thal)
+region_2=(AC HG PT V1)
 
 
 #Calculation of ALFF
@@ -49,7 +50,7 @@ for r in ${region[@]}; do
    
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r}
+    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r}
 
     fslstats ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-ALFF-${r} -M > ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-meanALFF-${r}.txt
     done
@@ -63,7 +64,7 @@ for r in ${region[@]}; do
     
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h}
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h}
         
         fslstats ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-${h} -M > ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-meanALFF-${r}-${h}.txt
 
@@ -80,7 +81,7 @@ for r in ${region[@]};do
     
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}
+    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r}
 
     fslstats ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-fALFF-${r} -M > ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-meanfALFF-${r}.txt
     
@@ -96,14 +97,75 @@ for r in ${region[@]}; do
 
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h}
         
         fslstats ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-${h} -M > ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-meanfALFF-${r}-${h}.txt
 
         done
     done
 done
+######## Repeat for the Grey Matter Masks
 
+# Masked ALFF for the auditory cortex regions
+for r in ${region_2[@]}; do
+    mkdir -p ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${s}
+    
+    for c in ${cond[@]}; do
+
+    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-${r}-grey_funcmask.nii.gz ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-ALFF-${r}-grey
+
+    fslstats ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-ALFF-${r}-grey -M > ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-meanALFF-${r}-grey.txt
+    done
+done
+
+# Masked ALFF for the auditory cortex regions (lh or rh)
+
+for r in ${region_2[@]}; do
+    for h in ${hemi[@]}; do
+    mkdir -p ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${h}/${s}
+    
+        for c in ${cond[@]}; do
+
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-${r}-grey_funcmask-${h}.nii.gz ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-grey-${h}
+        
+        fslstats ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-ALFF-${r}-grey-${h} -M > ${analysis_path}/ALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-meanALFF-${r}-grey-${h}.txt
+
+        done
+    done
+done
+
+                              
+
+# Masked fALFF for the auditory cortex regions
+
+for r in ${region_2[@]};do
+       mkdir -p ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${s}
+    
+    for c in ${cond[@]}; do
+
+    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-${r}-grey_funcmask.nii.gz ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-fALFF-${r}-grey
+
+    fslstats ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-fALFF-${r}-grey -M > ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${s}/${s}-${c}-meanfALFF-${r}-grey.txt
+    
+    done
+done
+
+# Masked fALFF for the auditory cortex regions (lh or rh)
+
+for r in ${region_2[@]}; do
+    for h in ${hemi[@]}; do
+    
+    mkdir -p ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${h}/${s}
+
+        for c in ${cond[@]}; do
+
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-fALFF -mas ${mask_path}/Segmentation/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-${r}-grey_funcmask-${h}.nii.gz ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-grey-${h}
+        
+        fslstats ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-fALFF-${r}-grey-${h} -M > ${analysis_path}/fALFF/Grey_Matter_ROIs/${r}/${h}/${s}/${s}-${c}-meanfALFF-${r}-grey-${h}.txt
+
+        done
+    done
+done
 }
 
 export -f ALFF

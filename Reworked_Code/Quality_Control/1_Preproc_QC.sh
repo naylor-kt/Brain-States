@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-data_path="$HOME/BrainStates"
-preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
+data_path="$HOME/BrainStates_Test"
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
 
 
 subj=(sub-01) # Set the subject you want to check
@@ -105,15 +105,15 @@ for s in ${subj[@]}; do
       if [ ${s} != sub-07 ]; then
         # Check the initial shift between the fmap and revfmap images, play as a movie, and then compare to the topup applied images
         echo "Use FSLeyes to check the application of topup"
-        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_combined.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_fmap_tuapp.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_revfmap_tuapp.nii.gz &
-     elif [${s} = sub-07 ]; then
+        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_combined.nii.gz -dr -500 5000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_fmap_tuapp.nii.gz -dr -500 5000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_revfmap_tuapp.nii.gz -dr -500 5000 &
+     elif [ ${s} == sub-07 ]; then
             # Check the initial shift between the fmap and revfmap images, play as a movie, and then compare to the topup applied images
         echo "Use FSLeyes to check the application of topup"
-        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_as_combined.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_as_fmap_tuapp.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_as_revfmap_tuapp.nii.gz &
+        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_as_combined.nii.gz -dr -5 1000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_as_fmap_tuapp.nii.gz -dr -5 1000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_as_revfmap_tuapp.nii.gz -dr -5 1000 &
         
             # Check the initial shift between the fmap and revfmap images, play as a movie, and then compare to the topup applied images
         echo "Use FSLeyes to check the application of topup"
-        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_ns_vs_combined.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_ns_vs_fmap_tuapp.nii.gz ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_ns_vs_revfmap_tuapp.nii.gz &
+        fsleyes ${preproc_path1}/${s}/TopUp/fmap/${s}_ns_vs_combined.nii.gz -dr -500 5000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_ns_vs_fmap_tuapp.nii.gz -dr -500 5000 ${preproc_path1}/${s}/TopUp/TopUp_Applied/${s}_ns_vs_revfmap_tuapp.nii.gz -dr -500 5000 &
     fi
 done
 
@@ -130,7 +130,7 @@ for s in ${subj[@]}; do
 
 for c in ${cond[@]}; do
     echo "Use FSLeyes to check the conversion to Percentage Signal Change"
-    fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz ${preproc_path1}/${s}/${s}-${c}-preproc.nii.gz &
+    fsleyes ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz -dr -10 20 ${preproc_path1}/${s}/${s}-${c}-preproc.nii.gz -dr -500 5000 &
 done
 done
 
@@ -143,7 +143,7 @@ for s in ${subj[@]}; do
 
 for c in ${cond[@]}; do
     echo "Use FSLeyes to check the Temporal Filtering"
-    fsleyes ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz &
+    fsleyes ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -dr -10 20 ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -dr -10 20 ${preproc_path2}/Percent_Signal_Change/${s}/${s}-${c}-psc.nii.gz -dr -10 20 &
 done
 
 done
@@ -158,7 +158,7 @@ for s in ${subj[@]}; do
 
 for c in ${cond[@]}; do
     echo "Use FSLeyes to check Spatial Smoothing"
-    fsleyes ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz ${preproc_path1}/$s/${s}-${c}-preproc.nii.gz &
+    fsleyes ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -dr -500 5000 ${preproc_path1}/$s/${s}-${c}-preproc.nii.gz -dr -500 5000 &
 done
 
 done
@@ -178,7 +178,7 @@ for s in ${subj[@]}; do
 
 for c in ${cond[@]}; do
     echo "Use FSLeyes to check the conversion to Percentage Signal Change"
-    fsleyes ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz &
+    fsleyes ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -dr -10 20  ${preproc_path2S}/Smoothed/${s}/${s}-${c}-SM.nii.gz -dr -500 5000 &
 done
 done
 
@@ -192,7 +192,7 @@ for s in ${subj[@]}; do
 
 for c in ${cond[@]}; do
     echo "Use FSLeyes to check the Temporal Filtering"
-    fsleyes ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz ${preproc_path2S}/Temporally_Filtered/Wide/${s}/${s}-${c}-SM-psc-Wtf.nii.gz ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz &
+    fsleyes ${preproc_path2S}/Temporally_Filtered/Restricted/${s}/${s}-${c}-SM-psc-Rtf.nii.gz -dr -10 20 ${preproc_path2S}/Temporally_Filtered/Wide/${s}/${s}-${c}-SM-psc-Wtf.nii.gz -dr -10 20 ${preproc_path2S}/Percent_Signal_Change/${s}/${s}-${c}-SM-psc.nii.gz -dr -10 20 &
 done
 
 done
