@@ -70,3 +70,7 @@ for c in ${cond[@]};do
         cat ${grey_alt_fALFF}/${r}/sub-01/sub-01-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-02/sub-02-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-03/sub-03-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-04/sub-04-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-05/sub-05-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-06/sub-06-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-07/sub-07-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-08/sub-08-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-09/sub-09-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-10/sub-10-${c}-MTS-fALFF-${r}-grey.txt ${grey_alt_fALFF}/${r}/sub-11/sub-11-${c}-MTS-fALFF-${r}-grey.txt > ${grey_alt_fALFF}/${r}/allsubs-${c}-MTS-fALFF-${r}-grey.txt
     done
 done
+
+
+
+
