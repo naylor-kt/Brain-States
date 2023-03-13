@@ -28,62 +28,6 @@ infile_MGB = '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/M
 fALFF_MGB = readmatrix(infile_MGB);
 fALFF_MGB(:,1) = [];
 
-%%%%% Shows the mean ALFF for each subject individually 
-figure()
-fALFFfig = subplot(2, 3, 1, 'align')
-b = bar(fALFF_AC); 
-title('Mean fALFF for each subject in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-hold on 
-
-subplot(2, 3, 2, 'align')
-bar(fALFF_HG) 
-title('Mean fALFF for each subject in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-
-subplot(2, 3, 3, 'align')
-bar(fALFF_PT) 
-title('Mean fALFF for each subject in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-
-subplot(2, 3, 4, 'align')
-bar(fALFF_V1) 
-title('Mean fALFF for each subject in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-
-subplot(2, 3, 5, 'align')
-bar(fALFF_Thal) 
-title('Mean fALFF for each subject in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-
-subplot(2, 3, 6, 'align')
-bar(fALFF_MGB) 
-title('Mean fALFF for each subject in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
-xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
-ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
-ylim([0 0.7])
-
-% add a bit space to the figure
-fig = gcf;
-fig.Position(3) = fig.Position(3) + 800;
-% add legend
-Lgnd = legend('show', {'Auditory Stimulus', 'No Stimulus', 'Visual Stimulus'}, 'FontSize', 20);
-Lgnd.Position(1) = 0;
-Lgnd.Position(2) = 0.5;
-hold off
-
-saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/MeanfALFF-individSUBS-allAreas-allConds.m')
-
 
 %%%%%%%%%%%% Shows the mean ALFF across subjects and standard error of the
 %%%%%%%%%%%% mean 
@@ -118,14 +62,16 @@ mean_MGB = mean(fALFF_MGB);
 std_MGB = std(fALFF_MGB);
 SEM_MGB = (std_MGB/sqrt(nrows));
 
-figure()
-MeanfALFFfig = subplot(2, 3, 1, 'align')
+MeanfALFFfig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
+
+% 1st Tile
+nexttile
 b = bar(mean_AC);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
+title('Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -135,13 +81,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 2, 'align')
+% 2nd Tile 
+nexttile
 b = bar(mean_HG);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
+title('Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -151,13 +98,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 3, 'align')
+% 3rd Tile
+nexttile
 b = bar(mean_PT);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
+title('Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -167,13 +115,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 4, 'align')
+% 4th Tile
+nexttile
 b = bar(mean_V1);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
+title('Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -183,13 +132,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 5, 'align')
+% 5th Tile
+nexttile
 b = bar(mean_Thal);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
+title('Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -199,13 +149,14 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 6, 'align')
+% 6th Tile
+nexttile
 b = bar(mean_MGB);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
-title('Mean fALFF in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
+title('Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -214,5 +165,7 @@ er = errorbar(mean_MGB, SEM_MGB, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
+
+sgtitle('Mean fALFF in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
 saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/MeanfALFF-allAreas-allConds.m')

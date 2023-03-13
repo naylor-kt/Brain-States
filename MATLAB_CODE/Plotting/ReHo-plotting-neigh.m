@@ -169,290 +169,308 @@ std_MGB_vs = std(reho_MGB_vs);
 SEM_MGB_vs = (std_MGB_vs/sqrt(nrows));
 
 
+ReHofig = tiledlayout(6,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
 
-figure()
-ReHofig = subplot(6, 3, 1, 'align')
+% 1st tile
+nexttile
 b = bar(mean_AC_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Auditory Cortex- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_AC_as, SEM_AC_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 2, 'align')
+% 2nd Tile 
+nexttile 
 b = bar(mean_AC_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Auditory Cortex- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_AC_ns, SEM_AC_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 3, 'align')
+% 3rd Tile 
+nexttile 
 b = bar(mean_AC_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Auditory Cortex- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_AC_vs, SEM_AC_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 4, 'align')
+% 4th Tile 
+nexttile
 b = bar(mean_HG_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Heschls Gyrus- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_HG_as, SEM_HG_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 5, 'align')
+% 5th Tile 
+nexttile
 b = bar(mean_HG_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Heschls Gyrus- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_HG_ns, SEM_HG_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 6, 'align')
+% 6th Tile 
+nexttile 
 b = bar(mean_HG_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Heschls Gyrus- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_HG_vs, SEM_HG_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 7, 'align')
+% 7th Tile 
+nexttile 
 b = bar(mean_PT_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Planum Temporale- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_PT_as, SEM_PT_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 8, 'align')
+% 8th Tile 
+nexttile 
 b = bar(mean_PT_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Planum Temporale- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_PT_ns, SEM_PT_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 9, 'align')
+% 9th Tile 
+nexttile 
 b = bar(mean_PT_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Planum Temporale- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_PT_vs, SEM_PT_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 10, 'align')
+% 10th Tile 
+nexttile 
 b = bar(mean_V1_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Primary Visual Cortex- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_V1_as, SEM_V1_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 11, 'align')
+% 11th Tile 
+nexttile 
 b = bar(mean_V1_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Primary Visual Cortex- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_V1_ns, SEM_V1_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
-
-subplot(6, 3, 12, 'align')
+ 
+% 12th Tile
+nexttile 
 b = bar(mean_V1_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Primary Visual Cortex- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_V1_vs, SEM_V1_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 13, 'align')
+% 13th tile 
+nexttile
 b = bar(mean_Thal_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Thalamus- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_Thal_as, SEM_Thal_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 14, 'align')
+% 14th tile 
+nexttile
 b = bar(mean_Thal_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Thalamus- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_Thal_ns, SEM_Thal_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 15, 'align')
+% 15th Tile 
+nexttile 
 b = bar(mean_Thal_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Thalamus- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_Thal_vs, SEM_Thal_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 16, 'align')
+%1 6th Tile
+nexttile
 b = bar(mean_MGB_as);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Medial Geniculate Body- Auditory Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_MGB_as, SEM_MGB_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 17, 'align')
+%17th Tile 
+nexttile
 b = bar(mean_MGB_ns);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Medial Geniculate Body- No Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_MGB_ns, SEM_MGB_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(6, 3, 18, 'align')
+%18th Tile
+nexttile
 b = bar(mean_MGB_vs);
 b.FaceColor ='flat'
-b.CData(1, :) = [0.4940 0.1840 0.5560]
+b.CData(1, :) = [0.698 0.4 1]
 b.CData(2, :) = [0.4660 0.6740 0.1880]
 b.CData(3, :) = [0.3010 0.7450 0.9330]
 title('Medial Geniculate Body- Visual Stimulus', 'FontSize', 10, 'FontWeight', 'bold')
-xlabel('Neighbourhood Size', 'FontSize', 12, 'FontWeight', 'bold')
+xlabel('Neighbourhood Size', 'FontSize', 10, 'FontWeight', 'bold')
 xticklabels({'7', '19', '27'})
-ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylabel('Mean ReHo', 'FontSize', 10, 'FontWeight', 'bold')
 hold on 
 er = errorbar(mean_MGB_vs, SEM_MGB_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            

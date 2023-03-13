@@ -173,302 +173,347 @@ SEM_MGB_27 = (std_MGB_27/sqrt(nrows));
 
 
 % Figure for nn=7
-figure()
-ReHo7fig = subplot(2, 3, 1, 'align')
+ReHo7fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
+
+% 1st Tile
+nexttile
 b = bar(mean_AC_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo7 in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_AC_7, SEM_AC_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 2, 'align')
+% 2nd Tile
+nexttile
 b = bar(mean_HG_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo7 in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_HG_7, SEM_HG_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 3, 'align')
+% 3rd Tile
+nexttile
 b = bar(mean_PT_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo7 in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_PT_7, SEM_PT_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 4, 'align')
+% 4th Tile
+nexttile
 b = bar(mean_V1_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo7 in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_V1_7, SEM_V1_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 5, 'align')
+% 5th Tile
+nexttile
 b = bar(mean_Thal_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo7 in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_Thal_7, SEM_Thal_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 6, 'align')
+% 6th Tile
+nexttile
 b = bar(mean_MGB_7);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo7 in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.5])
 hold on 
 er = errorbar(mean_MGB_7, SEM_MGB_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
+sgtitle('Mean ReHo (Neighbourhood = 7 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
+
 saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-7-allAreas-allConds.m')
 
 % Figure for nn=19
-figure()
-ReHo19fig = subplot(2, 3, 1, 'align')
+ReHo19fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
+
+% 1st Tile
+nexttile
 b = bar(mean_AC_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo19 in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_AC_19, SEM_AC_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 2, 'align')
+% 2nd Tile
+nexttile
 b = bar(mean_HG_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo19 in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_HG_19, SEM_HG_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 3, 'align')
+% 3rd Tile
+nexttile
 b = bar(mean_PT_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo19 in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_PT_19, SEM_PT_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 4, 'align')
+% 4th tile
+nexttile
 b = bar(mean_V1_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo19 in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_V1_19, SEM_V1_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 5, 'align')
+% 5th tile
+nexttile
 b = bar(mean_Thal_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo19 in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_Thal_19, SEM_Thal_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 6, 'align')
+% 6th tile
+nexttile
 b = bar(mean_MGB_19);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo19 in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.4])
 hold on 
 er = errorbar(mean_MGB_19, SEM_MGB_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
+sgtitle('Mean ReHo (Neighbourhood = 19 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
+
 saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-19-allAreas-allConds.m')
 
 % Figure for nn=27
-figure()
-ReHo27fig = subplot(2, 3, 1, 'align')
+ReHo27fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
+
+% 1st Tile
+nexttile
 b = bar(mean_AC_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo27 in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_AC_27, SEM_AC_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 2, 'align')
+% 2nd Tile
+nexttile
 b = bar(mean_HG_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo27 in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_HG_27, SEM_HG_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 3, 'align')
+% 3rd Tile
+nexttile
 b = bar(mean_PT_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo27 in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_PT_27, SEM_PT_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 4, 'align')
+% 4th Tile
+nexttile
 b = bar(mean_V1_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo27 in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_V1_27, SEM_V1_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 5, 'align')
+% 5th Tile
+nexttile
 b = bar(mean_Thal_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698] 
 title('Mean ReHo27 in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_Thal_27, SEM_Thal_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
 
-subplot(2, 3, 6, 'align')
+% 6th Tile
+nexttile
 b = bar(mean_MGB_27);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0.4470 0.7410]
-b.CData(2, :) = [0.8500 0.3250 0.0980]
-b.CData(3, :) = [0.9290 0.6940 0.1250] 
+b.CData(1, :) = [0.4 0.698 1]
+b.CData(2, :) = [1 0.698 0.4]
+b.CData(3, :) = [1 0.4 0.698]  
 title('Mean ReHo27 in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
 ylabel('Mean ReHo', 'FontSize', 12, 'FontWeight', 'bold')
+ylim([0 0.35])
 hold on 
 er = errorbar(mean_MGB_27, SEM_MGB_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
 hold off
+
+sgtitle('Mean ReHo (Neighbourhood = 27 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
 
 saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-27-allAreas-allConds.m')
 
