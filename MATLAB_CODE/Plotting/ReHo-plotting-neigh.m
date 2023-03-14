@@ -479,4 +479,4 @@ hold off
 
 sgtitle('Mean ReHo in Neighbourhoods of Different Sizes', 'FontSize', 30)
 
-saveas(ReHofig, '/Users/mszkcn/BrainStates_Test/Analysis/ReHo/Compare/Neighbourhood/ReHo-neigh-compare.m')
+saveas(ReHofig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ReHo-neigh-compare.m')

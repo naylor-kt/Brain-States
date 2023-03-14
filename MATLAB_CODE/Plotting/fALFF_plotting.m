@@ -168,4 +168,4 @@ hold off
 
 sgtitle('Mean fALFF in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/MeanfALFF-allAreas-allConds.m')
+saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanfALFF-allAreas-allConds.m')

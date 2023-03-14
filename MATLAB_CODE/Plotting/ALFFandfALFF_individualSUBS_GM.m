@@ -122,4 +122,4 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean fALFF for individual subjects in the grey matter of each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/Grey-MeanfALFF-individSUBS-allAreas-allConds.m')
+saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Grey-MeanfALFF-individSUBS-allAreas-allConds.m')

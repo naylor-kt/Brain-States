@@ -285,7 +285,7 @@ hold off
 
 sgtitle('Mean ReHo (Neighbourhood = 7 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
 
-saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-7-allAreas-allConds.m')
+saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanReHo-7-allAreas-allConds.m')
 
 % Figure for nn=19
 ReHo19fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
@@ -400,7 +400,7 @@ hold off
 
 sgtitle('Mean ReHo (Neighbourhood = 19 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
 
-saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-19-allAreas-allConds.m')
+saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanReHo-19-allAreas-allConds.m')
 
 % Figure for nn=27
 ReHo27fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
@@ -515,5 +515,5 @@ hold off
 
 sgtitle('Mean ReHo (Neighbourhood = 27 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
 
-saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/MeanReHo-27-allAreas-allConds.m')
+saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanReHo-27-allAreas-allConds.m')
 

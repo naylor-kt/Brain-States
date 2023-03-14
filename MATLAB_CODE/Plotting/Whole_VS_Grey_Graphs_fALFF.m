@@ -203,4 +203,4 @@ lg.Layout.Tile = 'South'
 
 sgtitle('Comparing Mean fALFF in Whole Brain Regions VS Grey Matter', 'FontSize', 20)
 
-saveas(cfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/Whole_VS_Grey_fALFF.m')
+saveas(cfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Whole_VS_Grey_fALFF.m')

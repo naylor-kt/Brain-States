@@ -197,5 +197,5 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean fALFF for individual subjects in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/fALFF/MeanfALFF-individSUBS-allAreas-allConds.m')
+saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanfALFF-individSUBS-allAreas-allConds.m')
 

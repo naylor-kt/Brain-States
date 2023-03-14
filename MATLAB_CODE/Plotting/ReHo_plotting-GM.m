@@ -349,5 +349,5 @@ hold off
 
 sgtitle('Mean ReHo (Neighbourhood = 27 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
 
-saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ReHo/Grey-MeanReHo-27-allAreas-allConds.m')
+saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Grey-MeanReHo-27-allAreas-allConds.m')
 
