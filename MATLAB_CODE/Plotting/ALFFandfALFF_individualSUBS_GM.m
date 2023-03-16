@@ -78,7 +78,7 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean ALFF for individual subjects in the Grey Matter of each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(ALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ALFF/Grey-MeanALFF-individSUBS-allAreas-allConds.m')
+saveas(ALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/Grey-MeanALFF-individSUBS-allAreas-allConds.m')
 
 
 %%%%% Shows the mean ALFF for each subject individually 
@@ -122,4 +122,4 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean fALFF for individual subjects in the grey matter of each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Grey-MeanfALFF-individSUBS-allAreas-allConds.m')
+saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/fALFF/Grey-MeanfALFF-individSUBS-allAreas-allConds.m')

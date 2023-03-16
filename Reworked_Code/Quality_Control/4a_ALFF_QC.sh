@@ -13,7 +13,7 @@ cond=(as ns vs)
 # Check the values of Whole Brain ALFF
 
 for c in ${cond[@]};do
-    echo "Whole Braine ALFF ${s} ${c}"
+    echo "Whole Brain ALFF ${s} ${c}"
     fslstats -t ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-ALFF -r
 done
 
@@ -184,16 +184,7 @@ done
         fslstats -t ${grey_ALFF}/PT/rh/${s}/${s}-${c}-ALFF-PT-grey-rh.nii.gz -r
     done
   
-  # ALFF for MGB, 1) bilateral 2) left 3) right
-    for c in ${cond[@]};do
-        echo "ALFF ${s}-${c} in Bilateral MGB"
-        fslstats -t ${grey_ALFF}/MGB/${s}/${s}-${c}-ALFF-MGB-grey.nii.gz -r
-        echo "ALFF ${s}-${c} in Left MGB"
-        fslstats -t ${grey_ALFF}/MGB/lh/${s}/${s}-${c}-ALFF-MGB-grey-lh.nii.gz -r
-        echo "ALFF ${s}-${c} in Right MGB"
-        fslstats -t ${grey_ALFF}/PT/rh/${s}/${s}-${c}-ALFF-PT-grey-rh.nii.gz -r
-    done
-   
+    
      # ALFF for V1, 1) bilateral 2) left 3) right
     for c in ${cond[@]};do
         echo "ALFF ${s}-${c} in Bilateral V1"

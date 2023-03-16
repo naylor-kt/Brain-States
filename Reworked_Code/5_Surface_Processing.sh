@@ -8,13 +8,13 @@ mkdir -p $HOME/BrainStates_Test/Surface
 free_surfing () {
 
 # Make a new directory for the freesurfer files
-mkdir -p $HOME/Brain_States/Surface/Freesurfer
+mkdir -p $HOME/Brain_States_Test/Surface/Freesurfer
 
 #Set the path variables
-data_path="$HOME/BrainStates"
-vol_path="$HOME/BrainStates/Volumetric"
-surf_path="$HOME/BrainStates/Surface"
-fs_path="$HOME/BrainStates/Surface/Freesurfer";s=$1
+data_path="$HOME/BrainStates_Test"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+surf_path="$HOME/BrainStates_Test/Surface"
+fs_path="$HOME/BrainStates_Test/Surface/Freesurfer";s=$1
 
 
 #Array of conditions
@@ -62,7 +62,8 @@ fi
 export -f free_surfing
 
 # Creates the subjects array, as the subjects are found in the RawData folder
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subjects array
 echo ${s[@]}

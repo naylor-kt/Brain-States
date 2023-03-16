@@ -11,7 +11,7 @@ s=(sub-01)
 cond=(as ns vs)
 
 # Check the segmentation in the T1 space
-fsleyes ${mask_path}/Segmentation/${s}/Structural/${s}_T1_brain_bet.nii.gz ${mask_path}/Segmentation/${s}/Segments/${s}_T1_csf.nii.gz -cm yellow ${mask_path}/Segmentation/${s}/Segments/${s}_T1_grey.nii.gz -cm green ${mask_path}/Segmentation/${s}/Segments/${s}_T1_white.nii.gz -cm -blue-lightblue &
+fsleyes ${mask_path}/Segmentation/${s}/Structural/${s}_T1_brain_bet.nii.gz ${mask_path}/Segmentation/${s}/Segments/${s}_T1_csf.nii.gz -cm yellow ${mask_path}/Segmentation/${s}/Segments/${s}_T1_grey.nii.gz -cm green ${mask_path}/Segmentation/${s}/Segments/${s}_T1_white.nii.gz -cm blue-lightblue &
 
 # Check the production of T1 masks
 

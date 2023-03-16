@@ -3,17 +3,18 @@
 # Step TWO of surface processing is to create the lta fields which will enable the projection of the individual functional timer series to the cortical surface
 
 #Set the path variables
-data_path="$HOME/BrainStates"
-preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path3="$HOME/BrainStates/Preproc/Level_3"
-vol_path="$HOME/BrainStates/Volumetric"
-surf_path="$HOME/BrainStates/Surface"
-fs_path="$HOME/BrainStates/Surface/Freesurfer"
+data_path="$HOME/BrainStates_Test"
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path3="$HOME/BrainStates_Test/Preproc/Level_3"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+surf_path="$HOME/BrainStates_Test/Surface"
+fs_path="$HOME/BrainStates_Test/Surface/Freesurfer"
 export SUBJECTS_DIR="${fs_path}/Recon"
 
 # Subjects Array
-subj=($(ls $HOME/BrainStates/RawData))
+#subj=($(ls $HOME/BrainStates/RawData))
+subj=(sub-06)
 
 #Condition Array
 cond=(as ns vs)
@@ -45,13 +46,13 @@ done
 surf_processing_2 (){
 
 #Set the path variables
-data_path="$HOME/BrainStates"; s=$1
-preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path3="$HOME/BrainStates/Preproc/Level_3"
-vol_path="$HOME/BrainStates/Volumetric"
-surf_path="$HOME/BrainStates/Surface"
-fs_path="$HOME/BrainStates/Surface/Freesurfer"
+data_path="$HOME/BrainStates_Test"; s=$1
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path3="$HOME/BrainStates_Test/Preproc/Level_3"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+surf_path="$HOME/BrainStates_Test/Surface"
+fs_path="$HOME/BrainStates_Test/Surface/Freesurfer"
 export SUBJECTS_DIR="${fs_path}/Recon"
 
 #Condition Array
@@ -178,7 +179,8 @@ mkdir -p ${surf_path}/Projected/Smoothed/Wide_Temp_Filter/${s}/
 export -f surf_processing_2
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

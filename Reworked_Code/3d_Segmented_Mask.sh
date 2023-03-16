@@ -37,7 +37,8 @@ done
 export -f seg_mask
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

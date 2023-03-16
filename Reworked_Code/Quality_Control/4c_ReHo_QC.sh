@@ -82,8 +82,8 @@ cond=(as ns vs)
 
 
 # Check the values of the masked ReHo in the grey matter
-  #ALFF
-    # ALFF for AC, HG, PT and MGB
+  #ReHo
+    # ReHo for AC, HG, PT and MGB
     for c in ${cond[@]};do
         
         echo "ReHo 7nn ${s}-${c} in Auditory Cortex Grey Matter"

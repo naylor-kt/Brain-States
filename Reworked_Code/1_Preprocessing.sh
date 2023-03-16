@@ -2,19 +2,19 @@
 
 #Define the function
 fmri_preproc () {
-data_path="$HOME/BrainStates";s=$1
+data_path="$HOME/BrainStates_Test";s=$1
 
 #Array of conditions
 cond=(as ns vs)
 
 # Make directories for the preprocessing files
     mkdir -p ${data_path}/Preproc/Level_1/$s
-    mkdir -p $HOME/BrainStates/Preproc/Level_2/
-    mkdir -p $HOME/BrainStates/Preproc/Level_2_Smoothed/
+    mkdir -p $HOME/BrainStates_Test/Preproc/Level_2/
+    mkdir -p $HOME/BrainStates_Test/Preproc/Level_2_Smoothed/
     
-    preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-    preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-    preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
+    preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+    preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+    preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
     
 #Remove the first 10 volumes from each image
   for c in ${cond[@]}; do
@@ -180,7 +180,8 @@ done
 export -f fmri_preproc
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

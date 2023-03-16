@@ -11,7 +11,7 @@ preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 analysis_path="/Users/mszkcn/BrainStates_Test/Analysis"
 analysis_out="/Users/mszkcn/BrainStates_Test/Analysis/MNI_Space"
 reho_path="$HOME/BrainStates_Test/Analysis/ReHo"
-vol_path="$HOME/BrainStates/Volumetric"
+vol_path="$HOME/BrainStates_Test/Volumetric"
 
 cond=(as ns vs)
 hemi=(lh rh)
@@ -119,7 +119,8 @@ done
 export -f MNI_ANALYSIS
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates_Test/RawData))
+#s=($(ls $HOME/BrainStates_Test/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

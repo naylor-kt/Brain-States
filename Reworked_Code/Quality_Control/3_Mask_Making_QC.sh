@@ -22,7 +22,7 @@ fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Regio
 
 # Look at the individual subjects
 
-s=(sub-X)
+s=(sub-6)
 cond=(as ns vs)
 
 # Check the reslicing of the mask from MNI space to subject specific T1 space
@@ -98,7 +98,7 @@ done
     # Set lh to blue and rh to red
 fsleyes $FSL_DIR/data/standard/MNI152_T1_1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-MGB-lh -cm blue ${mask_path}/Extracted_Region/rh/Juelich-MGB-rh -cm red &
 
-s=(sub-11)
+s=(sub-06)
 cond=(as ns vs)
 # Check the resampling of the mask from MNI space to subject specific T1
     # Set lh to blue and rh to red

@@ -200,4 +200,4 @@ lg.Layout.Tile = 'South'
 
 sgtitle('Comparing Mean ALFF and ALFF of the Mean Time Series in the Grey Matter', 'FontSize', 20)
 
-saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Grey-CompareALFFtypes-allAreas-allConds.m')
+saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/Grey-CompareALFFtypes-allAreas-allConds.m')

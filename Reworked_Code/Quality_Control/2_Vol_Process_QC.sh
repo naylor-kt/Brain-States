@@ -6,7 +6,7 @@ preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
 vol_path="$HOME/BrainStates_Test/Volumetric"
 
-s=(sub-01)
+s=(sub-06)
 cond=(as ns vs)
 
 # QUALITY CONTROL FOR VOLUME PROCESSING

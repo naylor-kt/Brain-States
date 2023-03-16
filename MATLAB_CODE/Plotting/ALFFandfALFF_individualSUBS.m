@@ -117,7 +117,7 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean ALFF for individual subjects in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(ALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Compare_Conditions/ALFF/MeanALFF-individSUBS-allAreas-allConds.m')
+saveas(ALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/MeanALFF-individSUBS-allAreas-allConds.m')
 
 
 
@@ -127,9 +127,6 @@ fALFFfig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
 % 1st Tile
 nexttile
 b = bar(fALFF_AC);
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -139,9 +136,6 @@ hold on
 % 2nd Tile
 nexttile
 bar(fALFF_HG)
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -150,9 +144,6 @@ ylim([0 0.7])
 % 3rd Tile 
 nexttile
 bar(fALFF_PT)
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -161,9 +152,6 @@ ylim([0 0.7])
 % 4th Tile 
 nexttile
 bar(fALFF_V1)
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -172,9 +160,6 @@ ylim([0 0.7])
 % 5th tile
 nexttile
 bar(fALFF_Thal)
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Thalamus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -183,9 +168,6 @@ ylim([0 0.7])
 % 6th Tile
 nexttile
 bar(fALFF_MGB)
-b.CData(1, :) = [0.4 0.698 1]
-b.CData(2, :) = [1 0.698 0.4]
-b.CData(3, :) = [1 0.4 0.698] 
 title('Mean fALFF for each subject in the Medial Geniculate Body', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Subjects', 'FontSize', 12, 'FontWeight', 'bold')
 ylabel('Mean fALFF', 'FontSize', 12, 'FontWeight', 'bold')
@@ -197,5 +179,5 @@ lg.Layout.Tile = 'South';
 
 sgtitle('Mean fALFF for individual subjects in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanfALFF-individSUBS-allAreas-allConds.m')
+saveas(fALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/fALFF/MeanfALFF-individSUBS-allAreas-allConds.m')
 

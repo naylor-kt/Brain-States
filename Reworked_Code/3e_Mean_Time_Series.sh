@@ -61,8 +61,8 @@ done
 
 ## Get the mean time series for the ROIs but specifically in the grey matter
 
-region=(AC HG PT MGB V1)
-for r in ${region[@]}; do
+region2=(AC HG PT V1)
+for r in ${region2[@]}; do
 
     mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Restricted/Grey_Matter_ROIs/${r}/${s}
     mkdir -p $HOME/BrainStates_Test/Mean_Time_Series/Unsmoothed/Wide/Grey_Matter_ROIs/${r}/${s}
@@ -100,7 +100,8 @@ done
 export -f mean_TS
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

@@ -7,7 +7,7 @@ preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
 
 
-subj=(sub-01) # Set the subject you want to check
+subj=(sub-06) # Set the subject you want to check
 cond=(as ns vs)
 
 # QUALITY CONTROL FOR PREPROCESSING

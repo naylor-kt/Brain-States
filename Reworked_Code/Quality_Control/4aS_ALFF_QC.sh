@@ -1,11 +1,11 @@
 #!/bin/bash
 
-data_path="$HOME/BrainStates"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path2S="$HOME/BrainStates/Preproc/Level_Smoothed"
-vol_path="$HOME/BrainStates/Volumetric"
-mask_path="$HOME/BrainStates/Mask"
-analysis_path="$HOME/BrainStates/Analysis/Smoothed"
+data_path="$HOME/BrainStates_Test"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_Smoothed"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+mask_path="$HOME/BrainStates_Test/Mask"
+analysis_path="$HOME/BrainStates_Test/Analysis/Smoothed"
 
 s=(sub-01)
 cond=(as ns vs)
@@ -19,17 +19,17 @@ done
 # Check the values of the masked ALFF and fALFF
   #ALFF
     # ALFF for AC, 1) bilateral 2) left 3) right
-    for c in ${cond[@]};do
+    for c in ${cond[@]}; do
         echo "ALFF ${s}-${c} in Bilateral AC"
-        fslstats -t ${analysis_path}/ALFF/AC/${s}/${s}-${c}-SM-ALFF-AC -r
-        echo "ALFF ${s}-${c} in the Left AC"
-        fslstats -t ${analysis_path}/ALFF/AC/lh/${s}/${s}-${c}-SM-ALFF-AC-lh -r
-        echo "ALFF ${s}-${c} in the Right AC"
-        fslstats -t ${analysis_path}/ALFF/AC/rh/${s}/${s}-${c}-SM-ALFF-AC-rh -r
+        fslstats -t ${analysis_path}/ALFF/AC/${s}/${s}-${c}-SM-ALFF-AC.nii.gz -r
+        echo "ALFF ${s}-${c} in Left AC"
+        fslstats -t ${analysis_path}/ALFF/AC/lh/${s}/${s}-${c}-SM-ALFF-AC-lh.nii.gz -r
+        echo "ALFF ${s}-${c} in Right AC"
+        fslstats -t ${analysis_path}/ALFF/AC/rh/${s}/${s}-${c}-SM-ALFF-AC-rh.nii.gz -r
     done
     
     # ALFF for HG, 1) bilateral 2) left 3) right
-    for c in ${cond[@]};do
+    for c in ${cond[@]}; do
         echo "ALFF ${s}-${c} in Bilateral HG"
         fslstats -t ${analysis_path}/ALFF/HG/${s}/${s}-${c}-SM-ALFF-HG -r
         echo "ALFF ${s}-${c} in Left HG"

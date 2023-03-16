@@ -2,10 +2,10 @@
 
 segmentation () {
 data_path="$HOME/BrainStates_Test";s=$1
-preproc_path1="$HOME/BrainStates/Preproc/Level_1"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path2S="$HOME/BrainStates/Preproc/Level_2_Smoothed"
-vol_path="$HOME/BrainStates/Volumetric"
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path2S="$HOME/BrainStates_Test/Preproc/Level_2_Smoothed"
+vol_path="$HOME/BrainStates_Test/Volumetric"
 
 mkdir -p $HOME/BrainStates_Test/Mask
 mask_path="$HOME/BrainStates_Test/Mask"
@@ -94,7 +94,8 @@ done
 export -f segmentation
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

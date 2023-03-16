@@ -1,16 +1,10 @@
 #!/bin/bash
 
-data_path="$HOME/Brain_States"
-fs_path="$HOME/Brain_States/Freesurfer"
-subjn=11; #set this youserself depending on which subject you want to view
-
-
-subj_ls=($(ls $HOME/Brain_States/RawData))
+data_path="$HOME/BrainStates_Test"
+fs_path="$HOME/BrainStates_Test/Surface/Freesurfer"
+subj=(sub-06)
 
 SUBJECTS_DIR="${fs_path}/Recon";
-
-
-subj=${subj_ls[$(($subjn-1))]};
 
 freeview -v \
 $SUBJECTS_DIR/$subj/mri/T1.mgz \

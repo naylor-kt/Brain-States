@@ -4,7 +4,7 @@ ALFF () {
 
 data_path="$HOME/BrainStates_Test";s=$1
 
-mkdir -p $HOME/BrainStates/Analysis/Smoothed
+mkdir -p $HOME/BrainStates_Test/Analysis/Smoothed
 
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
@@ -53,7 +53,7 @@ for r in ${region[@]}; do
 
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-SM-ALFF -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-SM-ALFF-${r}
+    fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-SM-ALFF -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-SM-ALFF-${r}
 
     fslstats ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-SM-ALFF-${r} -M > ${analysis_path}/ALFF/${r}/${s}/${s}-${c}-SM-meanALFF-${r}.txt
     done
@@ -67,7 +67,7 @@ for r in ${region[@]};do
     
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-SM-ALFF -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-SM-ALFF-${r}-${h}
+        fslmaths ${analysis_path}/ALFF/Whole_Brain/${s}/${s}-${c}-SM-ALFF -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-SM-ALFF-${r}-${h}
         
         fslstats ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-SM-ALFF-${r}-${h} -M > ${analysis_path}/ALFF/${r}/${h}/${s}/${s}-${c}-SM-meanALFF-${r}-${h}.txt
     
@@ -84,7 +84,7 @@ for r in ${region[@]};do
 
     for c in ${cond[@]}; do
 
-    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -mas ${mask_path}/Func_Mask/${s}/${s}-${c}_${r}mask2func ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-SM-fALFF-${r}
+    fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -mas ${mask_path}/Func_Mask/bin/${s}/${s}-${c}_${r}mask2func-bin ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-SM-fALFF-${r}
     
     fslstats ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-SM-fALFF-${r} -M > ${analysis_path}/fALFF/${r}/${s}/${s}-${c}-SM-meanfALFF-${r}.txt
     
@@ -100,7 +100,7 @@ for r in ${region[@]}; do
 
         for c in ${cond[@]}; do
 
-        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -mas ${mask_path}/Func_Mask/${h}/${s}/${s}-${c}_${r}mask2func-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-SM-fALFF-${r}-${h}
+        fslmaths ${analysis_path}/fALFF/Whole_Brain/${s}/${s}-${c}-SM-fALFF.nii.gz -mas ${mask_path}/Func_Mask/${h}/bin/${s}/${s}-${c}_${r}mask2func-bin-${h} ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-SM-fALFF-${r}-${h}
         
         fslstats ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-SM-fALFF-${r}-${h} -M > ${analysis_path}/fALFF/${r}/${h}/${s}/${s}-${c}-SM-meanfALFF-${r}-${h}.txt
 
@@ -112,7 +112,8 @@ done
 export -f ALFF
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

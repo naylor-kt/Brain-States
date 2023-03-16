@@ -7,47 +7,47 @@ mkdir -p ${data_path}/Mask/Extracted_Region/
 mask_path="$HOME/BrainStates_Test/Mask"
 
 # Extract region Herschels Gyrus from the Harvard-Oxford Atlas
-fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-cort-prob-1mm ${mask_path}/Extracted_Region/HarvOx-HGprob 44 1
+#fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-cort-prob-1mm ${mask_path}/Extracted_Region/HarvOx-HGprob 44 1
 
 # Extract the left HG
-line=($(fslinfo ${mask_path}/Extracted_Region/HarvOx-HGprob | grep dim1)); dim1=${line[1]}
+#line=($(fslinfo ${mask_path}/Extracted_Region/HarvOx-HGprob | grep dim1)); dim1=${line[1]}
 
-mkdir -p ${data_path}/Mask/Extracted_Region/lh/
+#mkdir -p ${data_path}/Mask/Extracted_Region/lh/
 
-fslmaths ${mask_path}/Extracted_Region/HarvOx-HGprob -roi $(($dim1/2)) $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/lh/HarvOx-HGprob-lh
+#fslmaths ${mask_path}/Extracted_Region/HarvOx-HGprob -roi $(($dim1/2)) $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/lh/HarvOx-HGprob-lh
 
 # Extract the right HG
-mkdir -p ${data_path}/Mask/Extracted_Region/rh/
+#mkdir -p ${data_path}/Mask/Extracted_Region/rh/
 
-fslmaths ${mask_path}/Extracted_Region/HarvOx-HGprob -roi 0 $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/rh/HarvOx-HGprob-rh
+#fslmaths ${mask_path}/Extracted_Region/HarvOx-HGprob -roi 0 $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/rh/HarvOx-HGprob-rh
 
 
 # Extract region Planar Temporale from the Harvard-Oxford Atlas
-fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-cort-prob-1mm ${mask_path}/Extracted_Region/HarvOx-PTprob 45 1
+#fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-cort-prob-1mm ${mask_path}/Extracted_Region/HarvOx-PTprob 45 1
 
 # Extract the left PT
-line=($(fslinfo ${mask_path}/Extracted_Region/HarvOx-PTprob | grep dim1)); dim1=${line[1]}
+#line=($(fslinfo ${mask_path}/Extracted_Region/HarvOx-PTprob | grep dim1)); dim1=${line[1]}
 
-fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi $(($dim1/2)) $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/lh/HarvOx-PTprob-lh
+#fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi $(($dim1/2)) $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/lh/HarvOx-PTprob-lh
 
 # Extract the right PT
-fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi 0 $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/rh/HarvOx-PTprob-rh
+#fslmaths ${mask_path}/Extracted_Region/HarvOx-PTprob -roi 0 $(($dim1/2)) 0 -1 0 -1 0 -1 ${mask_path}/Extracted_Region/rh/HarvOx-PTprob-rh
 
 # Extract region MGB from the Juelich Atlas
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-MGB-rh 105 1
+#fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-MGB-rh 105 1
 
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-MGB-lh 106 1
+#fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-MGB-lh 106 1
 
 # Extract V1 from the Juelich Atlas
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-V1-lh 80 1
+#fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/lh/Juelich-V1-lh 80 1
 
-fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-V1-rh 81 1
+#fslroi $FSLDIR/data/atlases/Juelich/Juelich-prob-1mm.nii.gz ${mask_path}/Extracted_Region/rh/Juelich-V1-rh 81 1
 
 
 # Extract region Thalamus from the Harvard-Oxford Atlas
-fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/lh/HarvOx-Thalprob-lh 3 1
+#fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/lh/HarvOx-Thalprob-lh 3 1
 
-fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/rh/HarvOx-Thalprob-rh 14 1
+#fslroi $FSLDIR/data/atlases/HarvardOxford/HarvardOxford-sub-prob-1mm ${mask_path}/Extracted_Region/rh/HarvOx-Thalprob-rh 14 1
 
 
 #Create a parallel function to enable the reslicing back to the subject specific spaces
@@ -230,7 +230,8 @@ done
 export -f make_mask
 
 # Create an array with subjects (as they are in the RawData file
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 
 # Check the contents of the subject array
 echo ${s[@]}

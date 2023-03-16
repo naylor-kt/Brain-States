@@ -1,13 +1,13 @@
 #!/bin/bash
 
-data_path="$HOME/BrainStates"
-preproc_path2="$HOME/BrainStates/Preproc/Level_2"
-preproc_path3="$HOME/BrainStates/Preproc/Level_3"
-vol_path="$HOME/BrainStates/Volumetric"
-mask_path="$HOME/BrainStates/Mask"
-analysis_path="$HOME/BrainStates/Analysis"
-surf_path="$HOME/BrainStates/Surface"
-fs_path="$HOME/BrainStates/Surface/Freesurfer"
+data_path="$HOME/BrainStates_Test"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+preproc_path3="$HOME/BrainStates_Test/Preproc/Level_3"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+mask_path="$HOME/BrainStates_Test/Mask"
+analysis_path="$HOME/BrainStates_Test/Analysis"
+surf_path="$HOME/BrainStates_Test/Surface"
+fs_path="$HOME/BrainStates_Test/Surface/Freesurfer"
 export SUBJECTS_DIR="${fs_path}/Recon"
 
 s=(sub-01)

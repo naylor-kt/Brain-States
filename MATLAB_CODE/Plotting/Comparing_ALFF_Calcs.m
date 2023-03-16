@@ -256,4 +256,4 @@ lg.Layout.Tile = 'South'
 
 sgtitle('Comparing Mean ALFF and ALFF of the Mean Time Series', 'FontSize', 20)
 
-saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/CompareALFFtypes-allAreas-allConds.m')
+saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/CompareALFFtypes-allAreas-allConds.m')

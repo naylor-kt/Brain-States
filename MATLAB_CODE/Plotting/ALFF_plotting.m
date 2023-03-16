@@ -173,6 +173,6 @@ hold off
 
 sgtitle('Mean ALFF in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/MeanALFF-allAreas-allConds.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/Mean_ALFF/MeanALFF-allAreas-allConds.m')
 
 

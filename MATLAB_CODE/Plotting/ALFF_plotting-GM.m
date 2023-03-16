@@ -116,6 +116,6 @@ hold off
 
 sgtitle('Mean ALFF in the Grey Matter of each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
 
-saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/Grey-MeanALFF-allAreas-allConds.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ALFF/Mean_ALFF/Grey-MeanALFF-allAreas-allConds.m')
 
 

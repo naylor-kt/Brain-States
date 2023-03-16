@@ -6,7 +6,8 @@ data_path="$HOME/BrainStates_Test"
 
 mkdir -p $HOME/BrainStates_Test/Alternative_Analysis
 
-subj=($(ls $HOME/BrainStates/RawData))
+#subj=($(ls $HOME/BrainStates/RawData))
+subj=(sub-06)
 
 
 cond=(as ns vs)

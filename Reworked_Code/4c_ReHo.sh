@@ -57,7 +57,8 @@ region_2=(AC HG PT V1)
 export -f REHO
 
 
-s=($(ls $HOME/BrainStates/RawData))
+#s=($(ls $HOME/BrainStates/RawData))
+s=(sub-06)
 echo ${s[@]}
 
 # Runs the analysis in parallel using GNU parallel
