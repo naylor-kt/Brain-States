@@ -58,6 +58,7 @@ hold on
 er = errorbar(mean_AC, SEM_AC, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
@@ -76,6 +77,7 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -94,6 +96,7 @@ hold on
 er = errorbar(mean_PT, SEM_PT, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
@@ -112,11 +115,13 @@ hold on
 er = errorbar(mean_V1, SEM_V1, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 sgtitle('Mean fALFF on the Cortical Surface (Smoothed) in each Brain Region (Left) in Presence of Different Stimuli', 'FontSize', 15)
-
+set(gcf,'position',[0 100 1000 800]);
 saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-lh-SM-fs.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-lh-SM-fs.png')
 
 
 % Repeat for the Right Hemisphere
@@ -181,6 +186,7 @@ hold on
 er = errorbar(mean_AC, SEM_AC, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
@@ -199,6 +205,7 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -217,6 +224,7 @@ hold on
 er = errorbar(mean_PT, SEM_PT, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
@@ -235,10 +243,12 @@ hold on
 er = errorbar(mean_V1, SEM_V1, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 sgtitle('Mean fALFF on the Cortical Surface (Smoothed) in each Brain Region (Right) in Presence of Different Stimuli', 'FontSize', 15)
-
+set(gcf,'position',[0 100 1000 800]);
 saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-rh-SM-fs.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-rh-SM-fs.png')
 
 

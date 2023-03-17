@@ -79,6 +79,7 @@ hold on
 er = errorbar(mean_AC, SEM_AC, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile 
@@ -96,6 +97,7 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -113,6 +115,7 @@ hold on
 er = errorbar(mean_PT, SEM_PT, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
@@ -130,6 +133,7 @@ hold on
 er = errorbar(mean_V1, SEM_V1, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 5th Tile
@@ -147,6 +151,7 @@ hold on
 er = errorbar(mean_Thal, SEM_Thal, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .3 .1 .2], 'String', 'E', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 6th Tile
@@ -164,8 +169,10 @@ hold on
 er = errorbar(mean_MGB, SEM_MGB, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .3 .1 .2], 'String', 'F', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 sgtitle('Mean fALFF in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
-
-saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/fALFF/Mean_fALFF/MeanfALFF-allAreas-allConds.m')
+set(gcf,'position',[0 100 1000 800]);
+saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Graphs/fALFF/Mean_fALFF/MeanfALFF-allAreas-allConds.m')
+saveas(MeanfALFFfig, '/Users/mszkcn/BrainStates_Test/Graphs/fALFF/Mean_fALFF/MeanfALFF-allAreas-allConds.png')

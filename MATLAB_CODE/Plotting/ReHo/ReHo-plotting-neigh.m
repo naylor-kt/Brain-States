@@ -186,6 +186,7 @@ hold on
 er = errorbar(mean_AC_as, SEM_AC_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile 
@@ -203,6 +204,7 @@ hold on
 er = errorbar(mean_AC_ns, SEM_AC_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile 
@@ -220,6 +222,7 @@ hold on
 er = errorbar(mean_AC_vs, SEM_AC_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile 
@@ -237,6 +240,7 @@ hold on
 er = errorbar(mean_HG_as, SEM_HG_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .6 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 5th Tile 
@@ -254,6 +258,7 @@ hold on
 er = errorbar(mean_HG_ns, SEM_HG_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .6 .1 .2], 'String', 'E', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 6th Tile 
@@ -271,6 +276,7 @@ hold on
 er = errorbar(mean_HG_vs, SEM_HG_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .6 .1 .2], 'String', 'F', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 7th Tile 
@@ -288,6 +294,7 @@ hold on
 er = errorbar(mean_PT_as, SEM_PT_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .45 .1 .2], 'String', 'G', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 8th Tile 
@@ -305,6 +312,7 @@ hold on
 er = errorbar(mean_PT_ns, SEM_PT_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .45 .1 .2], 'String', 'H', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 9th Tile 
@@ -322,6 +330,7 @@ hold on
 er = errorbar(mean_PT_vs, SEM_PT_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .45 .1 .2], 'String', 'I', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 10th Tile 
@@ -339,6 +348,7 @@ hold on
 er = errorbar(mean_V1_as, SEM_V1_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'J', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 11th Tile 
@@ -356,6 +366,7 @@ hold on
 er = errorbar(mean_V1_ns, SEM_V1_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .3 .1 .2], 'String', 'K', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
  
 % 12th Tile
@@ -373,6 +384,7 @@ hold on
 er = errorbar(mean_V1_vs, SEM_V1_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .3 .1 .2], 'String', 'L', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 13th tile 
@@ -390,6 +402,7 @@ hold on
 er = errorbar(mean_Thal_as, SEM_Thal_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .15 .1 .2], 'String', 'M', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 14th tile 
@@ -407,6 +420,7 @@ hold on
 er = errorbar(mean_Thal_ns, SEM_Thal_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .15 .1 .2], 'String', 'N', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 15th Tile 
@@ -424,9 +438,10 @@ hold on
 er = errorbar(mean_Thal_vs, SEM_Thal_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .15 .1 .2], 'String', 'O', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-%1 6th Tile
+% 16th Tile
 nexttile
 b = bar(mean_MGB_as);
 b.FaceColor ='flat'
@@ -441,6 +456,7 @@ hold on
 er = errorbar(mean_MGB_as, SEM_MGB_as, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 0 .1 .2], 'String', 'P', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 %17th Tile 
@@ -458,6 +474,7 @@ hold on
 er = errorbar(mean_MGB_ns, SEM_MGB_ns, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 0 .1 .2], 'String', 'Q', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 %18th Tile
@@ -475,8 +492,10 @@ hold on
 er = errorbar(mean_MGB_vs, SEM_MGB_vs, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 0 .1 .2], 'String', 'R', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean ReHo in Neighbourhoods of Different Sizes', 'FontSize', 30)
-
-saveas(ReHofig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ReHo/ReHo-neigh-compare.m')
+sgtitle('Mean ReHo in Neighbourhoods of Different Sizes', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(ReHofig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/ReHo-neigh-compare.m')
+saveas(ReHofig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/ReHo-neigh-compare.png')

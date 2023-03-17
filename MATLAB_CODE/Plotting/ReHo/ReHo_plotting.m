@@ -191,6 +191,7 @@ hold on
 er = errorbar(mean_AC_7, SEM_AC_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
@@ -209,6 +210,7 @@ hold on
 er = errorbar(mean_HG_7, SEM_HG_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -227,6 +229,7 @@ hold on
 er = errorbar(mean_PT_7, SEM_PT_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
@@ -245,6 +248,7 @@ hold on
 er = errorbar(mean_V1_7, SEM_V1_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 5th Tile
@@ -263,6 +267,7 @@ hold on
 er = errorbar(mean_Thal_7, SEM_Thal_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .3 .1 .2], 'String', 'E', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 6th Tile
@@ -281,11 +286,13 @@ hold on
 er = errorbar(mean_MGB_7, SEM_MGB_7, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .3 .1 .2], 'String', 'F', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean ReHo (Neighbourhood = 7 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
-
-saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ReHo/MeanReHo-7-allAreas-allConds.m')
+sgtitle('Mean ReHo (Neighbourhood = 7 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-7-allAreas-allConds.m')
+saveas(ReHo7fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-7-allAreas-allConds.png')
 
 % Figure for nn=19
 ReHo19fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
@@ -306,6 +313,7 @@ hold on
 er = errorbar(mean_AC_19, SEM_AC_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
@@ -324,6 +332,7 @@ hold on
 er = errorbar(mean_HG_19, SEM_HG_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -342,6 +351,7 @@ hold on
 er = errorbar(mean_PT_19, SEM_PT_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th tile
@@ -360,6 +370,7 @@ hold on
 er = errorbar(mean_V1_19, SEM_V1_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 5th tile
@@ -378,6 +389,7 @@ hold on
 er = errorbar(mean_Thal_19, SEM_Thal_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .3 .1 .2], 'String', 'E', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 6th tile
@@ -396,11 +408,13 @@ hold on
 er = errorbar(mean_MGB_19, SEM_MGB_19, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .3 .1 .2], 'String', 'F', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean ReHo (Neighbourhood = 19 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
-
-saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ReHo/MeanReHo-19-allAreas-allConds.m')
+sgtitle('Mean ReHo (Neighbourhood = 19 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-19-allAreas-allConds.m')
+saveas(ReHo19fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-19-allAreas-allConds.png')
 
 % Figure for nn=27
 ReHo27fig = tiledlayout(2,3, 'TileIndexing', 'rowmajor','TileSpacing','Loose');
@@ -421,6 +435,7 @@ hold on
 er = errorbar(mean_AC_27, SEM_AC_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
@@ -439,6 +454,7 @@ hold on
 er = errorbar(mean_HG_27, SEM_HG_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
@@ -457,6 +473,7 @@ hold on
 er = errorbar(mean_PT_27, SEM_PT_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
@@ -475,6 +492,7 @@ hold on
 er = errorbar(mean_V1_27, SEM_V1_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 5th Tile
@@ -493,6 +511,7 @@ hold on
 er = errorbar(mean_Thal_27, SEM_Thal_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.35 .3 .1 .2], 'String', 'E', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 6th Tile
@@ -511,9 +530,10 @@ hold on
 er = errorbar(mean_MGB_27, SEM_MGB_27, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.65 .3 .1 .2], 'String', 'F', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean ReHo (Neighbourhood = 27 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 20)
-
-saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Analysis/Graphs/ReHo/MeanReHo-27-allAreas-allConds.m')
-
+sgtitle('Mean ReHo (Neighbourhood = 27 voxels) in each Brain Region in Presence of Different Stimuli', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-27-allAreas-allConds.m')
+saveas(ReHo27fig, '/Users/mszkcn/BrainStates_Test/Graphs/ReHo/MeanReHo-27-allAreas-allConds.png')

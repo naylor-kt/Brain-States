@@ -1,19 +1,19 @@
 %%%% This is a workspace to create the ALFF plots in matlab 
 
-infile_AC = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/AC/allsubs-as-ns-vs-surf_fALFF-SM-AC-lh-fsavg-compare.txt';
+infile_AC = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/AC/allsubs-as-ns-vs-surf_fALFF-AC-lh-fs-compare.txt';
 fALFF_AC = readmatrix(infile_AC);
 fALFF_AC(:,1) = [];
 
 
-infile_HG = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/HG/allsubs-as-ns-vs-surf_fALFF-SM-HG-lh-fsavg-compare.txt';
+infile_HG = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/HG/allsubs-as-ns-vs-surf_fALFF-HG-lh-fs-compare.txt';
 fALFF_HG = readmatrix(infile_HG);
 fALFF_HG(:,1) = [];
 
-infile_PT = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/PT/allsubs-as-ns-vs-surf_fALFF-SM-PT-lh-fsavg-compare.txt';
+infile_PT = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/PT/allsubs-as-ns-vs-surf_fALFF-PT-lh-fs-compare.txt';
 fALFF_PT = readmatrix(infile_PT);
 fALFF_PT(:,1) = [];
 
-infile_V1 = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/V1/allsubs-as-ns-vs-surf_fALFF-SM-V1-lh-fsavg-compare.txt';
+infile_V1 = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/V1/allsubs-as-ns-vs-surf_fALFF-V1-lh-fs-compare.txt';
 fALFF_V1 = readmatrix(infile_V1);
 fALFF_V1(:,1) = [];
 
@@ -46,9 +46,9 @@ MeanALFFfig = tiledlayout(2,2, 'TileIndexing', 'rowmajor','TileSpacing','Loose')
 nexttile
 b = bar(mean_AC);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0]  
 title('Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -58,15 +58,16 @@ hold on
 er = errorbar(mean_AC, SEM_AC, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
 nexttile
 b = bar(mean_HG);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0] 
 title('Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -76,15 +77,16 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
 nexttile
 b = bar(mean_PT);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0]  
 title('Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -94,15 +96,16 @@ hold on
 er = errorbar(mean_PT, SEM_PT, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
 nexttile
 b = bar(mean_V1);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]  
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0]   
 title('Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -112,30 +115,33 @@ hold on
 er = errorbar(mean_V1, SEM_V1, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean fALFF on the Cortical Surface (Smoothed) in each Brain Region (Left) in Presence of Different Stimuli', 'FontSize', 15)
+sgtitle('Mean fALFF on the Cortical Surface in each Brain Region (Left) in Presence of Different Stimuli', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/fALFF/MeanfALFF-surf-lh-fs.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/fALFF/MeanfALFF-surf-lh-fs.png')
 
-saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-lh-SM-fsavg.m')
 
-% Repeat for the Right Hemisphere
+% Repeat for the Right Hemisphere 
 
 %%%% This is a workspace to create the ALFF plots in matlab 
 
-infile_AC = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/AC/allsubs-as-ns-vs-surf_fALFF-SM-AC-rh-fsavg-compare.txt';
+infile_AC = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/AC/allsubs-as-ns-vs-surf_fALFF-AC-rh-fs-compare.txt';
 fALFF_AC = readmatrix(infile_AC);
 fALFF_AC(:,1) = [];
 
 
-infile_HG = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/HG/allsubs-as-ns-vs-surf_fALFF-SM-HG-rh-fsavg-compare.txt';
+infile_HG = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/HG/allsubs-as-ns-vs-surf_fALFF-HG-rh-fs-compare.txt';
 fALFF_HG = readmatrix(infile_HG);
 fALFF_HG(:,1) = [];
 
-infile_PT = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/PT/allsubs-as-ns-vs-surf_fALFF-SM-PT-rh-fsavg-compare.txt';
+infile_PT = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/PT/allsubs-as-ns-vs-surf_fALFF-PT-rh-fs-compare.txt';
 fALFF_PT = readmatrix(infile_PT);
 fALFF_PT(:,1) = [];
 
-infile_V1 = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/Smoothed/V1/allsubs-as-ns-vs-surf_fALFF-SM-V1-rh-fsavg-compare.txt';
+infile_V1 = '/Users/mszkcn/BrainStates_Test/Surface/Analysis/Compare_Conditions/fALFF/V1/allsubs-as-ns-vs-surf_fALFF-V1-rh-fs-compare.txt';
 fALFF_V1 = readmatrix(infile_V1);
 fALFF_V1(:,1) = [];
 
@@ -168,9 +174,9 @@ MeanALFFfig = tiledlayout(2,2, 'TileIndexing', 'rowmajor','TileSpacing','Loose')
 nexttile
 b = bar(mean_AC);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0] 
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0]  
 title('Auditory Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -180,15 +186,16 @@ hold on
 er = errorbar(mean_AC, SEM_AC, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd Tile
 nexttile
 b = bar(mean_HG);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0] 
 title('Heschls Gyrus', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -198,15 +205,16 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
 nexttile
 b = bar(mean_PT);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0]
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0] 
 title('Planum Temporale', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -216,15 +224,16 @@ hold on
 er = errorbar(mean_PT, SEM_PT, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.03 .3 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 4th Tile
 nexttile
 b = bar(mean_V1);
 b.FaceColor ='flat'
-b.CData(1, :) = [0 0 0.8]
-b.CData(2, :) = [0.8 0.8 0]
-b.CData(3, :) = [0.8 0 0] 
+b.CData(1, :) = [0 0 1]
+b.CData(2, :) = [1 1 0]
+b.CData(3, :) = [1 0 0]   
 title('Primary Visual Cortex', 'FontSize', 13, 'FontWeight', 'bold')
 xlabel('Conditions', 'FontSize', 12, 'FontWeight', 'bold')
 xticklabels({'as', 'ns', 'vs'})
@@ -234,11 +243,10 @@ hold on
 er = errorbar(mean_V1, SEM_V1, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
+annotation('textbox', [.5 .3 .1 .2], 'String', 'D', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
-sgtitle('Mean fALFF on the Cortical Surface (Smoothed) in each Brain Region (Right) in Presence of Different Stimuli', 'FontSize', 15)
-
-saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/fALFF/MeanfALFF-surf-rh-SM-fsavg.m')
-
-
-
+sgtitle('Mean fALFF on the Cortical Surface in each Brain Region (Right) in Presence of Different Stimuli', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/fALFF/MeanfALFF-surf-rh-fs.m')
+saveas(MeanALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/fALFF/MeanfALFF-surf-rh-fs.png')
