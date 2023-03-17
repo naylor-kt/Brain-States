@@ -148,6 +148,7 @@ for i = 1:nbars
     x = (1:ngroups) - groupwidth/2 + (2*i-1) * groupwidth / (2*nbars);
     errorbar(x, yas(:,i), erras(:,i), 'k', 'linestyle', 'none');
 end
+annotation('textbox', [.03 .75 .1 .2], 'String', 'A', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 2nd tile
@@ -171,6 +172,7 @@ for i = 1:nbars
     x = (1:ngroups) - groupwidth/2 + (2*i-1) * groupwidth / (2*nbars);
     errorbar(x, yns(:,i), errns(:,i), 'k', 'linestyle', 'none');
 end
+annotation('textbox', [.35 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd tile
@@ -194,11 +196,13 @@ for i = 1:nbars
     x = (1:ngroups) - groupwidth/2 + (2*i-1) * groupwidth / (2*nbars);
     errorbar(x, yvs(:,i), errvs(:,i), 'k', 'linestyle', 'none');
 end
+annotation('textbox', [.65 .75 .1 .2], 'String', 'C', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 lg = legend('show', {'fALFF', 'Smoothed fALFF'}, 'FontSize', 12);
 lg.Layout.Tile = 'South'
 
-sgtitle('Comparing  fALFF and Smoothed fALFF on the Cortical Surface (Right)', 'FontSize', 20)
-
+sgtitle('Comparing  fALFF and Smoothed fALFF on the Cortical Surface (Right)', 'FontSize', 15)
+set(gcf,'position',[0 100 1000 800]);
 saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/allsubs-fALFF-smoothing-surf-rh-fs.m')
+saveas(cALFFfig, '/Users/mszkcn/BrainStates_Test/Surface/Graphs/Smoothed/allsubs-fALFF-smoothing-surf-rh-fs.png')
