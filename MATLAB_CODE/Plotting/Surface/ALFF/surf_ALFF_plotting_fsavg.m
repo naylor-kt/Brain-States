@@ -77,7 +77,7 @@ hold on
 er = errorbar(mean_HG, SEM_HG, 'LineWidth', 1)
 er.Color = [0 0 0];                            
 er.LineStyle = 'none';
-annotation('textbox', [.5 .3 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
+annotation('textbox', [.5 .75 .1 .2], 'String', 'B', 'EdgeColor', 'none', 'FontSize', 20)
 hold off
 
 % 3rd Tile
