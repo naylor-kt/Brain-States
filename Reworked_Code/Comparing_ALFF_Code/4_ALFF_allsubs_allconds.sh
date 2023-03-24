@@ -1,6 +1,4 @@
 #!/bin/bash
-cond=(as ns vs)
-
 data_path="$HOME/BrainStates_Test"
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
@@ -14,7 +12,8 @@ alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
 mkdir -p $HOME/BrainStates_Test/Comparing_ALFF_Types/Analysis/Compare_Conditions
 cc_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Analysis/Compare_Conditions"
 
-
+cond=(as ns vs)
+hemi=(lh rh)
 
 ##### Create a text file for all subs in each condition
 
