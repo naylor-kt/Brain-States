@@ -203,8 +203,7 @@ parallel --jobs 0 'ALFF {1}' ::: ${s[@]}
 
 ### Create a Z-Transformed version of ALFF and fALFF
 
-#subj=($(ls $HOME/BrainStates/RawData))
-subj=(sub-06)
+subj=($(ls $HOME/BrainStates_Test/RawData))
 
 
 for s in ${subj[@]}; do
