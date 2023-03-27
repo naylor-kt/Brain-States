@@ -18,9 +18,8 @@ mkdir -p ${analysis_path}/GCOR
 gcor_path="${analysis_path}/GCOR"
 
 
-
 for s in ${subj[@]}; do
-	mkdir -p ${analysis_path}/GCOR/WholeBrain/${s}
+	mkdir -p ${analysis_path}/GCOR/wholeBrain/${s}
 
 	dim1=$(fslval ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz dim1)
 	dim2=$(fslval ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz dim2)
@@ -33,21 +32,24 @@ for s in ${subj[@]}; do
 	# with the mean of time series and divide by the standard deviation of the time
 	# series
 	
-	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tmean ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_mean.nii.gz
+	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tmean ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_mean.nii.gz
 
-	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tstd ${gcor_path}/wholeBrain/${s}/${s}-${c}_WholeBrain_std.nii.gz
+	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tstd ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_std.nii.gz
 
-	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -sub ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_mean.nii.gz -div ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_std.nii.gz ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_demeaned.nii.gz
+	fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -sub ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_mean.nii.gz -div ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_std.nii.gz ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_demeaned.nii.gz
 
 	## Remove temporary files
-		rm ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_mean.nii.gz ${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_std.nii.gz
+		rm ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_mean.nii.gz ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_std.nii.gz
 
-	matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); calc_gcor('${M}', '${N}','${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_demeaned.nii.gz', '${gcor_path}/WholeBrain/${s}/${s}-${c}_WholeBrain_GCORmap.nii')" -nojvm
+	gunzip ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_demeaned.nii.gz
 
-	gzip ${gcor_path}/WholeBrain/${s}/${s}_WholeBrain_GCORmap.nii
+	matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); calc_gcor('${M}', '${N}','${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_demeaned.nii', '${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_GCORmap.nii')" -nojvm
 
+	gzip ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_GCORmap.nii
+
+	gzip ${gcor_path}/wholeBrain/${s}/${s}_wholeBrain_demeaned.nii
 
 	# Checkpoint for taking ALFF of mean time series
-	echo "${s} ${c} GCOR from the whole brain has been performed in matlab" >> ${log_path}/4d_volAnalysis_gcor_matlab_LOG.txt
+	echo "${s} GCOR from the whole brain has been performed in matlab" >> ${log_path}/4d_volAnalysis_gcor_matlab_LOG.txt
 
 done
