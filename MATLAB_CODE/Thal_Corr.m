@@ -17,8 +17,8 @@ function Thal_Corr(varargin)
          if strcmp(operator,'corr')
                 MTS = readmatrix (infile);
                 MTS_thal = readmatrix (infile_thal);
-                corr = corrcoef(MTS, MTS_thal);
-                writematrix (corr, outfile)
+                correlation = corr(MTS, MTS_thal);
+                writematrix (correlation, outfile)
          end
     end 
 
