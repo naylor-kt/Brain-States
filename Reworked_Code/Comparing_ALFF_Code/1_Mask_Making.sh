@@ -603,14 +603,16 @@ done
 
 ### Create a thresholded and binarised version of the masks
 for r in `cat ${mask_path}/Region_List.txt`; do
+    for c in ${cond[@]};do
     mkdir -p ${func_mask}/binarised/${r}/${s}
     
     fslmaths ${func_mask}/${r}/${s}/${s}-${c}-${r}-mask2func.nii.gz -thr 0.5 -bin ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin.nii.gz
        
-      for h in ${hemi[@]}; do
+        for h in ${hemi[@]}; do
          
              fslmaths ${func_mask}/${r}/${s}/${h}/${s}-${c}-${r}-mask2func-${h}.nii.gz -thr 0.5 -bin ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin-${h}.nii.gz
          
+        done
     done
 done
 }

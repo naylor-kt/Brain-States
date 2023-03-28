@@ -30,6 +30,7 @@ done
 # Get the mean time series for the different brain regions for the restricted and wide temporally filtered functional time series
 
 hemi=(lh rh)
+
 for r in `cat ${mask_path}/Region_List.txt`; do
 
     mkdir -p ${MTS_path}/${r}/${s}
@@ -64,23 +65,32 @@ parallel --jobs 0 'mean_TS {1}' ::: ${s[@]}
 
 
 ### Calculate ALFF of the Mean Time Series
-
+preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
+preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
+vol_path="$HOME/BrainStates_Test/Volumetric"
+mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+T1_mask="${mask_path}/T1_Mask"
+func_mask="${mask_path}/Func_Mask"
+MTS_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series"
+alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
 subj=($(ls $HOME/BrainStates_Test/RawData))
 cond=(as ns vs)
 hemi=(lh rh)
 
+alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
 for s in ${subj[@]}; do
     for c in ${cond[@]};do
         for r in `cat ${mask_path}/Region_List.txt`; do
+        
         mkdir -p ${alt_ALFF}/${r}/${s}
         
         matlab -batch "startup_gen" -nojvm
-        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', 'ALFF', '/Users/msxkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${s}-${c}-${r}-MTS-ALFF.txt')" -nojvm
+        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-MTS-ALFF.txt')" -nojvm
         
             for h in ${hemi[@]}; do
             
             matlab -batch "startup_gen" -nojvm
-            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', 'ALFF', '/Users/msxkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${s}-${c}-${r}-${h}-MTS-ALFF.txt')" -nojvm
+            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-${h}-MTS-ALFF.txt')" -nojvm
             done
         done
     done

@@ -25,7 +25,8 @@ for c in ${cond[@]}; do
         
    fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tstd ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF
    
-   fslstats ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -M > ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-meanALFF.txt
+   mkdir -p ${ALFF_path}/Whole_Brain/${s}/Mean
+   fslstats ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -M > ${ALFF_path}/Whole_Brain/${s}/Mean/${s}-${c}-meanALFF.txt
    
 done
 
@@ -38,13 +39,14 @@ for r in `cat ${mask_path}/Region_List.txt`; do
 
     fslmaths ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin.nii.gz ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-ALFF
 
-    fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-ALFF -M > ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-meanALFF.txt
+    mkdir -p ${ALFF_path}/${r}/${s}/Mean
+    fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-ALFF -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-meanALFF.txt
     
     
         for h in ${hemi[@]}; do
             fslmaths ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin-${h}.nii.gz ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-ALFF
-
-                fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-ALFF -M > ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-meanALFF.txt
+        
+                fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-ALFF -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-${h}-meanALFF.txt
         done
     done
 done
