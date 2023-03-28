@@ -36,17 +36,14 @@ for r in `cat ${mask_path}/Region_List.txt`; do
     mkdir -p ${ALFF_path}/${r}/${s}
    
     for c in ${cond[@]}; do
-
-    fslmaths ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin.nii.gz ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-ALFF
-
     mkdir -p ${ALFF_path}/${r}/${s}/Mean
-    fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-ALFF -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-meanALFF.txt
+    fslstats ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -k ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin.nii.gz -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-meanALFF.txt
     
-    
+
         for h in ${hemi[@]}; do
-            fslmaths ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -mas ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin-${h}.nii.gz ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-ALFF
+        fslstats ${ALFF_path}/Whole_Brain/${s}/${s}-${c}-ALFF -k ${func_mask}/binarised/${r}/${s}/${s}-${c}-${r}-funcmask-bin-${h}.nii.gz -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-${h}-meanALFF.txt
         
-                fslstats ${ALFF_path}/${r}/${s}/${s}-${c}-${r}-${h}-ALFF -M > ${ALFF_path}/${r}/${s}/Mean/${s}-${c}-${r}-${h}-meanALFF.txt
+                
         done
     done
 done
