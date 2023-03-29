@@ -68,6 +68,8 @@ done
 for c in ${cond[@]}; do
     #Take the mean of the functional image
     fslmaths ${preproc_path2}/Temporally_Filtered/Restricted/${s}/${s}-${c}-psc-Rtf.nii.gz -Tmean ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz
+    
+    bet ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean.nii.gz ${preproc_path2}/Temporally_Filtered/Restricted/${s}/Mean/${s}-${c}_psc_Rtf_mean-bet -f 0.25 -m
 
 done
 
@@ -88,6 +90,8 @@ done
 for c in ${cond[@]}; do
     #Take the mean of the functional image
     fslmaths ${preproc_path2}/Temporally_Filtered/Wide/${s}/${s}-${c}-psc-Wtf.nii.gz -Tmean ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean.nii.gz
+    
+    bet ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean.nii.gz ${preproc_path2}/Temporally_Filtered/Wide/${s}/Mean/${s}-${c}_psc_Wtf_mean-bet -f 0.25 -m
 
 done
 
@@ -200,8 +204,8 @@ done
 export -f fmri_preproc2
 
 # Create an array with subjects (as they are in the RawData file
-#s=($(ls $HOME/BrainStates/RawData))
-s=(sub-06)
+s=($(ls $HOME/BrainStates_Test/RawData))
+
 
 # Check the contents of the subject array
 echo ${s[@]}
