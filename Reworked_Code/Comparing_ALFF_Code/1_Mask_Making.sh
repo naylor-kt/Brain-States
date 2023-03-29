@@ -3,14 +3,14 @@
 # Extract the regions of interest from the Oxford-Harvard Atlas
 data_path="$HOME/BrainStates_Test"
 
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/binarised
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/binarised
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
 
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/lh/binarised
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/rh/binarised
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/lh/binarised
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/rh/binarised
 
-mask_left="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask/Extracted_Region/lh"
-mask_right="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask/Extracted_Region/rh"
+mask_left="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/lh"
+mask_right="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/rh"
 
 ## Extract the masks from the maxprob 25 2mm Harvard Oxford Atlase
 
@@ -539,11 +539,11 @@ data_path="$HOME/BrainStates_Test";s=$1
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 vol_path="$HOME/BrainStates_Test/Volumetric"
 
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
 
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/lh
-mkdir -p ${data_path}/Comparing_ALFF_Types/Mask/Extracted_Region/rh
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/lh
+mkdir -p ${data_path}/All_Cortical_ROIs_Analysis/Mask/Extracted_Region/rh
 
 
 mkdir -p ${mask_path}/T1_Mask

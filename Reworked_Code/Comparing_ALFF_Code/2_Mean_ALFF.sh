@@ -7,13 +7,13 @@ data_path="$HOME/BrainStates_Test";s=$1
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 vol_path="$HOME/BrainStates_Test/Volumetric"
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
 T1_mask="${mask_path}/T1_Mask"
 func_mask="${mask_path}/Func_Mask"
 
-mkdir -p $HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF
+mkdir -p $HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF
 
-ALFF_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF"
+ALFF_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF"
 
 cond=(as ns vs)
 hemi=(lh rh)

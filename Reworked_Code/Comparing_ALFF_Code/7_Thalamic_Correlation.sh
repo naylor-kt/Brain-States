@@ -3,10 +3,10 @@
 ### Calculate ALFF of the Mean Time Series
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
-MTS_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series"
-
-mkdir -p $HOME/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation
-thal_corr="$HOME/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation"
+MTS_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series"
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
+mkdir -p $HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation
+thal_corr="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation"
 
 subj=($(ls $HOME/BrainStates_Test/RawData))
 cond=(as ns vs)
@@ -38,14 +38,14 @@ for s in ${subj[@]}; do
 
                 mkdir -p ${thal_corr}/Correlation/${r}/${s}
 
-            matlab -batch "startup_gen" -nojvm
-            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); Thal_corr('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation/Thalmus_MTS/${s}/${s}-${c}-Thalamus-MTS.txt', 'corr', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation/Correlation/${r}/${s}/${s}-${c}-${r}-corr2Thalamus.txt')" -nojvm
+           # matlab -batch "startup_gen" -nojvm
+           # matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); Thal_corr('/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation/Thalmus_MTS/${s}/${s}-${c}-Thalamus-MTS.txt', 'corr', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation/Correlation/${r}/${s}/${s}-${c}-${r}-corr2Thalamus.txt')" -nojvm
 
 
             for h in ${hemi[@]}; do
             
             matlab -batch "startup_gen" -nojvm
-            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); Thal_corr('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation/Thalmus_MTS/${s}/${s}-${c}-Thalamus-${h}-MTS.txt', 'corr', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/Thalmic_Correlation/Correlation/${r}/${s}/${s}-${c}-${r}-corr2Thalamus-${h}.txt')" -nojvm
+            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); Thal_Corr('/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation/Thalmus_MTS/${s}/${s}-${c}-Thalamus-${h}-MTS.txt', 'corr', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/Thalmic_Correlation/Correlation/${r}/${s}/${s}-${c}-${r}-corr2Thalamus-${h}.txt')" -nojvm
             done
         done
     done

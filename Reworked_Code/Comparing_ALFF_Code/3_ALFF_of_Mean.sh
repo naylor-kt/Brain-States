@@ -7,15 +7,15 @@ data_path="$HOME/BrainStates_Test";s=$1
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 vol_path="$HOME/BrainStates_Test/Volumetric"
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
 T1_mask="${mask_path}/T1_Mask"
 func_mask="${mask_path}/Func_Mask"
 
-mkdir -p $HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series
-MTS_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series"
+mkdir -p $HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series
+MTS_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series"
 
-mkdir -p $HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS
-alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
+mkdir -p $HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS
+alt_ALFF="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS"
 
 cond=(as ns vs)
 
@@ -68,16 +68,16 @@ parallel --jobs 0 'mean_TS {1}' ::: ${s[@]}
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 vol_path="$HOME/BrainStates_Test/Volumetric"
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
 T1_mask="${mask_path}/T1_Mask"
 func_mask="${mask_path}/Func_Mask"
-MTS_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series"
-alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
+MTS_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series"
+alt_ALFF="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS"
 subj=($(ls $HOME/BrainStates_Test/RawData))
 cond=(as ns vs)
 hemi=(lh rh)
 
-alt_ALFF="$HOME/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS"
+alt_ALFF="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS"
 for s in ${subj[@]}; do
     for c in ${cond[@]};do
         for r in `cat ${mask_path}/Region_List.txt`; do
@@ -85,12 +85,12 @@ for s in ${subj[@]}; do
         mkdir -p ${alt_ALFF}/${r}/${s}
         
         matlab -batch "startup_gen" -nojvm
-        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-MTS-ALFF.txt')" -nojvm
+        matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-MTS-ALFF.txt')" -nojvm
         
             for h in ${hemi[@]}; do
             
             matlab -batch "startup_gen" -nojvm
-            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-${h}-MTS-ALFF.txt')" -nojvm
+            matlab -batch "cd('/Users/mszkcn/Brain_States_Code/Brain-States/MATLAB_CODE'); MTS_ALFF('/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/Mean_Time_Series/${r}/${s}/${s}-${c}-${r}-${h}-MTS.txt', 'ALFF', '/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ALFF_of_Mean/ALFF_MTS/${r}/${s}/${s}-${c}-${r}-${h}-MTS-ALFF.txt')" -nojvm
             done
         done
     done

@@ -5,10 +5,10 @@ data_path="$HOME/BrainStates_Test";s=$1
 preproc_path1="$HOME/BrainStates_Test/Preproc/Level_1"
 preproc_path2="$HOME/BrainStates_Test/Preproc/Level_2"
 
-mkdir -p /Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ReHo
-mask_path="$HOME/BrainStates_Test/Comparing_ALFF_Types/Mask"
-reho_path="/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/ReHo"
-func_mask="/Users/mszkcn/BrainStates_Test/Comparing_ALFF_Types/Mask/Func_Mask/binarised"
+mkdir -p /Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ReHo
+mask_path="$HOME/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask"
+reho_path="/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/ReHo"
+func_mask="/Users/mszkcn/BrainStates_Test/All_Cortical_ROIs_Analysis/Mask/Func_Mask/binarised"
 
 
 
