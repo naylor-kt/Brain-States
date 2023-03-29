@@ -20,8 +20,8 @@ hemi=(lh rh)
 for c in ${cond[@]}; do
  for r in `cat ${mask_path}/Region_List.txt`; do
 
-    cat ${thal_corr}/Correlation/${r}/sub-01/sub-01-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-02/sub-02-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-03/sub-03-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-04/sub-04-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-05/sub-05-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-06/sub-06-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-07/sub-07-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-08/sub-08-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-09/sub-09-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-10/sub-10-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-11/sub-11-${c}-${r}-corr2Thalamus.txt > ${thal_corr}/Correlation/${r}/allsubs-${c}-${r}-corr2Thalamus.txt
-
+   # cat ${thal_corr}/Correlation/${r}/sub-01/sub-01-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-02/sub-02-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-03/sub-03-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-04/sub-04-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-05/sub-05-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-06/sub-06-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-07/sub-07-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-08/sub-08-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-09/sub-09-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-10/sub-10-${c}-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/sub-11/sub-11-${c}-${r}-corr2Thalamus.txt > ${thal_corr}/Correlation/${r}/allsubs-${c}-${r}-corr2Thalamus.txt
+   
     
         for h in ${hemi[@]}; do
                     
@@ -36,12 +36,12 @@ done
  for r in `cat ${mask_path}/Region_List.txt`; do
     mkdir -p ${cc_path}/Thalamic_Correlation/Bilateral
     
-    paste ${data_path}/subj_list.txt ${thal_corr}/Correlation/${r}/allsubs-ns-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/allsubs-vs-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/allsubs-as-${r}-corr2Thalamus.txt | column -s $'\t' -t > ${cc_path}/Thalmic_Correlation/Bilateral/allsubs-${r}-ns-vs-as-corr2thalamus.txt
+   # paste ${data_path}/subj_list.txt ${thal_corr}/Correlation/${r}/allsubs-ns-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/allsubs-vs-${r}-corr2Thalamus.txt ${thal_corr}/Correlation/${r}/allsubs-as-${r}-corr2Thalamus.txt | column -s $'\t' -t > ${cc_path}/Thalmic_Correlation/Bilateral/allsubs-${r}-ns-vs-as-corr2thalamus.txt
 
     
     for h in ${hemi[@]}; do
     
-        mkdir -p ${cc_path}/Thalmic_Correlation/${h}
+        mkdir -p ${cc_path}/Thalamic_Correlation/${h}
         
         paste ${data_path}/subj_list.txt ${thal_corr}/Correlation/${r}/allsubs-ns-${r}-corr2Thalamus-${h}.txt ${thal_corr}/Correlation/${r}/allsubs-vs-${r}-corr2Thalamus-${h}.txt ${thal_corr}/Correlation/${r}/allsubs-as-${r}-corr2Thalamus-${h}.txt | column -s $'\t' -t > ${cc_path}/Thalmic_Correlation/${h}/allsubs-${r}-${h}-ns-vs-as-corr2thalamus.txt
 
